@@ -2,6 +2,7 @@ package com.example.wireless_gradecalculation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private Button signin;
+    private Button login;
+    private Button signUp;
     private TextView user;
     private TextView pass;
 
@@ -37,10 +39,26 @@ public class MainActivity extends AppCompatActivity {
                 // ...
             }
         };
-        signin = (Button)findViewById(R.id.signin);
+        login = (Button)findViewById(R.id.loginButton);
+        signUp = (Button)findViewById(R.id.signUpButton);
         user = (TextView)findViewById(R.id.username);
         pass = (TextView)findViewById(R.id.password);
-        signin.setOnClickListener(new View.OnClickListener(){
+        login.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                mAuth.signInWithEmailAndPassword(user.getText().toString(), pass.getText().toString())
+                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete( Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                }
+                                // ...
+                            }
+                        });
+            }
+        });
+        signUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 mAuth.createUserWithEmailAndPassword(user.getText().toString(), pass.getText().toString())

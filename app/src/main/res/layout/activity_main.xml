@@ -9,7 +9,7 @@
 
     <TextView
 
-        android:id="@+id/textView"
+        android:id="@+id/appname"
 
         android:layout_width="385dp"
 
@@ -17,23 +17,23 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="90dp"
         android:fontFamily="@font/bungee_shade"
-        android:text="ICT Calculate Grade"
+        android:text="@string/appName"
         android:textSize="36sp"
         android:textStyle="bold" />
 
 
     <EditText
-        android:id="@+id/User"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="350dp"
         android:ems="14"
         android:inputType="textPersonName"
-        android:text="Username" />
+        android:text="@string/username" />
 
     <EditText
-        android:id="@+id/pass"
+        android:id="@+id/password"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
@@ -41,29 +41,29 @@
         android:layout_marginTop="400dp"
         android:ems="14"
         android:inputType="textPersonName"
-        android:text="Password" />
+        android:text="@string/password" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginButton"
         android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="450dp"
         android:background="@android:color/holo_blue_light"
         android:fontFamily="serif"
-        android:text="Login"
+        android:text="@string/login"
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/signUpButton"
         android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="500dp"
+        android:OnClick="Register"
         android:background="@android:color/holo_blue_light"
         android:fontFamily="serif"
-        android:OnClick="Register"
-        android:text="Signin"
+        android:text="@string/signup"
         android:textSize="24sp" />
 
 </android.support.design.widget.CoordinatorLayout>
