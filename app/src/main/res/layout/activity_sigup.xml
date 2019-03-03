@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/ss"
+    android:layout_height="match_parent"
+    tools:context=".Sigup">
+
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="715dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#ffff"
+            android:text="Sign Up"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            tools:text="@string/signup" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_pandding="40dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="30dp"
+                android:background="#ffff"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                tools:text="@string/Firstname" />
+
+            <EditText
+                android:id="@+id/editText3"
+
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="45dp"
+                android:background="#ffff"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:text="@string/Lastname" />
+
+
+
+
+            <EditText
+                android:background="#ffff"
+                android:layout_marginTop="38dp"
+                android:id="@+id/editText7"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:text="@string/username" />
+            <EditText
+                android:background="#ffff"
+                android:layout_marginTop="34dp"
+                android:id="@+id/editText8"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:text="@string/password" />
+
+            <EditText
+                android:id="@+id/editText9"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="40dp"
+                android:background="#ffff"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                tools:text="@string/Comfirmpassword" />
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="392dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_blue_light"
+                android:fontFamily="serif"
+                android:text="Button"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="723dp"
+                tools:text="@string/Confirm" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

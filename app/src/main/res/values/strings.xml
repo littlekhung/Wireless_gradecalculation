@@ -5,4 +5,10 @@
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
     <string name="appName">ICT Calculate Grade</string>
+    <string name="Lastname">Lastname</string>
+    <string name="Firstname">Firstname</string>
+    <string name="Confirm">Confirm</string>
+    <string name="Comfirmpassword">Comfirmpassword</string>
+
+
 </resources>
