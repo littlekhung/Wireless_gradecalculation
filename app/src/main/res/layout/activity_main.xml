@@ -1,40 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/girl3"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <TextView
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="user" />
+        android:id="@+id/textView"
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="pass" />
+        android:layout_width="385dp"
 
-        <Button
-            android:id="@+id/signin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="signin" />
-    </LinearLayout>
+        android:layout_height="160dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="90dp"
+        android:fontFamily="@font/bungee_shade"
+        android:text="ICT Calculate Grade"
+        android:textSize="36sp"
+        android:textStyle="bold" />
 
-</android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/User"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="350dp"
+        android:ems="14"
+        android:inputType="textPersonName"
+        android:text="Username" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="400dp"
+        android:ems="14"
+        android:inputType="textPersonName"
+        android:text="Password" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="450dp"
+        android:background="@android:color/holo_blue_light"
+        android:fontFamily="serif"
+        android:text="Login"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="300dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="500dp"
+        android:background="@android:color/holo_blue_light"
+        android:fontFamily="serif"
+        android:OnClick="Register"
+        android:text="Signin"
+        android:textSize="24sp" />
+
+</android.support.design.widget.CoordinatorLayout>
