@@ -34,13 +34,13 @@ public class Signup extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signUp(email.getText().toString(),password.getText().toString());
+                signUp(email.getText().toString(),password.getText().toString(),firstName.getText().toString(),lastName.getText().toString(),password2.getText().toString());
             }
         });
     }
 
-    private void signUp(String email,String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void signUp(String emailin,String passwordin,String firstNamein, String lastNamein, String password2in){
+        mAuth.createUserWithEmailAndPassword(emailin, passwordin)
                 .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(Task<AuthResult> task) {
@@ -50,5 +50,17 @@ public class Signup extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+    private boolean validateEmail(String email){
+        // Email Regex from Andy Smith ref: http://regexlib.com/UserPatterns.aspx?authorId=15777db1-4c90-48f2-b323-905b509f16e8
+        return email.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+    }
+    private boolean validatePassword(String password){
+        // character or number
+        // length must be at least 6
+        return password.matches("[\\w\\d]{6}[\\w\\d]+");
+    }
+    private boolean validateConfirmPassword(String password, String confirmpassword){
+        return password.equals(confirmpassword);
     }
 }

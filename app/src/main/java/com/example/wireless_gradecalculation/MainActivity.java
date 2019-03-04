@@ -1,6 +1,7 @@
 package com.example.wireless_gradecalculation;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -76,15 +78,45 @@ public class MainActivity extends AppCompatActivity {
         startActivity(sign);
     }
 
-    private void loginToApp(String email,String password){
-        mAuth.signInWithEmailAndPassword(email, password)
+    private void loginToApp(String emailin,String passwordin){
+        if(emailin.length()==0){
+            Toast.makeText(MainActivity.this, "Please Input Email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!validateEmail(emailin)){
+            Toast.makeText(MainActivity.this, "Email Incorrect", Toast.LENGTH_SHORT).show();
+            email.setTextColor(Color.RED);
+            return;
+        }
+        if(passwordin.length()<6){
+            Toast.makeText(MainActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!validatePassword(passwordin)){
+            Toast.makeText(MainActivity.this, "Password must be either alphabet or number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        email.setTextColor(Color.BLACK);
+        mAuth.signInWithEmailAndPassword(emailin, passwordin)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete( Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(MainActivity.this, "Login success.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private boolean validateEmail(String email){
+        // Email Regex from Andy Smith ref: http://regexlib.com/UserPatterns.aspx?authorId=15777db1-4c90-48f2-b323-905b509f16e8
+        return email.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+    }
+    private boolean validatePassword(String password){
+        // character or number
+        // length must be at least 6
+        return password.matches("[\\w\\d]{6}[\\w\\d]+");
     }
 }
