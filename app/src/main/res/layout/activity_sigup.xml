@@ -32,8 +32,8 @@
             tools:text="@string/signup" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="406dp"
+            android:layout_height="641dp"
             android:orientation="vertical">
 
             <EditText
@@ -43,10 +43,9 @@
                 android:layout_marginTop="30dp"
                 android:background="#ffff"
                 android:ems="10"
+                android:hint="@string/Firstname"
                 android:inputType="textPersonName"
-                android:text="Name"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                tools:text="@string/Firstname" />
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
             <EditText
                 android:id="@+id/editText3"
@@ -56,33 +55,29 @@
                 android:layout_marginTop="45dp"
                 android:background="#ffff"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
-                tools:text="@string/Lastname" />
-
-
+                android:hint="@string/Lastname"
+                android:inputType="textPersonName" />
 
 
             <EditText
-                android:background="#ffff"
-                android:layout_marginTop="38dp"
                 android:id="@+id/editText7"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
-                tools:text="@string/username" />
-            <EditText
+                android:layout_marginTop="38dp"
                 android:background="#ffff"
-                android:layout_marginTop="34dp"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textPersonName" />
+
+            <EditText
                 android:id="@+id/editText8"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginTop="34dp"
+                android:background="#ffff"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
-                tools:text="@string/password" />
+                android:hint="@string/password"
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/editText9"
@@ -91,17 +86,17 @@
                 android:layout_marginTop="40dp"
                 android:background="#ffff"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
-                tools:text="@string/Comfirmpassword" />
+                android:hint="@string/Comfirmpassword"
+                android:inputType="textPassword" />
 
 
             <Button
+                android:layout_margin="10dp"
                 android:id="@+id/button"
-                android:layout_width="392dp"
+                android:layout_width="380dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/bgbutton"
                 android:fontFamily="serif"
                 android:text="Button"
                 android:textSize="24sp"

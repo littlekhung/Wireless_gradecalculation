@@ -47,10 +47,10 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="300dp"
-        android:layout_height="32dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="350dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@drawable/bgbutton"
         android:fontFamily="serif"
         android:text="@string/login"
         android:textSize="24sp" />
@@ -58,10 +58,10 @@
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="300dp"
-        android:layout_height="32dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="400dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@drawable/bgbutton"
         android:fontFamily="serif"
         android:text="@string/signup"
         android:textSize="24sp" />
