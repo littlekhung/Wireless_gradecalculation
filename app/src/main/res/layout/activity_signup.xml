@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Signup">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/pageName_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+
+            android:text="Sign Up"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            tools:text="@string/signup" />
+
+
+        <EditText
+            android:id="@+id/firstName_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+
+            android:ems="10"
+            android:hint="@string/Firstname"
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+        <EditText
+            android:id="@+id/lastName_signUp"
+
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="45dp"
+
+            android:ems="10"
+            android:hint="@string/Lastname"
+            android:inputType="textPersonName" />
+
+
+        <EditText
+            android:id="@+id/email_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="38dp"
+
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/password_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="34dp"
+
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/confirmPassword_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+
+            android:ems="10"
+            android:hint="@string/Comfirmpassword"
+            android:inputType="textPassword" />
+
+
+        <Button
+            android:id="@+id/confirmButton_signUp"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bgbutton"
+            android:fontFamily="serif"
+            android:text="Button"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="723dp"
+            tools:text="@string/Confirm" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

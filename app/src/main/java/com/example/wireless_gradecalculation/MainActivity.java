@@ -1,8 +1,8 @@
 package com.example.wireless_gradecalculation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Button login;
     private Button signUp;
-    private TextView user;
+    private TextView email;
     private TextView pass;
 
     @Override
@@ -40,38 +40,20 @@ public class MainActivity extends AppCompatActivity {
                 // ...
             }
         };
-        login = (Button)findViewById(R.id.loginButton);
-        signUp = (Button)findViewById(R.id.signUpButton);
-        user = (TextView)findViewById(R.id.username);
-        pass = (TextView)findViewById(R.id.password);
+        login = (Button)findViewById(R.id.loginButton_login);
+        signUp = (Button)findViewById(R.id.signUpButton_login);
+        email = (TextView)findViewById(R.id.email_login);
+        pass = (TextView)findViewById(R.id.password_login);
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mAuth.signInWithEmailAndPassword(user.getText().toString(), pass.getText().toString())
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete( Task<AuthResult> task) {
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                }
-                                // ...
-                            }
-                        });
+                loginToApp(email.getText().toString(),pass.getText().toString());
             }
         });
         signUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mAuth.createUserWithEmailAndPassword(user.getText().toString(), pass.getText().toString())
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>(){
-                            @Override
-                            public void onComplete(Task<AuthResult> task) {
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                }
-                                // ...
-                            }
-                        });
+                toSignUpAct();
             }
         });
     }
@@ -87,5 +69,22 @@ public class MainActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    private void toSignUpAct(){
+        Intent sign = new Intent(this, Signup.class);
+        startActivity(sign);
+    }
+
+    private void loginToApp(String email,String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete( Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
