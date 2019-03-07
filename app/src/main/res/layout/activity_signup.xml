@@ -1,153 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="20dp">
 
-    <TextView
-        android:id="@+id/textView3"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="71dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="Sign Up"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        tools:text="@string/signup" />
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/bg"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Firstname"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="15dp"
-        android:background="@drawable/shapeemial"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:text="@string/Firstname"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Sign Up"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                tools:text="@string/signup" />
 
-        android:textColor="@color/fir"
-        android:textColorHint="@color/white"
-        android:textColorHighlight="@color/white"/>
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Lastname"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Firstname"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/lastName_signUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="15dp"
-        android:background="@drawable/shapeemial"
-        android:ems="10"
-        android:hint="@string/Lastname"
-        android:inputType="textPersonName"
-        android:textColor="@color/fir"
-        android:textColorHint="@color/fir"
-        android:textColorHighlight="@color/fir"/>
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shapeemial"
+                android:ems="10"
+                android:hint="@string/Firstname"
+                android:inputType="textPersonName"
+                android:padding="15dp"
+                android:textColor="@color/fir"
+                android:textColorHighlight="@color/fir"
+                android:textColorHint="@color/fir" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="15dp"
-        android:background="@drawable/shapeemial"
-        android:drawablePadding="10dp"
-        android:hint="Email"
-        android:textColor="@color/fir"
-        android:textColorHint="@color/fir"
-        android:textColorHighlight="@color/fir"/>
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Lastname"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="15dp"
-        android:background="@drawable/shapeemial"
-        android:drawablePadding="10dp"
-        android:hint="Password"
-        android:textColor="@color/fir"
-        android:textColorHint="@color/fir"
-        android:textColorHighlight="@color/fir"/>
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Comfirmpassword"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
+            <EditText
+                android:id="@+id/lastName_signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shapeemial"
+                android:ems="10"
+                android:hint="@string/Lastname"
+                android:inputType="textPersonName"
+                android:padding="15dp"
+                android:textColor="@color/fir"
+                android:textColorHighlight="@color/fir"
+                android:textColorHint="@color/fir" />
 
-    <EditText
-        android:id="@+id/confirmPassword_signUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/shapeemial"
-        android:hint="@string/Comfirmpassword"
-        android:inputType="textPassword"
-        android:padding="15dp"
-        android:textColor="@color/fir"
-        android:textColorHighlight="@color/fir"
-        android:textColorHint="@color/fir" />
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp" />
 
+            <EditText
+                android:id="@+id/email_signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shapeemial"
+                android:drawablePadding="10dp"
+                android:hint="@string/email"
+                android:inputType="textWebEmailAddress"
+                android:padding="15dp"
+                android:textColor="@color/fir"
+                android:textColorHighlight="@color/fir"
+                android:textColorHint="@color/fir" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp" />
 
+            <EditText
+                android:id="@+id/password_signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shapeemial"
+                android:drawablePadding="10dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="@color/fir"
+                android:textColorHighlight="@color/fir"
+                android:textColorHint="@color/fir" />
 
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Comfirmpassword"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/confirmPassword_signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shapeemial"
+                android:hint="@string/Comfirmpassword"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="@color/fir"
+                android:textColorHighlight="@color/fir"
+                android:textColorHint="@color/fir" />
 
+            <Button
+                android:id="@+id/confirmButton_signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bgbutton"
+                android:padding="15dp"
+                android:shadowColor="@android:color/transparent"
+                android:text="Sign Up"
+                android:textColor="@color/fir" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bgbutton"
-        android:padding="15dp"
-        android:shadowColor="@android:color/transparent"
-        android:text="Sign Up"
-        android:textColor="@color/fir" />
-
-
-
-
-</LinearLayout>
+        </LinearLayout>
+    </ScrollView>
