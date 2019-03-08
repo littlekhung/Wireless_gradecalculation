@@ -1,5 +1,6 @@
 package com.example.wireless_gradecalculation;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button signUp;
     private TextView email;
     private TextView pass;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +101,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         email.setTextColor(Color.BLACK);
+        pd = new ProgressDialog(this);
+        pd.setMessage("loading");
+        pd.show();
         mAuth.signInWithEmailAndPassword(emailin, passwordin)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete( Task<AuthResult> task) {
+                        pd.dismiss();
                         if (!task.isSuccessful()) {
                             Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                         }else{

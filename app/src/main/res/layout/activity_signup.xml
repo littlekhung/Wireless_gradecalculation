@@ -37,7 +37,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/firstName_signUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -47,8 +47,7 @@
                 android:inputType="textPersonName"
                 android:padding="15dp"
                 android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"
-                android:textColorHint="@color/fir" />
+                android:textColorHighlight="@color/fir"/>
 
             <TextView
                 android:id="@+id/textView17"
@@ -69,8 +68,7 @@
                 android:inputType="textPersonName"
                 android:padding="15dp"
                 android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"
-                android:textColorHint="@color/fir" />
+                android:textColorHighlight="@color/fir"/>
 
             <TextView
                 android:id="@+id/textView18"
@@ -91,8 +89,7 @@
                 android:inputType="textWebEmailAddress"
                 android:padding="15dp"
                 android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"
-                android:textColorHint="@color/fir" />
+                android:textColorHighlight="@color/fir"/>
 
             <TextView
                 android:id="@+id/textView19"
@@ -113,8 +110,7 @@
                 android:inputType="textPassword"
                 android:padding="15dp"
                 android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"
-                android:textColorHint="@color/fir" />
+                android:textColorHighlight="@color/fir"/>
 
             <TextView
                 android:id="@+id/textView20"
@@ -134,8 +130,7 @@
                 android:inputType="textPassword"
                 android:padding="15dp"
                 android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"
-                android:textColorHint="@color/fir" />
+                android:textColorHighlight="@color/fir"/>
 
             <Button
                 android:id="@+id/confirmButton_signUp"
