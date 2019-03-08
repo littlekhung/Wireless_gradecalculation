@@ -9,6 +9,15 @@
     <string name="Firstname">Firstname</string>
     <string name="Confirm">Confirm</string>
     <string name="Comfirmpassword">Comfirmpassword</string>
+    <string name="grade">Grade</string>
+
+    <string-array name="education_level">
+        <item></item>
+        <item>Bachelor Degree</item>
+        <item>Master Degree</item>
+    </string-array>
+
+
 
 
 </resources>

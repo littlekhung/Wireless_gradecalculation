@@ -10,5 +10,8 @@
     <string name="Firstname">Firstname</string>
     <string name="Confirm">Confirm</string>
     <string name="Comfirmpassword">Comfirmpassword</string>
+    <string name="grade">Grade</string>
+    <string name="Bachelor">Bachelor degree</string>
+    <string name="Master">Master degree</string>
 
 </resources>
