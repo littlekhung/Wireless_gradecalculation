@@ -13,6 +13,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ima"
             android:layout_width="300dp"
@@ -37,15 +43,16 @@
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+
                 android:layout_weight="1"
                 android:text="Grade"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -61,20 +68,25 @@
                 tools:text="@string/grade" />
 
 
-
             <Spinner
-                android:background="@drawable/spinshap"
-
                 android:id="@+id/spinner"
+
                 android:layout_width="170dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
+                android:background="@drawable/spinshap"
                 android:spinnerMode="dropdown"
 
 
-                 />
+                />
 
         </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/expandableListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
 
