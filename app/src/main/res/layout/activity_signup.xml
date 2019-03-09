@@ -28,109 +28,211 @@
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 tools:text="@string/signup" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Firstname"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@android:color/holo_red_dark" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/firstName_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/shapeemial"
+                    android:ems="10"
+                    android:hint="@string/Firstname"
+                    android:inputType="textPersonName"
+                    android:padding="15dp"
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Lastname"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@android:color/holo_red_dark" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/lastName_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/shapeemial"
+                    android:ems="10"
+                    android:hint="@string/Lastname"
+                    android:inputType="textPersonName"
+                    android:padding="15dp"
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@android:color/holo_red_dark" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/email_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/shapeemial"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/email"
+                    android:inputType="textWebEmailAddress"
+                    android:padding="15dp"
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="115dp"
+                    android:layout_height="35dp"
+                    android:text="@string/password"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@android:color/holo_red_dark" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/password_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/shapeemial"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir" />
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Firstname"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/firstName_signUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:hint="@string/Firstname"
-                android:inputType="textPersonName"
-                android:padding="15dp"
-                android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"/>
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Lastname"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/lastName_signUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:hint="@string/Lastname"
-                android:inputType="textPersonName"
-                android:padding="15dp"
-                android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"/>
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/email_signUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shapeemial"
-                android:drawablePadding="10dp"
-                android:hint="@string/email"
-                android:inputType="textWebEmailAddress"
-                android:padding="15dp"
-                android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"/>
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/password"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/password_signUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shapeemial"
-                android:drawablePadding="10dp"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:padding="15dp"
-                android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"/>
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/textView26"
+                android:layout_width="210dp"
+                android:layout_height="35dp"
                 android:text="@string/Comfirmpassword"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/confirmPassword_signUp"
+            <TextView
+                android:id="@+id/textView29"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shapeemial"
-                android:hint="@string/Comfirmpassword"
-                android:inputType="textPassword"
-                android:padding="15dp"
-                android:textColor="@color/fir"
-                android:textColorHighlight="@color/fir"/>
+                android:text="TextView"
+                android:textColor="@android:color/holo_red_dark" />
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/confirmPassword_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/shapeemial"
+                    android:hint="@string/Comfirmpassword"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir"/>
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/confirmButton_signUp"
@@ -145,6 +247,5 @@
                 android:shadowColor="@android:color/transparent"
                 android:text="Sign Up"
                 android:textColor="@color/fir" />
-
         </LinearLayout>
-    </ScrollView>
+</ScrollView>

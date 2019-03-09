@@ -13,5 +13,6 @@
     <string name="grade">Grade</string>
     <string name="Bachelor">Bachelor degree</string>
     <string name="Master">Master degree</string>
+    <string name="logout">Lodout</string>
 
 </resources>

@@ -17,8 +17,8 @@
         <item>Bachelor Degree</item>
         <item>Master Degree</item>
     </string-array>
-
-
+    <string name="Bachelor">Bachelor</string>
+    <string name="Master">Master</string>
 
 
 </resources>
