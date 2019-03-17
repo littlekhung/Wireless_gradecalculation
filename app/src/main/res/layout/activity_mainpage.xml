@@ -8,12 +8,14 @@
     android:orientation="vertical"
     tools:context=".Setting">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ima"
             android:layout_width="300dp"
             android:layout_height="190dp"
@@ -77,16 +79,14 @@
         </LinearLayout>
 
         <ExpandableListView
-            android:id="@+id/expandableListView"
+            android:id="@+id/ListView"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:layout_height="250dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:text="@string/logout" />
+
+        </ExpandableListView>
 
     </LinearLayout>
 

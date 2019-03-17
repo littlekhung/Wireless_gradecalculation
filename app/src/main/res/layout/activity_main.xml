@@ -7,6 +7,7 @@
     android:background="@drawable/girl3"
     tools:context=".MainActivity">
 
+
     <TextView
 
         android:id="@+id/pageName_login"
@@ -20,7 +21,6 @@
         android:text="@string/appName"
         android:textSize="36sp"
         android:textStyle="bold" />
-
 
     <EditText
         android:id="@+id/email_login"
