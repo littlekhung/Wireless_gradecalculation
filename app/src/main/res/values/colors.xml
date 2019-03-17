@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#69009E</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="endblue">#09c6df</color>
     <color name="graylight">#CCFFFF</color>
-    <color name="border">#ffffff</color>
+    <color name="border">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="signupColor">#066e8a</color>
     <color name="bg">#CCFFFF</color>
     <color name="bg1">#F5F5F5</color>
     <color name="startblue">#09c6df</color>
+    <color name="Logo">#FFC107</color>
 
 
     <color name="fir"> #000000</color>
