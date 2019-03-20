@@ -2,12 +2,10 @@ package com.example.wireless_gradecalculation;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -65,9 +63,9 @@ public class Expanable extends BaseExpandableListAdapter {
         if(view==null)
         {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listithem,null);
+            view = inflater.inflate(R.layout.listgroup,null);
         }
-        TextView Header = (TextView) view.findViewById(R.id.list_item);
+        TextView Header = (TextView) view.findViewById(R.id.listheader);
         Header.setTypeface(null, Typeface.BOLD);
         Header.setText(header);
         return view;
@@ -79,7 +77,7 @@ public class Expanable extends BaseExpandableListAdapter {
         if(view==null)
         {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listithem,null);
+            view = inflater.inflate(R.layout.listitem,null);
 
         }
         TextView txt = (TextView)view.findViewById(R.id.list_item);

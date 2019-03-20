@@ -12,7 +12,7 @@
         android:layout_width="236dp"
         android:layout_height="330dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/fli"
+
         tools:layout_editor_absoluteY="109dp" />
 
     <ImageView
@@ -24,7 +24,7 @@
         app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/flip" />
+         />
 
     <TextView
         android:id="@+id/textView2"
