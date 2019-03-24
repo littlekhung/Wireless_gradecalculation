@@ -1,6 +1,7 @@
 package com.example.wireless_gradecalculation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class Expandable3 extends BaseExpandableListAdapter {
+public class NestedListAdapter extends BaseExpandableListAdapter {
 
     String[] parentHeaders;
     List<String[]> secondLevel;
@@ -21,7 +22,7 @@ public class Expandable3 extends BaseExpandableListAdapter {
     List<LinkedHashMap<String, String[]>> data;
 
 
-    public Expandable3(Context context, String[] parentHeader, List<String[]> secondLevel, List<LinkedHashMap<String, String[]>> data) {
+    public NestedListAdapter(Context context, String[] parentHeader, List<String[]> secondLevel, List<LinkedHashMap<String, String[]>> data) {
         this.context = context;
         this.parentHeaders = parentHeader;
         this.secondLevel = secondLevel;
@@ -68,7 +69,7 @@ public class Expandable3 extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.list1, null);
-        TextView text = (TextView) convertView.findViewById(R.id.list_item);
+        TextView text = (TextView) convertView.findViewById(R.id.ELV_level1);
         text.setText(this.parentHeaders[groupPosition]);
 
         return convertView;
@@ -76,7 +77,7 @@ public class Expandable3 extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final Expandable2 secondLevelELV = new Expandable2(context);
+        final SecondELV secondLevelELV = new SecondELV(context);
 
         String[] headers = secondLevel.get(groupPosition);
 
@@ -86,13 +87,12 @@ public class Expandable3 extends BaseExpandableListAdapter {
 
         for (String key : secondLevelData.keySet()) {
 
-
             childData.add(secondLevelData.get(key));
 
         }
 
 
-        secondLevelELV.setAdapter(new Expanable1(context, headers, childData));
+        secondLevelELV.setAdapter(new SecondLevelAdapter(context, headers, childData));
 
         secondLevelELV.setGroupIndicator(null);
 

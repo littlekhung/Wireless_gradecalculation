@@ -3,8 +3,8 @@ package com.example.wireless_gradecalculation;
 import android.content.Context;
 import android.widget.ExpandableListView;
 
-public class Expandable2 extends ExpandableListView {
-    public Expandable2(Context context) {
+public class SecondELV extends ExpandableListView {
+    public SecondELV(Context context) {
         super(context);
     }
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

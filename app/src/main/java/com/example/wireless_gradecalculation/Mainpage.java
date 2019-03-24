@@ -2,15 +2,11 @@ package com.example.wireless_gradecalculation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -23,7 +19,7 @@ public class Mainpage extends AppCompatActivity {
     String[] q2 = new String[]{"Term1", "Term2"};
     String[] q3 = new String[]{"Term1", "Term2"};
     String[] q4 = new String[]{"Term1", "Term2"};
-    String[] des1 = new String[]{"wow"};
+    String[] des1 = new String[]{"wow","wow","wow","wow","wow","wow","wow","wow","wow","wow"};
     String[] des2 = new String[]{"???"};
     String[] des3 = new String[]{"wow"};
     String[] des4 = new String[]{"???"};
@@ -77,9 +73,9 @@ public class Mainpage extends AppCompatActivity {
         thirdLevelq2.put(q2[0], des3);
         thirdLevelq2.put(q2[1], des4);
         thirdLevelq3.put(q3[0], des5);
-        thirdLevelq3.put(q3[0], des6);
+        thirdLevelq3.put(q3[1], des6);
         thirdLevelq4.put(q4[0], des7);
-        thirdLevelq4.put(q4[0], des8);
+        thirdLevelq4.put(q4[1], des8);
 
 
         data.add(thirdLevelq1);
@@ -87,10 +83,10 @@ public class Mainpage extends AppCompatActivity {
         data.add(thirdLevelq3);
         data.add(thirdLevelq4);
 
-        listView = findViewById(R.id.lv);
+        listView = (ExpandableListView) findViewById(R.id.lv);
         //passing three level of information to constructor
-        Expandable3 threeLevelListAdapterAdapter = new Expandable3(this, parent, secondLevel, data);
-        listView.setAdapter(threeLevelListAdapterAdapter);
+        NestedListAdapter nestedListAdapterAdapter = new NestedListAdapter(this, parent, secondLevel, data);
+        listView.setAdapter(nestedListAdapterAdapter);
         listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
 
