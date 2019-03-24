@@ -6,19 +6,50 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
 
 public class Mainpage extends AppCompatActivity {
     private ExpandableListView listView;
-    private ExpandableListAdapter listAdapter;
-    private List<String> listdata;
-    private HashMap<String, List<String>> listHashMap;
+    String[] parent = new String[]{"Year1", "Year2", "Year3","Year4"};
+    String[] q1 = new String[]{"Term1", "Term2"};
+    String[] q2 = new String[]{"Term1", "Term2"};
+    String[] q3 = new String[]{"Term1", "Term2"};
+    String[] q4 = new String[]{"Term1", "Term2"};
+    String[] des1 = new String[]{"wow"};
+    String[] des2 = new String[]{"???"};
+    String[] des3 = new String[]{"wow"};
+    String[] des4 = new String[]{"???"};
+    String[] des5 = new String[]{"wow"};
+    String[] des6 = new String[]{"???"};
+    String[] des7 = new String[]{"wow"};
+    String[] des8 = new String[]{"???"};
+
+    //private ExpandableListAdapter listAdapter;
+   // private List<String> listdata;
+    //private HashMap<String, List<String>> listHashMap;
+
+
+    LinkedHashMap<String, String[]> thirdLevelq1 = new LinkedHashMap<>();
+    LinkedHashMap<String, String[]> thirdLevelq2 = new LinkedHashMap<>();
+    LinkedHashMap<String, String[]> thirdLevelq3 = new LinkedHashMap<>();
+    LinkedHashMap<String, String[]> thirdLevelq4 = new LinkedHashMap<>();
+    /**
+     * Second level array list
+     */
+    List<String[]> secondLevel = new ArrayList<>();
+    /**
+     * Inner level data
+     */
+    List<LinkedHashMap<String, String[]>> data = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,41 +60,51 @@ public class Mainpage extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.education_level));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
-        /////expand////
-        listView = (ExpandableListView)findViewById(R.id.lv);
-        data();
-        listAdapter = new Expanable(this,listdata,listHashMap);
-        listView.setAdapter(listAdapter);
+        setUpAdapter();
 
     }
-    ///expand data
-    private void data()
-    {
-        listdata = new ArrayList<>();
-        listHashMap = new HashMap<>();
-        listdata.add("Year1");
-        listdata.add("Year2");
-        listdata.add("Year3");
-        listdata.add("Year4");
 
-        List<String> year1 = new ArrayList<>();
-        year1.add("term1");
-        year1.add("term2");
-        List<String> year2 = new ArrayList<>();
-        year2.add("term1");
-        year2.add("term2");
-        List<String> year3 = new ArrayList<>();
-        year3.add("term1");
-        year3.add("term2");
-        List<String> year4 = new ArrayList<>();
-        year4.add("term1");
-        year4.add("term2");
 
-        listHashMap.put(listdata.get(0),year1);
-        listHashMap.put(listdata.get(1),year2);
-        listHashMap.put(listdata.get(2),year3);
-        listHashMap.put(listdata.get(3),year4);
+
+    private void setUpAdapter() {
+        secondLevel.add(q1);
+        secondLevel.add(q2);
+        secondLevel.add(q3);
+        secondLevel.add(q4);
+
+        thirdLevelq1.put(q1[0], des1);
+        thirdLevelq1.put(q1[1], des2);
+        thirdLevelq2.put(q2[0], des3);
+        thirdLevelq2.put(q2[1], des4);
+        thirdLevelq3.put(q3[0], des5);
+        thirdLevelq3.put(q3[0], des6);
+        thirdLevelq4.put(q4[0], des7);
+        thirdLevelq4.put(q4[0], des8);
+
+
+        data.add(thirdLevelq1);
+        data.add(thirdLevelq2);
+        data.add(thirdLevelq3);
+        data.add(thirdLevelq4);
+
+        listView = findViewById(R.id.lv);
+        //passing three level of information to constructor
+        Expandable3 threeLevelListAdapterAdapter = new Expandable3(this, parent, secondLevel, data);
+        listView.setAdapter(threeLevelListAdapterAdapter);
+        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (groupPosition != previousGroup)
+                    listView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+            }
+        });
+
+
     }
+
 }
 
 
