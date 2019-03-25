@@ -11,14 +11,18 @@
     <string name="Comfirmpassword">Comfirmpassword</string>
     <string name="grade">Grade</string>
     <string name="logout">Logout</string>
-
     <string-array name="education_level">
         <item></item>
         <item>Bachelor Degree</item>
         <item>Master Degree</item>
     </string-array>
-    <string name="Bachelor">Bachelor</string>
-    <string name="Master">Master</string>
-
+    <string name="firstNameWarnS">Please Input Firstname</string>
+    <string name="lastNameWarnS">Please Input Lastname</string>
+    <string name="emailWarnS_invalid">Email Invalid</string>
+    <string name="emailWarnS_noInput">Please Input Email</string>
+    <string name="passwordWarnS_short">Password must be at least 7 characters</string>
+    <string name="loading">loading</string>
+    <string name="passwordWarnS_invalid">Password must be either alphabet or number</string>
+    <string name="confirmPasswordWarnS_notMatch">Confirm pass word must be the same as password</string>
 
 </resources>

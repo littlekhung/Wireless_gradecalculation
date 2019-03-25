@@ -1,10 +1,16 @@
 package com.example.wireless_gradecalculation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
+
+import com.akexorcist.localizationactivity.ui.LocalizationActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,8 +18,12 @@ import java.util.List;
 
 
 
-public class Mainpage extends AppCompatActivity {
+public class Mainpage extends LocalizationActivity {
     private ExpandableListView listView;
+    private Button logoutButton;
+    private Button en;
+    private Button th;
+    private FirebaseAuth mAuth;
     String[] parent = new String[]{"Year1", "Year2", "Year3","Year4"};
     String[] q1 = new String[]{"Term1", "Term2"};
     String[] q2 = new String[]{"Term1", "Term2"};
@@ -47,9 +57,11 @@ public class Mainpage extends AppCompatActivity {
     List<LinkedHashMap<String, String[]>> data = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
+        setTitle(getString(R.string.app_name));
+        mAuth = FirebaseAuth.getInstance();
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         /////select bachelor or  maskter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Mainpage.this,
@@ -57,6 +69,31 @@ public class Mainpage extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
         setUpAdapter();
+        logoutButton = (Button) findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent mainAct = new Intent(Mainpage.this,MainActivity.class);
+                startActivity(mainAct);
+                finish();
+            }
+        });
+        en = (Button)findViewById(R.id.en);
+        th = (Button)findViewById(R.id.th);
+        en.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLanguage("en");
+            }
+        });
+        th.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLanguage("th");
+            }
+        });
+
 
     }
 

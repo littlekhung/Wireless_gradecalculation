@@ -10,13 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends LocalizationActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Button login;
@@ -26,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pd;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent test = new Intent(this, Mainpage.class);
-        startActivity(test);
+        setTitle(getString(R.string.app_name));
+//        Intent test = new Intent(this, Mainpage.class);
+//        startActivity(test);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Toast.makeText(MainActivity.this, "sign", Toast.LENGTH_SHORT).show();
+                    Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
+                    startActivity(mainpage);
+                    finish();
                 } else {
                     Toast.makeText(MainActivity.this, "not sign", Toast.LENGTH_SHORT).show();
                 }
@@ -102,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
         email.setTextColor(Color.BLACK);
         pd = new ProgressDialog(this);
-        pd.setMessage("loading");
+        pd.setMessage(getString(R.string.loading));
         pd.show();
         mAuth.signInWithEmailAndPassword(emailin, passwordin)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,27 +24,38 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Signup extends AppCompatActivity {
+public class Signup extends LocalizationActivity {
     private FirebaseAuth mAuth;
     private TextView firstName;
+    private TextView firstNameWarning;
     private TextView lastName;
+    private TextView lastNameWarning;
     private TextView email;
+    private TextView emailWarning;
     private TextView password;
+    private TextView passwordWarning;
     private TextView password2;
+    private TextView password2Warning;
     private Button confirm;
     private ProgressDialog pd;
     private FirebaseFirestore db;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        setTitle(getString(R.string.app_name));
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         firstName = (TextView) findViewById(R.id.firstName_signUp);
+        firstNameWarning = (TextView) findViewById(R.id.firstNameWarning);
         lastName = (TextView) findViewById(R.id.lastName_signUp);
+        lastNameWarning = (TextView) findViewById(R.id.lastNameWarning);
         email = (TextView) findViewById(R.id.email_signUp);
+        emailWarning = (TextView) findViewById(R.id.emailWarning);
         password = (TextView) findViewById(R.id.password_signUp);
+        passwordWarning = (TextView) findViewById(R.id.passwordWarning);
         password2 = (TextView) findViewById(R.id.confirmPassword_signUp);
+        password2Warning = (TextView) findViewById(R.id.confirmPasswordWarning);
         confirm = (Button) findViewById(R.id.confirmButton_signUp);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,35 +68,47 @@ public class Signup extends AppCompatActivity {
     private void signUp(String emailin, String passwordin, final String firstNamein, final String lastNamein, String password2in){
         if(firstNamein.length()==0){
             Toast.makeText(Signup.this, "Please Input Firstname", Toast.LENGTH_SHORT).show();
+            firstNameWarning.setText(R.string.firstNameWarnS);
             return;
         }
+        firstNameWarning.setText("");
         if(lastNamein.length()==0){
             Toast.makeText(Signup.this, "Please Input Lastname", Toast.LENGTH_SHORT).show();
+            lastNameWarning.setText(R.string.lastNameWarnS);
             return;
         }
+        lastNameWarning.setText("");
         if(emailin.length()==0){
             Toast.makeText(Signup.this, "Please Input Email", Toast.LENGTH_SHORT).show();
+            emailWarning.setText(R.string.emailWarnS_noInput);
             return;
         }
         if(!validateEmail(emailin)){
             Toast.makeText(Signup.this, "Email Incorrect", Toast.LENGTH_SHORT).show();
-            email.setTextColor(Color.RED);
+            emailWarning.setText(R.string.emailWarnS_invalid);
             return;
         }
-        if(passwordin.length()<6){
-            Toast.makeText(Signup.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+        emailWarning.setText("");
+        if(passwordin.length()<7){
+            Toast.makeText(Signup.this, "Password must be at least 7 characters", Toast.LENGTH_SHORT).show();
+            passwordWarning.setText(R.string.passwordWarnS_short);
             return;
         }
         if(!validatePassword(passwordin)){
             Toast.makeText(Signup.this, "Password must be either alphabet or number", Toast.LENGTH_SHORT).show();
+            passwordWarning.setText(R.string.passwordWarnS_invalid);
             return;
         }
+        passwordWarning.setText("");
         if(!validateConfirmPassword(passwordin,password2in)){
             Toast.makeText(Signup.this, "Confirm pass word must be the same as password", Toast.LENGTH_SHORT).show();
+            password2Warning.setText(R.string.confirmPasswordWarnS_notMatch);
             return;
         }
+        password2Warning.setText("");
         pd = new ProgressDialog(this);
-        pd.setMessage("loading");
+
+        pd.setMessage(getString(R.string.loading));
         pd.show();
 
         mAuth.createUserWithEmailAndPassword(emailin, passwordin)

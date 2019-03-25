@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Wireless_gradecalculation</string>
-    <string name="email">Email Address</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="signup">Sign Up</string>
-    <string name="appName">ICT Calculate Grade</string>
-    <string name="Lastname">Lastname</string>
-    <string name="Firstname">Firstname</string>
-    <string name="Confirm">Confirm</string>
-    <string name="Comfirmpassword">Comfirmpassword</string>
-    <string name="grade">Grade</string>
-    <string name="Bachelor">Bachelor degree</string>
-    <string name="Master">Master degree</string>
-    <string name="logout">Lodout</string>
+    <string name="app_name">ไร้สาย_คำนวนเกรด</string>
+    <string name="email">อีเมล</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="login">ลงชื่อเข้าใช้</string>
+    <string name="signup">สมัครบัญชี</string>
+    <string name="appName">ไอซีที คำนวนเกรด</string>
+    <string name="Lastname">นามสกุล</string>
+    <string name="Firstname">ชื่อจริง</string>
+    <string name="Confirm">ยืนยัน</string>
+    <string name="Comfirmpassword">ตรวจสอบรหัสผ่าน</string>
+    <string name="grade">เกรด</string>
+    <string-array name="education_level">
+        <item></item>
+        <item>ปริญญาตรี</item>
+        <item>ปริญญาโท</item>
+    </string-array>
+    <string name="logout">ออกจากระบบ</string>
+    <string name="firstNameWarnS">Please Input Firstname</string>
+    <string name="lastNameWarnS">PleaseI Input Lastnamu</string>
+    <string name="emailWarnS_invalid">Email Invalid</string>
+    <string name="emailWarnS_noInput">Please Input Email</string>
+    <string name="passwordWarnS_short">Password must be at least 7 characters</string>
+    <string name="loading">กำลังโหลด</string>
+    <string name="passwordWarnS_invalid">Password must be either alphabet or number</string>
+    <string name="confirmPasswordWarnS_notMatch">Confirm pass word must be the same as password</string>
+
 
 </resources>
