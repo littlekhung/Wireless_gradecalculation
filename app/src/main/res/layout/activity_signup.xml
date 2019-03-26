@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@color/bg"
+        android:background="@drawable/hhhh"
         android:orientation="vertical"
         android:gravity="center"
         >
@@ -25,7 +25,7 @@
                 android:text="Sign Up"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="@color/white"
                 tools:text="@string/signup" />
 
             <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="@string/Firstname"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="@string/Lastname"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
@@ -104,8 +104,8 @@
                     android:hint="@string/Lastname"
                     android:inputType="textPersonName"
                     android:padding="15dp"
-                    android:textColor="@color/fir"
-                    android:textColorHighlight="@color/fir" />
+                    android:textColor="@color/white"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -118,7 +118,7 @@
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
@@ -144,7 +144,7 @@
                     android:hint="@string/email"
                     android:inputType="textWebEmailAddress"
                     android:padding="15dp"
-                    android:textColor="@color/fir"
+                    android:textColor="@color/white"
                     android:textColorHighlight="@color/fir" />
 
             </LinearLayout>
@@ -159,7 +159,7 @@
                     android:layout_width="115dp"
                     android:layout_height="35dp"
                     android:text="@string/password"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
@@ -200,7 +200,7 @@
                 android:layout_width="210dp"
                 android:layout_height="35dp"
                 android:text="@string/Comfirmpassword"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="@color/white"
                 android:textSize="24sp" />
 
                 <TextView

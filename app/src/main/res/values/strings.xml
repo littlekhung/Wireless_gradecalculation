@@ -24,5 +24,7 @@
     <string name="loading">loading</string>
     <string name="passwordWarnS_invalid">Password must be either alphabet or number</string>
     <string name="confirmPasswordWarnS_notMatch">Confirm pass word must be the same as password</string>
+    <string name="Changepassword">Changepassword</string>
+    <string name="Complete">Complete</string>
 
 </resources>

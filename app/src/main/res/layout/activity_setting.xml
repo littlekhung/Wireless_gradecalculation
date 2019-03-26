@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Setting"
-    android:background="@color/graylight"
+    android:background="@color/fir"
     android:orientation="vertical">
 
 
@@ -13,23 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="55dp">
+        tools:layout_editor_absoluteY="28dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:background="@drawable/bg"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ima"
-                android:layout_width="300dp"
-                android:layout_height="190dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
                 android:src="@drawable/aaaa"
-                app:civ_border_color="#FF000000"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -38,7 +41,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Noppadol Ass"
-                android:textColor="#fff"
+                android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
@@ -48,7 +51,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Change profile photo"
-                android:textColor="#fff"
+                android:textColor="@color/startblue"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
@@ -56,32 +59,32 @@
 
 
         <LinearLayout
-
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="255dp"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="360dp"
-            android:background="@color/border"
+            android:layout_marginTop="300dp"
             android:orientation="vertical">
 
             <EditText
+                android:background="@drawable/shapeemial"
                 android:id="@+id/firstName_signUp"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_vertical"
                 android:ems="10"
                 android:hint="@string/Firstname"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:layout_marginLeft="30dp"
+                />
 
             <EditText
                 android:id="@+id/lastName_signUp"
-
-                android:layout_width="match_parent"
+                android:background="@drawable/shapeemial"
+                android:layout_width="350dp"
                 android:layout_height="45dp"
-
                 android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
                 android:ems="10"
                 android:hint="@string/Lastname"
                 android:inputType="textPersonName" />
@@ -91,30 +94,36 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
                 android:text="TextView"
+                android:textColor="@color/signupColor"
                 android:textSize="18sp"
-                tools:text="@string/changepassword" />
+                tools:text="@string/Changepassword" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
                 android:text="TextView"
+                android:textColor="@color/white"
                 android:textSize="24sp"
-                tools:text="@string/Logout" />
+                tools:text="@string/logout" />
 
 
         </LinearLayout>
+
         <Button
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="159dp"
             android:layout_marginTop="650dp"
             android:background="@drawable/buttonstyle"
             android:text="Save Me"
-            android:layout_marginLeft="159dp"
             android:textColor="#fff" />
 
     </RelativeLayout>
