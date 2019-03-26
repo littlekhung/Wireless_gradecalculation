@@ -26,5 +26,7 @@
     <string name="confirmPasswordWarnS_notMatch">Confirm pass word must be the same as password</string>
     <string name="Changepassword">Changepassword</string>
     <string name="Complete">Complete</string>
+    <string name="Oldpassword">Oldpassword</string>
+    <string name="Newpassword" >Newpassword</string>
 
 </resources>

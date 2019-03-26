@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="475dp"
-    android:background="@color/common_google_signin_btn_text_dark_disabled"
+    android:background="@color/white"
     android:padding="5dp"
     android:layout_gravity="center">
     <TextView
@@ -15,112 +15,110 @@
         android:text="X"
         android:textStyle="bold"
         android:layout_gravity="end"
-        android:gravity="center"
-        android:background="@drawable/cerclebackground"/>
+        android:gravity="center">
+
+    </TextView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/photo"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elina Grofild"
-            android:textStyle="bold"
-            android:textColor="@color/fir"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:text="Changing Password"
+            android:textColor="@color/fir"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Montreal,Canada"
-            android:textColor="@color/fir"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_marginTop="5dp"
+            android:text="--------------------------------------------------------------------------------"
+            android:textColor="@color/fir" />
+
         <LinearLayout
-            android:background="@color/orange"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="100dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="150"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Followers"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-        <LinearLayout
-            android:background="@color/green"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="100dp">
+                android:layout_marginTop="5dp"
+                android:text="Old password"
+                android:textColor="@color/fir"
+                android:textSize="18sp" />
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/shapeemial"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:text="@string/Oldpassword" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cities"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-        <LinearLayout
-            android:background="@color/bluelight"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="100dp">
+                android:layout_marginTop="5dp"
+                android:text="New password"
+                android:textColor="@color/fir"
+                android:textSize="18sp" />
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/shapeemial"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:text="@string/Newpassword" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="50"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Posts"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
+                android:layout_marginTop="5dp"
+                android:text="Confirm Password"
+                android:textColor="@color/fir"
+                android:textSize="18sp" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shapeemial"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:text="@string/Comfirmpassword" />
         </LinearLayout>
+
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnfollow"
+        android:id="@+id/complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
         android:background="@drawable/buttonstyle"
-        android:text="Follow Me"
+        android:text="Complete"
         android:textColor="@color/white"
         tools:text="@string/Complete" />
 
