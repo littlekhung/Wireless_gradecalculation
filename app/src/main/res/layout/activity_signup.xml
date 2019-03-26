@@ -95,7 +95,6 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:textColorHighlight="@color/fir"
                     android:id="@+id/lastName_signUp"
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
@@ -105,8 +104,8 @@
                     android:hint="@string/Lastname"
                     android:inputType="textPersonName"
                     android:padding="15dp"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir"/>
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +145,7 @@
                     android:hint="@string/email"
                     android:inputType="textWebEmailAddress"
                     android:padding="15dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/fir"
                     android:textColorHighlight="@color/fir" />
 
             </LinearLayout>

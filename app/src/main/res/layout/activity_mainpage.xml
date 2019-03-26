@@ -16,6 +16,7 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
@@ -23,7 +24,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ima"
-                android:layout_width="120dp"
+                android:layout_width="118dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
@@ -34,7 +35,7 @@
                 app:civ_border_width="2dp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
@@ -44,6 +45,15 @@
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/settingButton"
+                android:layout_gravity="right"
+                android:layout_width="45dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/setting"
+                tools:layout_editor_absoluteX="411dp"
+                tools:layout_editor_absoluteY="120dp" />
 
         </LinearLayout>
 
