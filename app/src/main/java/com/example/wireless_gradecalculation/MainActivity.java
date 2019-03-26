@@ -31,9 +31,9 @@ public class MainActivity extends LocalizationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(getString(R.string.app_name));
-        Intent test = new Intent(this, Setting.class);
-        startActivity(test);
-        finish();
+//        Intent test = new Intent(this, Setting.class);
+//        startActivity(test);
+//        finish();
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
