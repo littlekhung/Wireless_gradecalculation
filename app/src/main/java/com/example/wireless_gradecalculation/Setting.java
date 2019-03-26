@@ -1,6 +1,7 @@
 package com.example.wireless_gradecalculation;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,22 +11,35 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Setting extends LocalizationActivity {
-
+    private TextView logoutButton;
     private Dialog myDialog;
     private TextView changepass;
+    private FirebaseAuth mAuth;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         setTitle(R.string.app_name);
+        mAuth = FirebaseAuth.getInstance();
         myDialog = new Dialog(this);
         changepass = (TextView) findViewById(R.id.changePass);
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ShowPopup();
+            }
+        });
+        logoutButton = (TextView) findViewById(R.id.logoutTextView);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent mainAct = new Intent(Setting.this,MainActivity.class);
+                startActivity(mainAct);
+                finish();
             }
         });
 

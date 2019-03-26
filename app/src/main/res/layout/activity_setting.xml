@@ -97,21 +97,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
-                android:text="TextView"
                 android:textColor="@color/signupColor"
                 android:textSize="18sp"
-                tools:text="@string/Changepassword" />
+                android:text="@string/Changepassword" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/logoutTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
-                android:text="TextView"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                tools:text="@string/logout" />
+                android:text="@string/logout" />
 
 
         </LinearLayout>
