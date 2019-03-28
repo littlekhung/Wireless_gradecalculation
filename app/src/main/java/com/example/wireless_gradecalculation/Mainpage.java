@@ -21,8 +21,8 @@ import java.util.List;
 
 public class Mainpage extends LocalizationActivity {
     private ExpandableListView listView;
-    private Button en;
-    private Button th;
+    private ImageView en;
+    private ImageView th;
     private ImageView setting;
     String[] parent = new String[]{"Year1", "Year2", "Year3","Year4"};
     String[] q1 = new String[]{"Term1", "Term2"};
@@ -69,8 +69,8 @@ public class Mainpage extends LocalizationActivity {
         mySpinner.setAdapter(myAdapter);
         setUpAdapter();
 
-        en = (Button)findViewById(R.id.en);
-        th = (Button)findViewById(R.id.th);
+        en = (ImageView)findViewById(R.id.en);
+        th = (ImageView)findViewById(R.id.th);
         en.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

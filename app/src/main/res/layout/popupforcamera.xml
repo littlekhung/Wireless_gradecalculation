@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="350dp"
-    android:layout_height="475dp"
-    android:background="@color/white"
+    android:layout_height="250dp"
+    android:background="@color/border"
     android:padding="5dp"
     android:layout_gravity="center">
     <TextView
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Changing Password"
+            android:text="Select one option"
             android:textColor="@color/fir"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -48,64 +48,28 @@
             android:orientation="vertical">
 
             <TextView
-
+                android:id="@+id/camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Old password"
+                android:layout_marginTop="10dp"
+                android:text="Camera"
                 android:textColor="@color/fir"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="@string/Camera" />
 
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:inputType="textPersonName"
-                tools:text="@string/Oldpassword" />
 
             <TextView
-
+                android:id="@+id/Selectpic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="New password"
+                android:layout_marginTop="20dp"
+                android:text="Select Photo in this device"
                 android:textColor="@color/fir"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="@string/Select" />
 
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:inputType="textPersonName"
-                tools:text="@string/Newpassword" />
 
-            <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Confirm Password"
-                android:textColor="@color/fir"
-                android:textSize="18sp" />
-
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:inputType="textPersonName"
-                tools:text="@string/Comfirmpassword" />
         </LinearLayout>
 
 
@@ -117,9 +81,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/bgbutton"
         android:text="Complete"
-        android:textColor="@color/white"
+        android:textColor="@color/border"
         tools:text="@string/Complete" />
 
 </LinearLayout>
