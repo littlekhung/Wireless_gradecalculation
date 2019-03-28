@@ -111,7 +111,28 @@ public class Setting extends LocalizationActivity {
         if(requestCode == TAKEPICTURE && resultCode == Activity.RESULT_OK){
             try {
                 Bitmap pic = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
-                pic = rotateImage(pic,270);
+                //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+                ExifInterface ei = new ExifInterface(getContentResolver().openInputStream(imageUri));
+
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED);
+
+                switch(orientation) {
+
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        pic = rotateImage(pic, 90);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        pic = rotateImage(pic, 180);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        pic = rotateImage(pic, 270);
+                        break;
+
+                }
+                //////////////
                 pic.createScaledBitmap(pic,160,160,false);
                 image.setImageBitmap(pic);
 
