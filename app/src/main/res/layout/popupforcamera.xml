@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="350dp"
-    android:layout_height="250dp"
+    android:layout_height="200dp"
     android:background="@color/border"
     android:padding="5dp"
     android:layout_gravity="center">
@@ -75,15 +75,6 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/complete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/bgbutton"
-        android:text="Complete"
-        android:textColor="@color/border"
-        tools:text="@string/Complete" />
+
 
 </LinearLayout>
