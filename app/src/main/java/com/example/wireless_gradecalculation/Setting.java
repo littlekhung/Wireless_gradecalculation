@@ -27,6 +27,7 @@ public class Setting extends LocalizationActivity {
     private TextView logoutButton;
     private Dialog myDialog;
     private TextView changepass;
+    private TextView changephoto;
     private FirebaseAuth mAuth;
     private TextView Camera;
     ImageView image;
@@ -37,6 +38,13 @@ public class Setting extends LocalizationActivity {
         setTitle(R.string.app_name);
         mAuth = FirebaseAuth.getInstance();
         myDialog = new Dialog(this);
+        changephoto = (TextView) findViewById(R.id.changePhoto);
+        changephoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowPopupCamera();
+            }
+        });
         changepass = (TextView) findViewById(R.id.changePass);
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +104,7 @@ public class Setting extends LocalizationActivity {
 
     }
     ////popforcamera
-    public void ShowPopup1() {
+    public void ShowPopupCamera() {
         TextView txtclose;
         Button complete;
         myDialog.setContentView(R.layout.popup);
