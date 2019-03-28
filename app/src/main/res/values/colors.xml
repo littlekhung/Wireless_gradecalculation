@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#b1edee</color>
+    <color name="colorPrimary">	#323a45</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="endblue">#09c6df</color>
@@ -10,9 +10,11 @@
     <color name="bg">#CCFFFF</color>
     <color name="bg1">#F5F5F5</color>
     <color name="startblue">#09c6df</color>
-    <color name="Logo">#FFC107</color>
+    <color name="button">#5faeb6</color>
     <color name="bluepa">#74cbeb</color>
     <color name="bluepa1">#a4dce4</color>
     <color name="fir"> #000000</color>
+
+
 
 </resources>

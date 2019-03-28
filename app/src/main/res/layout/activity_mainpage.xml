@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/graylight"
+    android:background="#778899"
     android:orientation="vertical"
     tools:context=".Setting">
 
@@ -62,7 +62,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal|center_vertical"
             android:src="@drawable/aaaa"
-            app:civ_border_color="#FF000000"
+            app:civ_border_color="@color/border"
             app:civ_border_width="2dp"
             tools:layout_editor_absoluteY="602dp" />
 
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:text="Tor"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@color/border"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="118dp"
@@ -93,7 +93,7 @@
 
                 android:layout_weight="1"
                 android:text="Grade"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="@color/border"
                 android:textSize="24sp" />
 
             <TextView
