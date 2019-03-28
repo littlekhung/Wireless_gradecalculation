@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,11 +44,14 @@ public class Setting extends LocalizationActivity {
     private TextView changepass;
     private TextView changephoto;
     private FirebaseAuth mAuth;
-    private TextView Camera;
+    private LinearLayout Camera;
     private Uri imageUri;
     public static final int TAKEPICTURE = 666;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 123;
-    ImageView image;
+    private ImageView image;
+    private LinearLayout Selectphoto;
+    private static final int PICK_IMAGE = 100;
+    private Uri imageUrl;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,41 +111,67 @@ public class Setting extends LocalizationActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case PICK_IMAGE:
+                if(resultCode == RESULT_OK)
+                {
+                    try{
+                        imageUrl = data.getData();
+                        Bitmap pic = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUrl);
+                        pic.createScaledBitmap(pic,160,160,false);
+//                        pic = rotateIfNeed(pic,imageUrl);
+                        image.setImageBitmap(pic);
+                        myDialogCam.dismiss();
+                    }catch (Exception e){
 
-        if(requestCode == TAKEPICTURE && resultCode == Activity.RESULT_OK){
-            try {
-                Bitmap pic = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
-                //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-                ExifInterface ei = new ExifInterface(getContentResolver().openInputStream(imageUri));
-
-                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                        ExifInterface.ORIENTATION_UNDEFINED);
-
-                switch(orientation) {
-
-                    case ExifInterface.ORIENTATION_ROTATE_90:
-                        pic = rotateImage(pic, 90);
-                        break;
-
-                    case ExifInterface.ORIENTATION_ROTATE_180:
-                        pic = rotateImage(pic, 180);
-                        break;
-
-                    case ExifInterface.ORIENTATION_ROTATE_270:
-                        pic = rotateImage(pic, 270);
-                        break;
-
+                    }
                 }
-                //////////////
-                pic.createScaledBitmap(pic,160,160,false);
-                image.setImageBitmap(pic);
+                break;
+            case TAKEPICTURE:
+                if(resultCode == Activity.RESULT_OK){
+                    try {
+                        Bitmap pic = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                        pic.createScaledBitmap(pic,160,160,false);
+                        pic = rotateIfNeed(pic,imageUri);
+                        image.setImageBitmap(pic);
 
-            }catch (Exception e){
+                    }catch (Exception e){
 
-            }
+                    }
+                }
+                break;
         }
+
 //        ByteArrayOutputStream bytes = new ByteArrayOutputStream();.s);
 
+    }
+    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    public Bitmap rotateIfNeed(Bitmap pic, Uri imUri){
+        Bitmap rotate = null;
+        try{
+            ExifInterface ei = new ExifInterface(getContentResolver().openInputStream(imUri));
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch(orientation) {
+
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = rotateImage(pic, 90);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = rotateImage(pic, 180);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = rotateImage(pic, 270);
+                    break;
+
+            }
+        }catch (Exception e){
+
+        }
+        return rotate;
     }
     ////popforcamera
     public void ShowPopupCamera() {
@@ -149,7 +179,7 @@ public class Setting extends LocalizationActivity {
         ///Camera//
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View convertView = inflater.inflate(R.layout.popupforcamera, null);
-        Camera =(TextView) myDialogCam.findViewById(R.id.camera);
+        Camera =(LinearLayout) myDialogCam.findViewById(R.id.camera);
         //https://stackoverflow.com/questions/47027264/overcoming-photo-results-from-android-cameras-that-produce-low-resolution?rq=1
         Camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +187,20 @@ public class Setting extends LocalizationActivity {
                 takePicturePermission();
             }
         });
+        ////////////////////
+        // from https://youtu.be/OPnusBmMQTw
+        ///select camera//
+        Selectphoto = (LinearLayout) myDialogCam.findViewById(R.id.selectPic);
+        Selectphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(gallery,PICK_IMAGE);
+            }
+        });
+        /////
+
+
         TextView txtclose;
 
         txtclose =(TextView) myDialogCam.findViewById(R.id.txtclose);

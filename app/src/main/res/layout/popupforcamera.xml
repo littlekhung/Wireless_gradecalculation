@@ -43,12 +43,12 @@
             android:textColor="@color/fir" />
 
         <LinearLayout
+            android:id="@+id/camera"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -57,9 +57,13 @@
                 android:textSize="18sp"
                 tools:text="@string/Camera" />
 
-
-            <TextView
-                android:id="@+id/Selectpic"
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/selectPic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -67,12 +71,7 @@
                 android:textColor="@color/fir"
                 android:textSize="18sp"
                 tools:text="@string/Select" />
-
-
-
         </LinearLayout>
-
-
     </LinearLayout>
 
 
