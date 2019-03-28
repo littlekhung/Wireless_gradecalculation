@@ -28,5 +28,6 @@
     <string name="Complete">Complete</string>
     <string name="Oldpassword">Oldpassword</string>
     <string name="Newpassword" >Newpassword</string>
+    <string name="SaveMe">SaveMe</string>
 
 </resources>

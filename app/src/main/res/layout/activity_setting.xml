@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="28dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="255dp"
+            android:layout_height="290dp"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="300dp"
@@ -83,8 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
                 android:hint="@string/Lastname"
@@ -97,9 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
+                android:text="@string/Changepassword"
                 android:textColor="@color/signupColor"
-                android:textSize="18sp"
-                android:text="@string/Changepassword" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/logoutTextView"
@@ -107,23 +107,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
+                android:text="@string/logout"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                android:text="@string/logout" />
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/Saveme"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="150dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bgbutton"
+                android:padding="15dp"
+                android:shadowColor="@android:color/transparent"
+                android:text="Save Me"
+                android:textColor="@color/fir"
+                tools:text="@string/SaveMe" />
 
 
         </LinearLayout>
-
-        <Button
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="159dp"
-            android:layout_marginTop="650dp"
-            android:background="@drawable/buttonstyle"
-            android:text="Save Me"
-            android:textColor="#fff" />
 
     </RelativeLayout>
 
