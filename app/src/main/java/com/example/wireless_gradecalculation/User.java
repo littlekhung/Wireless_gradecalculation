@@ -1,6 +1,7 @@
 package com.example.wireless_gradecalculation;
 
-import android.net.Uri;
+
+
 public class User {
     private String firstname;
     private String lastname;
@@ -37,4 +38,5 @@ public class User {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
 }

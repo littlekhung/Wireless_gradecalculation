@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -52,11 +53,18 @@ public class Setting extends LocalizationActivity {
     private LinearLayout Selectphoto;
     private static final int PICK_IMAGE = 100;
     private Uri imageUrl;
+    private User user;
+    private TextView userName;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         setTitle(R.string.app_name);
+        Gson gson = new Gson();
+        Intent i = getIntent();
+        user = gson.fromJson(i.getStringExtra("user"),User.class);
+        userName = (TextView) findViewById(R.id.settingUserName);
+        userName.setText(user.getFirstname()+" "+user.getLastname());
         mAuth = FirebaseAuth.getInstance();
         myDialog = new Dialog(this);
         myDialogCam = new Dialog(this);

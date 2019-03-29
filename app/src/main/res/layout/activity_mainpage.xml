@@ -71,11 +71,10 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/mainpageUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:text="Tor"
             android:textColor="@color/border"
             android:textSize="24sp"
             android:textStyle="bold"

@@ -133,6 +133,7 @@ public class Signup extends LocalizationActivity {
         Map<String, Object> data = new HashMap<>();
         data.put("firstname", fn);
         data.put("lastname", ln);
+        data.put("picurl",null);
         db.collection("user").document(mAuth.getCurrentUser().getUid()).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -1,6 +1,7 @@
 package com.example.wireless_gradecalculation;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,6 +27,8 @@ public class Mainpage extends LocalizationActivity {
     private ImageView en;
     private ImageView th;
     private ImageView setting;
+    private TextView userName;
+    User user;
     String[] parent = new String[]{"Year1", "Year2", "Year3","Year4"};
     String[] q1 = new String[]{"Term1", "Term2"};
     String[] q2 = new String[]{"Term1", "Term2"};
@@ -61,6 +66,11 @@ public class Mainpage extends LocalizationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
         setTitle(getString(R.string.app_name));
+        Gson gson = new Gson();
+        Intent i = getIntent();
+        user = gson.fromJson(i.getStringExtra("user"),User.class);
+        userName = (TextView) findViewById(R.id.mainpageUserName);
+        userName.setText(user.getFirstname()+" "+user.getLastname());
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         /////select bachelor or  maskter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Mainpage.this,
@@ -87,7 +97,9 @@ public class Mainpage extends LocalizationActivity {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Gson gson = new Gson();
                 Intent settingpage = new Intent(Mainpage.this,Setting.class);
+                settingpage.putExtra("user",gson.toJson(user));
                 startActivity(settingpage);
             }
         });
