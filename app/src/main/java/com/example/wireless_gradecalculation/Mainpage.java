@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
@@ -20,8 +21,9 @@ import java.util.List;
 
 public class Mainpage extends LocalizationActivity {
     private ExpandableListView listView;
-    private Button en;
-    private Button th;
+    private ImageView en;
+    private ImageView th;
+    private ImageView setting;
     String[] parent = new String[]{"Year1", "Year2", "Year3","Year4"};
     String[] q1 = new String[]{"Term1", "Term2"};
     String[] q2 = new String[]{"Term1", "Term2"};
@@ -67,8 +69,8 @@ public class Mainpage extends LocalizationActivity {
         mySpinner.setAdapter(myAdapter);
         setUpAdapter();
 
-        en = (Button)findViewById(R.id.en);
-        th = (Button)findViewById(R.id.th);
+        en = (ImageView)findViewById(R.id.en);
+        th = (ImageView)findViewById(R.id.th);
         en.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +83,14 @@ public class Mainpage extends LocalizationActivity {
                 setLanguage("th");
             }
         });
-
+        setting = (ImageView) findViewById(R.id.settingButton);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingpage = new Intent(Mainpage.this,Setting.class);
+                startActivity(settingpage);
+            }
+        });
 
     }
 

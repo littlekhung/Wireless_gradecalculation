@@ -11,9 +11,7 @@
     <TextView
 
         android:id="@+id/pageName_login"
-
         android:layout_width="385dp"
-
         android:layout_height="160dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"

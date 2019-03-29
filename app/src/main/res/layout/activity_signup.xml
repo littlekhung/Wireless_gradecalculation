@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/hhhh"
+        android:background="#778899"
         android:orientation="vertical"
         android:gravity="center"
         >
@@ -14,7 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:id="@+id/textView3"
@@ -25,7 +27,7 @@
                 android:text="Sign Up"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                android:textColor="@color/white"
+                android:textColor="	#feffff"
                 tools:text="@string/signup" />
 
             <LinearLayout
@@ -38,7 +40,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="@string/Firstname"
-                    android:textColor="@color/white"
+                    android:textColor="@color/border"
                     android:textSize="24sp" />
 
                 <TextView
@@ -78,7 +80,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="@string/Lastname"
-                    android:textColor="@color/white"
+                    android:textColor="@color/border"
                     android:textSize="24sp" />
 
                 <TextView
@@ -95,7 +97,6 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:textColorHighlight="@color/fir"
                     android:id="@+id/lastName_signUp"
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
@@ -105,8 +106,8 @@
                     android:hint="@string/Lastname"
                     android:inputType="textPersonName"
                     android:padding="15dp"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/fir"
+                    android:textColorHighlight="@color/fir"/>
             </LinearLayout>
 
             <LinearLayout
@@ -120,7 +121,7 @@
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
-                    android:textColor="@color/white"
+                    android:textColor="@color/border"
                     android:textSize="24sp" />
 
                 <TextView
@@ -146,7 +147,7 @@
                     android:hint="@string/email"
                     android:inputType="textWebEmailAddress"
                     android:padding="15dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/fir"
                     android:textColorHighlight="@color/fir" />
 
             </LinearLayout>
@@ -161,7 +162,7 @@
                     android:layout_width="115dp"
                     android:layout_height="35dp"
                     android:text="@string/password"
-                    android:textColor="@color/white"
+                    android:textColor="@color/border"
                     android:textSize="24sp" />
 
                 <TextView
@@ -202,7 +203,7 @@
                 android:layout_width="210dp"
                 android:layout_height="35dp"
                 android:text="@string/Comfirmpassword"
-                android:textColor="@color/white"
+                android:textColor="@color/border"
                 android:textSize="24sp" />
 
                 <TextView

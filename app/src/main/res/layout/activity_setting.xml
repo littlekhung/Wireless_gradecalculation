@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Setting"
-    android:background="@color/fir"
+    android:background="#778899"
     android:orientation="vertical">
 
 
@@ -15,12 +15,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="28dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@drawable/bg"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -28,11 +28,8 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:src="@drawable/aaaa"
-                app:civ_border_color="@color/white"
+                android:src="@android:drawable/sym_def_app_icon"
+                app:civ_border_color="@color/border"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -41,17 +38,18 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Noppadol Ass"
-                android:textColor="@color/white"
+                android:textColor="@color/border"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/changePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Change profile photo"
-                android:textColor="@color/startblue"
+                android:textColor="#323a45"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
@@ -60,10 +58,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="255dp"
+            android:layout_height="290dp"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="250dp"
             android:orientation="vertical">
 
             <EditText
@@ -83,8 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
                 android:hint="@string/Lastname"
@@ -96,10 +94,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:textColor="@color/signupColor"
-                android:textSize="18sp"
-                android:text="@string/Changepassword" />
+                android:layout_marginTop="20dp"
+                android:text="@string/Changepassword"
+                android:textColor="#323a45"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/logoutTextView"
@@ -107,23 +105,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:text="@string/logout" />
+                android:text="@string/logout"
+                android:textColor="#323a45"
+                android:textSize="24sp" />
+            <Button
+                android:id="@+id/Saveme"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bgbutton"
+                android:padding="15dp"
+                android:shadowColor="@android:color/transparent"
+                android:text="Save Me"
+                android:textColor="@color/fir"
+                tools:text="@string/SaveMe" />
+
+
 
 
         </LinearLayout>
-
-        <Button
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="159dp"
-            android:layout_marginTop="650dp"
-            android:background="@drawable/buttonstyle"
-            android:text="Save Me"
-            android:textColor="#fff" />
 
     </RelativeLayout>
 

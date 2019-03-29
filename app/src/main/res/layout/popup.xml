@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="475dp"
-    android:background="@color/white"
+    android:background="@color/border"
     android:padding="5dp"
     android:layout_gravity="center">
     <TextView
@@ -117,9 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/bgbutton"
         android:text="Complete"
-        android:textColor="@color/white"
+        android:textColor="@color/border"
         tools:text="@string/Complete" />
 
 </LinearLayout>

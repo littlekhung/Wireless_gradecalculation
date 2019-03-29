@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/common_google_signin_btn_text_dark_disabled"
+    android:background="#3aafa9"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    >
 
     <TextView
         android:id="@+id/ELV_level2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/fir"
         android:textSize="16dp" />
 </LinearLayout>
+
