@@ -16,7 +16,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/bungee_shade"
-        android:text="@string/appName"
+        android:text="MUICT Grade Calculator"
         android:textSize="36sp"
         android:textStyle="bold" />
 
