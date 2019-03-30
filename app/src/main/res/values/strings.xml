@@ -31,5 +31,7 @@
     <string name="Camera">Camera</string>
     <string name="Select">Select_Photo_in _this_ device</string>
     <string name="app_name">MUICT Grade Calculator</string>
+    <string name="AddCourse">AddCourse</string>
+
 
 </resources>
