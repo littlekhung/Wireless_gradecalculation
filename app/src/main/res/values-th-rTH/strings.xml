@@ -33,6 +33,8 @@
     <string name="Camera">กล้อง</string>
     <string name="Select">เลือกรูปภาพจากเเกลอรี่</string>
     <string name="AddCourse">เพิ่มวิชา</string>
+    <string name="Course">Course</string>
+    <string name="Alphagrade">Alphagrade</string>
 
 
 </resources>

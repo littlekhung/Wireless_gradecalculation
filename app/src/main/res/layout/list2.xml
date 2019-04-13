@@ -14,5 +14,6 @@
         android:paddingLeft="20dp"
         android:textColor="@color/fir"
         android:textSize="16dp" />
+
 </LinearLayout>
 
