@@ -2,6 +2,8 @@ package com.example.wireless_gradecalculation;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,9 +22,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class Mainpage extends LocalizationActivity {
+    private String TAG = getTheme().getClass().getSimpleName();
+    private DatainTable datainTable;
     private ExpandableListView listView;
     private ImageView en;
     private ImageView th;
@@ -104,6 +109,12 @@ public class Mainpage extends LocalizationActivity {
             }
         });
 
+        ////room
+        FloatingActionButton fab = findViewById(R.id.complete);
+        fab.setOnClickListener((view){
+                Snackbar.make( view, "Replace with your action", Snackbar.LENGTH_INDEFINITE.setAction("Action",null).show()
+        });
+        datainTable = ViewModelProviders.of(this).get(DatainTable.class);
     }
 
 
@@ -146,6 +157,10 @@ public class Mainpage extends LocalizationActivity {
 
 
     }
+
+
+
+
 
 }
 
