@@ -2,9 +2,13 @@ package com.example.wireless_gradecalculation;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +29,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends LocalizationActivity {
     private FirebaseAuth mAuth;
@@ -37,6 +47,8 @@ public class MainActivity extends LocalizationActivity {
     private ProgressDialog pd;
     private FirebaseFirestore db;
     private FirebaseUser FBuser;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +57,8 @@ public class MainActivity extends LocalizationActivity {
 //        Intent test = new Intent(this, Setting.class);
 //        startActivity(test);
 //        finish();
+        storage = FirebaseStorage.getInstance();
+        storageReference =  storage.getReference();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -81,19 +95,55 @@ public class MainActivity extends LocalizationActivity {
             }
         });
     }
+    User user;
     private void loadUserAndGoToMainPage(){
         DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
-        Log.e("user",mAuth.getCurrentUser().getUid());
+//        Log.e("user",mAuth.getCurrentUser().getUid());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Gson gson = new Gson();
-                User user = new User(FBuser.getUid(),documentSnapshot.getString("firstname"),documentSnapshot.getString("lastname"));
-                Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
-                mainpage.putExtra("user",gson.toJson(user));
-                startActivity(mainpage);
-                pd.dismiss();
-                finish();
+                user = new User(FBuser.getUid(),documentSnapshot.getString("firstname"),documentSnapshot.getString("lastname"));
+                storageReference.child("images/"+FBuser.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        try {
+                            final File localFile = File.createTempFile("Images", ".jpg");
+                            storageReference.child("images/"+FBuser.getUid()).getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    user.setPicuri(localFile.toURI().toString());
+                                    Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
+                                    mainpage.putExtra("user",new Gson().toJson(user));
+                                    startActivity(mainpage);
+                                    pd.dismiss();
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(MainActivity.this, "LoadImageFail", Toast.LENGTH_LONG);
+                                    Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
+                                    mainpage.putExtra("user",new Gson().toJson(user));
+                                    startActivity(mainpage);
+                                    pd.dismiss();
+                                    finish();
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
+                        mainpage.putExtra("user",new Gson().toJson(user));
+                        startActivity(mainpage);
+                        pd.dismiss();
+                        finish();
+                    }
+                });
             }
         });
     }

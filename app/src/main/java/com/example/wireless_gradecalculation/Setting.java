@@ -19,7 +19,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,24 +30,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayOutputStream;
-import java.util.UUID;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Setting extends LocalizationActivity {
     private TextView logoutButton;
@@ -64,27 +59,26 @@ public class Setting extends LocalizationActivity {
     private ImageView image;
     private LinearLayout Selectphoto;
     private static final int PICK_IMAGE = 100;
-    private Uri imageUrl;
     private User user;
     private TextView userName;
     private Button Saveme;
-    FirebaseFirestore storage;
-    StorageReference storageReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private FirebaseFirestore cfs;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
+        cfs = FirebaseFirestore.getInstance();
         setTitle(R.string.app_name);
         Gson gson = new Gson();
         Intent i = getIntent();
         user = gson.fromJson(i.getStringExtra("user"),User.class);
-        userName = (TextView) findViewById(R.id.settingUserName);
-        userName.setText(user.getFirstname()+" "+user.getLastname());
         mAuth = FirebaseAuth.getInstance();
         myDialog = new Dialog(this);
         myDialogCam = new Dialog(this);
-        image = (ImageView) findViewById(R.id.ima);
+        image = (ImageView) findViewById(R.id.image);
+        iniProf();
         changephoto = (TextView) findViewById(R.id.changePhoto);
         changephoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +104,6 @@ public class Setting extends LocalizationActivity {
             }
         });
 
-        ////from  https://youtu.be/h62bcMwahTU
         /////firebase photo
         storage = FirebaseStorage.getInstance();
         storageReference =  storage.getReference();
@@ -119,26 +112,59 @@ public class Setting extends LocalizationActivity {
         Saveme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadeImage();
+                uploadImage();
             }
         });
 
     }
-
-    private void uploadeImage()
+    //////// initiate profile////////////
+    public void iniProf(){
+        userName = (TextView) findViewById(R.id.settingUserName);
+        userName.setText(user.getFirstname()+" "+user.getLastname());
+        if(user.getPicuri()!=null){
+            try {
+                Uri getPic = Uri.parse(user.getPicuri());
+                Bitmap pic = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getPic);
+                pic = rotateIfNeed(pic,getPic);
+                image.setImageBitmap(pic);
+            }catch (Exception e){
+            }
+        }
+    }
+    ////////from  https://youtu.be/h62bcMwahTU //////
+    private void uploadImage()
     {
-        if(imageUrl!= null)
+        if(imageUri!= null)
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading");
+            progressDialog.setTitle(R.string.loading);
             progressDialog.show();
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(imageUrl)
+            StorageReference ref = storageReference.child("images/"+user.getUID() /*UUID.randomUUID().toString()*/);
+            ref.putFile(imageUri)
                     .addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Setting.this,"Upload",Toast.LENGTH_SHORT ).show();
+                            try {
+                                final File localFile = File.createTempFile("Images", ".jpg");
+                                storageReference.child("images/"+user.getUID()).getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        user.setPicuri(localFile.toURI().toString());
+                                        progressDialog.dismiss();
+                                        Toast.makeText(Setting.this,"Upload",Toast.LENGTH_SHORT );
+                                        changeName();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(Setting.this, "LoadImageFail", Toast.LENGTH_LONG);
+                                        progressDialog.dismiss();
+                                        changeName();
+                                    }
+                                });
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     } )
                     .addOnFailureListener( new OnFailureListener() {
@@ -152,14 +178,96 @@ public class Setting extends LocalizationActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double process = (100.0*taskSnapshot.getBytesTransferred()/ taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Upload"+(int)process+"%");
+                            progressDialog.setMessage(getString(R.string.loading)+" "+(int)process+"%");
                         }
                     } );
-
+        }else{
+            changeName();
         }
     }
+    public void changeName(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.loading)+" 100%");
+        progressDialog.setTitle(R.string.loading);
+        progressDialog.show();
+        TextView fn = (TextView) findViewById(R.id.firstName_setting);
+        TextView ln = (TextView) findViewById(R.id.lastName_setting);
+        final String sfn = fn.getText().toString();
+        final String sln = ln.getText().toString();
+        if(!sfn.isEmpty() && !sln.isEmpty()){
+            Map<String, Object> data = new HashMap<>();
+            data.put("firstname", sfn);
+            data.put("lastname", sln);
+            cfs.collection("user").document(mAuth.getCurrentUser().getUid()).set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            user.setFirstname(sfn);
+                            user.setLastname(sln);
+                            progressDialog.dismiss();
+                            goToMain();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT);
+                        }
+                    });
+        }
+        else if(!sfn.isEmpty()){
+            Map<String, Object> data = new HashMap<>();
+            data.put("firstname", sfn);
+            data.put("lastname", user.getLastname());
+            cfs.collection("user").document(mAuth.getCurrentUser().getUid()).set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            user.setFirstname(sfn);
+                            progressDialog.dismiss();
+                            goToMain();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT);
+                        }
+                    });
+        }
+        else if(!sln.isEmpty()){
+            Map<String, Object> data = new HashMap<>();
+            data.put("firstname", user.getFirstname());
+            data.put("lastname", sln);
+            cfs.collection("user").document(mAuth.getCurrentUser().getUid()).set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            user.setLastname(sln);
+                            progressDialog.dismiss();
+                            goToMain();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT);
+                        }
+                    });
+        }else{
+            progressDialog.dismiss();
+            goToMain();
+        }
 
-
+    }
+    ////////// Go to Mainpage /////////////////////
+    private void goToMain(){
+        Gson gson = new Gson();
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("user",gson.toJson(user));
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
+    }
     /////////Change Password Popup///////
     public void ShowPopup() {
         TextView txtclose;
@@ -202,10 +310,10 @@ public class Setting extends LocalizationActivity {
                 if(resultCode == RESULT_OK)
                 {
                     try{
-                        imageUrl = data.getData();
-                        Bitmap pic = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUrl);
-                        pic.createScaledBitmap(pic,160,160,false);
-//                        pic = rotateIfNeed(pic,imageUrl);
+                        imageUri = data.getData();
+                        Bitmap pic = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+//                        pic.createScaledBitmap(pic,120,120,false);
+                        pic = rotateIfNeed(pic,imageUri);
                         image.setImageBitmap(pic);
                         myDialogCam.dismiss();
                     }catch (Exception e){
@@ -217,7 +325,7 @@ public class Setting extends LocalizationActivity {
                 if(resultCode == Activity.RESULT_OK){
                     try {
                         Bitmap pic = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
-                        pic.createScaledBitmap(pic,160,160,false);
+//                        pic.createScaledBitmap(pic,120,120,false);
                         pic = rotateIfNeed(pic,imageUri);
                         image.setImageBitmap(pic);
 
@@ -252,6 +360,8 @@ public class Setting extends LocalizationActivity {
                 case ExifInterface.ORIENTATION_ROTATE_270:
                     rotate = rotateImage(pic, 270);
                     break;
+                    default:
+                        rotate = pic;
 
             }
         }catch (Exception e){
@@ -321,14 +431,6 @@ public class Setting extends LocalizationActivity {
     ////// from https://developer.android.com/training/permissions/requesting.html#java
     private void takePicturePermission(){
         // Here, thisActivity is the current activity
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
-                MY_PERMISSIONS_REQUEST_FOR_CAMERA);
-//        if(ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED){
-//
-//        }
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED &&
@@ -337,7 +439,16 @@ public class Setting extends LocalizationActivity {
                         == PackageManager.PERMISSION_GRANTED){
             // Permission has already been granted
             takePicture();
+            return;
         }
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                MY_PERMISSIONS_REQUEST_FOR_CAMERA);
+//        if(ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED){
+//
+//        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,

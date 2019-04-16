@@ -1,7 +1,13 @@
 package com.example.wireless_gradecalculation;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +20,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.example.wireless_gradecalculation.studentgradedatabase.AppDatabase;
@@ -32,6 +39,7 @@ import java.util.List;
 
 
 public class Mainpage extends LocalizationActivity {
+    public static final int SETTING = 333;
     private ExpandableListView listView;
     private ImageView en;
     private ImageView th;
@@ -67,11 +75,16 @@ public class Mainpage extends LocalizationActivity {
         roomDB = new DBHelper(course,grade);
         ////////////////////////
         setTitle(getString(R.string.app_name));
-        Gson gson = new Gson();
-        Intent i = getIntent();
-        user = gson.fromJson(i.getStringExtra("user"),User.class);
-        userName = (TextView) findViewById(R.id.mainpageUserName);
-        userName.setText(user.getFirstname()+" "+user.getLastname());
+        if (savedInstanceState == null) {
+            Gson gson = new Gson();
+            Intent i = getIntent();
+            user = gson.fromJson(i.getStringExtra("user"),User.class);
+        }else{
+            user = new Gson().fromJson(savedInstanceState.getString("user"),User.class);
+        }
+
+        iniProf();
+
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         /////select bachelor or  maskter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Mainpage.this,
@@ -115,7 +128,7 @@ public class Mainpage extends LocalizationActivity {
                 Gson gson = new Gson();
                 Intent settingpage = new Intent(Mainpage.this,Setting.class);
                 settingpage.putExtra("user",gson.toJson(user));
-                startActivity(settingpage);
+                startActivityForResult(settingpage,SETTING);
             }
         });
 
@@ -126,7 +139,26 @@ public class Mainpage extends LocalizationActivity {
 //        });
 //        datainTable = ViewModelProviders.of(this).get(DatainTable.class);
     }
-
+    //////// save state//////////
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("user", new Gson().toJson(user));
+        super.onSaveInstanceState(outState);
+    }
+    //////// initiate profile////////////
+    public void iniProf(){
+        userName = (TextView) findViewById(R.id.mainpageUserName);
+        userName.setText(user.getFirstname()+" "+user.getLastname());
+        if(user.getPicuri()!=null){
+            try {
+                Uri getPic = Uri.parse(user.getPicuri());
+                Bitmap pic = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getPic);
+                pic = rotateIfNeed(pic,getPic);
+                ((ImageView) findViewById(R.id.image)).setImageBitmap(pic);
+            }catch (Exception e){
+            }
+        }
+    }
 
     //load all course student register from database
     private void setUpAdapterBachelor() {
@@ -204,7 +236,7 @@ public class Mainpage extends LocalizationActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return gradeRetrieve==null?null:new Grade(c.CID+"_"+c.courseName,gradeRetrieve.grade);
+        return gradeRetrieve==null?null:new Grade(c.CID+"_"+c.courseName,c.credit,gradeRetrieve.grade);
     }
 
     List<Grade> getGradesFromCourses(List<Course> cs){
@@ -220,10 +252,66 @@ public class Mainpage extends LocalizationActivity {
         gs.add(new Grade());
         return gs.toArray(new Grade[gs.size()]);
     }
+    //////////// get image if it is changed //////////////
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case SETTING:
+                if(resultCode == Activity.RESULT_OK)
+                {
+                    try{
+                        Gson gson = new Gson();
+                        user = gson.fromJson(data.getStringExtra("user"),User.class);
+                        userName.setText(user.getFirstname()+" "+user.getLastname());
+                        Uri getPic = Uri.parse(user.getPicuri());
+                        Bitmap pic = MediaStore.Images.Media.getBitmap(getContentResolver(), getPic);
+                        pic = rotateIfNeed(pic,getPic);
+                        ((ImageView) findViewById(R.id.image) ).setImageBitmap(pic);
+                    }catch (Exception e){
 
+                    }
+                }
+                break;
+        }
+    }
+    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    public Bitmap rotateIfNeed(Bitmap pic, Uri imUri){
+        Bitmap rotate = null;
+        try{
+            ExifInterface ei = new ExifInterface(getContentResolver().openInputStream(imUri));
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
 
+            switch(orientation) {
 
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = rotateImage(pic, 90);
+                    break;
 
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = rotateImage(pic, 180);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = rotateImage(pic, 270);
+                    break;
+                default:
+                    rotate = pic;
+
+            }
+        }catch (Exception e){
+
+        }
+        return rotate;
+    }
+    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
 }
 
 

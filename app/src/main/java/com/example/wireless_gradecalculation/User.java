@@ -1,22 +1,24 @@
 package com.example.wireless_gradecalculation;
 
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 
 public class User {
     private String UID;
     private String firstname;
     private String lastname;
-    private String picurl;
+    private String picuri;
     public User(String UID,String firstname, String lastname) {
         this.UID=UID;
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    public User(String UID, String firstname, String lastname,String url) {
+    public User(String UID, String firstname, String lastname,String pic) {
         this.UID=UID;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.picurl=url;
+        this.picuri = pic;
     }
 
     public String getUID() {
@@ -27,12 +29,12 @@ public class User {
         this.UID = UID;
     }
 
-    public String getPicurl() {
-        return picurl;
+    public String getPicuri() {
+        return picuri;
     }
 
-    public void setPicurl(String picurl) {
-        this.picurl = picurl;
+    public void setPicuri(String picuri) {
+        this.picuri = picuri;
     }
 
     public String getLastname() {

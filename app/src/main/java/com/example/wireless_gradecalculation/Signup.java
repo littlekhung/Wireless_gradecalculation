@@ -38,14 +38,14 @@ public class Signup extends LocalizationActivity {
     private TextView password2Warning;
     private Button confirm;
     private ProgressDialog pd;
-    private FirebaseFirestore db;
+    private FirebaseFirestore cfs;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         setTitle(getString(R.string.app_name));
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        cfs = FirebaseFirestore.getInstance();
         firstName = (TextView) findViewById(R.id.firstName_signUp);
         firstNameWarning = (TextView) findViewById(R.id.firstNameWarning);
         lastName = (TextView) findViewById(R.id.lastName_signUp);
@@ -121,7 +121,7 @@ public class Signup extends LocalizationActivity {
                         }
                         else{
                             //Toast.makeText(Signup.this, "Signup Complete.", Toast.LENGTH_SHORT).show();
-                            createUserInDB(firstNamein,lastNamein);
+                            createUserInFB(firstNamein,lastNamein);
                             finish();
                         }
                         // ...
@@ -129,12 +129,11 @@ public class Signup extends LocalizationActivity {
                 });
     }
 
-    private void createUserInDB(String fn,String ln){
+    private void createUserInFB(String fn,String ln){
         Map<String, Object> data = new HashMap<>();
         data.put("firstname", fn);
         data.put("lastname", ln);
-        data.put("picurl",null);
-        db.collection("user").document(mAuth.getCurrentUser().getUid()).set(data)
+        cfs.collection("user").document(mAuth.getCurrentUser().getUid()).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
