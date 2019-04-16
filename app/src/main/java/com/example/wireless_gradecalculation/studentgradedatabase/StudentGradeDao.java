@@ -13,8 +13,8 @@ public interface StudentGradeDao {
     List<StudentGrade> getAll();
     @Query("SELECT * FROM studentgrade WHERE UID IN (:studentIds)")
     List<StudentGrade> loadAllByIds(int[] studentIds);
-    @Query("SELECT * FROM studentgrade WHERE CID = :cid AND UID = :uid")
-    List<StudentGrade> loadGradeByCID(String cid,String uid);
+    @Query("SELECT * FROM studentgrade WHERE CID = :cid AND UID = :uid LIMIT 1")
+    StudentGrade loadGradeByCID(String cid,String uid);
     @Insert
     void insertAll(StudentGrade... studentGrades);
     @Delete

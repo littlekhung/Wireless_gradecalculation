@@ -3,18 +3,30 @@ package com.example.wireless_gradecalculation;
 
 
 public class User {
+    private String UID;
     private String firstname;
     private String lastname;
     private String picurl;
-    public User(String firstname, String lastname) {
+    public User(String UID,String firstname, String lastname) {
+        this.UID=UID;
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    public User(String firstname, String lastname,String url) {
+    public User(String UID, String firstname, String lastname,String url) {
+        this.UID=UID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.picurl=url;
     }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
     public String getPicurl() {
         return picurl;
     }

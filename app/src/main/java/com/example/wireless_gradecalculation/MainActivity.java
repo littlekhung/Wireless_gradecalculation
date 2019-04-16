@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,13 +36,11 @@ public class MainActivity extends LocalizationActivity {
     private TextView pass;
     private ProgressDialog pd;
     private FirebaseFirestore db;
+    private FirebaseUser FBuser;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        CourseDao test = AppDatabase
-//                .getInstance(this)
-//                .getCourseDao();
         setTitle(getString(R.string.app_name));
 //        Intent test = new Intent(this, Setting.class);
 //        startActivity(test);
@@ -51,7 +50,7 @@ public class MainActivity extends LocalizationActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser FBuser = firebaseAuth.getCurrentUser();
+                FBuser = firebaseAuth.getCurrentUser();
                 if (FBuser != null) {
                     // User is signed in
                     Toast.makeText(MainActivity.this, "sign", Toast.LENGTH_SHORT).show();
@@ -89,7 +88,7 @@ public class MainActivity extends LocalizationActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Gson gson = new Gson();
-                User user = new User(documentSnapshot.getString("firstname"),documentSnapshot.getString("lastname"));
+                User user = new User(FBuser.getUid(),documentSnapshot.getString("firstname"),documentSnapshot.getString("lastname"));
                 Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
                 mainpage.putExtra("user",gson.toJson(user));
                 startActivity(mainpage);
