@@ -98,6 +98,7 @@ public class Setting extends LocalizationActivity {
 
 
     }
+    /////////Change Password Popup///////
     public void ShowPopup() {
         TextView txtclose;
         Button complete;
@@ -110,10 +111,25 @@ public class Setting extends LocalizationActivity {
                 myDialog.dismiss();
             }
         });
+        final String oldPass = ((TextView) myDialog.findViewById(R.id.oldPass)).getText().toString();
+        final String newPass = ((TextView) myDialog.findViewById(R.id.newPass)).getText().toString();
+        final String conNewPass = ((TextView) myDialog.findViewById(R.id.conNewPass)).getText().toString();
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(changePassword(oldPass,newPass,conNewPass))
+                    Toast.makeText(Setting.this,R.string.changePassSuccess,Toast.LENGTH_LONG);
+                else
+                    Toast.makeText(Setting.this,R.string.changePassFail,Toast.LENGTH_LONG);
+            }
+        });
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
-
+    //////Change password/////
+    public boolean changePassword(String oldPass,String newPass, String conNewPass){
+        return false;
+    }
     //////Camera//////
 
     @Override

@@ -35,6 +35,8 @@
     <string name="AddCourse">เพิ่มวิชา</string>
     <string name="Course">Course</string>
     <string name="Alphagrade">Alphagrade</string>
+    <string name="changePassSuccess">Change Password Success</string>
+    <string name="changePassFail">Change Password Fail</string>
 
 
 </resources>

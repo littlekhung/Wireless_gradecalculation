@@ -57,11 +57,12 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:layout_marginTop="5dp"
+                android:id="@+id/oldPass"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -77,11 +78,12 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:layout_marginTop="5dp"
+                android:id="@+id/newPass"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -97,6 +99,7 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/conNewPass"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -118,7 +121,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
         android:background="@drawable/bgbutton"
-        android:text="Complete"
+        android:text="@string/Complete"
         android:textColor="@color/border"
         tools:text="@string/Complete" />
 
