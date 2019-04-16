@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
+import com.example.wireless_gradecalculation.studentgradedatabase.AppDatabase;
+import com.example.wireless_gradecalculation.studentgradedatabase.CourseDao;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +39,9 @@ public class MainActivity extends LocalizationActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        CourseDao test = AppDatabase
+//                .getInstance(this)
+//                .getCourseDao();
         setTitle(getString(R.string.app_name));
 //        Intent test = new Intent(this, Setting.class);
 //        startActivity(test);
