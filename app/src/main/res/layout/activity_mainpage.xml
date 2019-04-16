@@ -99,21 +99,21 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="23dp"
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
                 android:text="Grade"
                 android:textColor="@color/border"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Grade"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 tools:text="@string/grade" />
 
 

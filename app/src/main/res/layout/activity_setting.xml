@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="0dp">
 
@@ -57,76 +57,83 @@
         </LinearLayout>
 
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="290dp"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="250dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/firstName_signUp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="290dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:hint="@string/Firstname"
-                android:inputType="textPersonName" />
+                android:layout_marginTop="268dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/lastName_signUp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/shapeemial"
-                android:ems="10"
-                android:hint="@string/Lastname"
-                android:inputType="textPersonName" />
+                <EditText
+                    android:id="@+id/firstName_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/shapeemial"
+                    android:ems="10"
+                    android:hint="@string/Firstname"
+                    android:inputType="textPersonName" />
 
-
-            <TextView
-                android:id="@+id/changePass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/Changepassword"
-                android:textColor="#323a45"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/logoutTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:text="@string/logout"
-                android:textColor="#323a45"
-                android:textSize="24sp" />
-            <Button
-                android:id="@+id/Saveme"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bgbutton"
-                android:padding="15dp"
-                android:shadowColor="@android:color/transparent"
-                android:text="Save Me"
-                android:textColor="@color/fir"
-                tools:text="@string/SaveMe" />
+                <EditText
+                    android:id="@+id/lastName_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/shapeemial"
+                    android:ems="10"
+                    android:hint="@string/Lastname"
+                    android:inputType="textPersonName" />
 
 
+                <TextView
+                    android:id="@+id/changePass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/Changepassword"
+                    android:textColor="#323a45"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/logoutTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/logout"
+                    android:textColor="#323a45"
+                    android:textSize="24sp" />
+
+                <Button
+                    android:id="@+id/Saveme"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bgbutton"
+                    android:padding="15dp"
+                    android:shadowColor="@android:color/transparent"
+                    android:text="Save Me"
+                    android:textColor="@color/fir"
+                    tools:text="@string/SaveMe" />
 
 
-        </LinearLayout>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </RelativeLayout>
 

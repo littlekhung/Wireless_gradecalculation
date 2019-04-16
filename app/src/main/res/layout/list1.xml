@@ -8,11 +8,11 @@
     <TextView
         android:id="@+id/ELV_level1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="47dp"
         android:paddingLeft="30dp"
         android:paddingTop="5dip"
         android:paddingBottom="5dip"
-        android:textSize="16dip"
+        android:textSize="20dp"
 
         />
 </LinearLayout>
