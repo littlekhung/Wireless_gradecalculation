@@ -1,10 +1,12 @@
 package com.example.wireless_gradecalculation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,10 +14,10 @@ import java.util.List;
 public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    List<String[]> data;
+    List<Grade[]> data;
     String[] headers;
 
-    public SecondLevelAdapter(Context context, String[] headers, List<String[]> childData) {
+    public SecondLevelAdapter(Context context, String[] headers, List<Grade[]> childData) {
         this.context = context;
         this.data = childData;
         this.headers = headers;
@@ -29,7 +31,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        String[] children = data.get(groupPosition);
+        Grade[] children = data.get(groupPosition);
 
 
         return children.length;
@@ -43,7 +45,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        String[] childData;
+        Grade[] childData;
 
         childData = data.get(groupPosition);
 
@@ -77,13 +79,43 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.list3, null);
-        TextView textView = (TextView) convertView.findViewById(R.id.ELV_level3);
-        String[] childArray = data.get(groupPosition);
-        String text = childArray[childPosition];
-        textView.setText(text);
+        if(childPosition==0){
+            convertView = inflater.inflate(R.layout.list3_first, null);
+        }else if(isLastChild){
+            convertView = inflater.inflate(R.layout.list3_last, null);
+            View button = convertView.findViewById(R.id.addCourseButton);
+            button.setFocusable(false);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("Tor","Year: "+(NestedListAdapter.SelectedYear+1)+" Term: "+(groupPosition+1));
+                    Mainpage.data.get(NestedListAdapter.SelectedYear).get("Term"+(groupPosition+1))[1].courseName="Fuck";
+//                  String[] a = {"dsad","dsad"};
+//                  ArrayList<String> test = new ArrayList<String>(Arrays.asList(a));
+                    notifyDataSetChanged();
+                }
+            });
+        }else{
+            convertView = inflater.inflate(R.layout.list3, null);
+            TextView courseName = (TextView) convertView.findViewById(R.id.courseName);
+            TextView courseGrade = (TextView) convertView.findViewById(R.id.courseGrade);
+            ImageView delete = (ImageView) convertView.findViewById(R.id.deleteCourse);
+            delete.setFocusable(false);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Mainpage.data.get(NestedListAdapter.SelectedYear).get("Term"+(groupPosition+1))[1].grade=0;
+                    notifyDataSetChanged();
+                }
+            });
+            Grade[] childArray = data.get(groupPosition);
+            String name = childArray[childPosition].courseName;
+            double grade = childArray[childPosition].grade;
+            courseName.setText(name);
+            courseGrade.setText(String.format("%.2f",grade));
+        }
         return convertView;
     }
 

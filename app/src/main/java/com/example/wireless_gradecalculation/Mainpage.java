@@ -22,12 +22,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import androidx.lifecycle.ViewModelProviders;
 
 
 public class Mainpage extends LocalizationActivity {
-    private String TAG = getTheme().getClass().getSimpleName();
-    private DatainTable datainTable;
     private ExpandableListView listView;
     private ImageView en;
     private ImageView th;
@@ -35,36 +32,33 @@ public class Mainpage extends LocalizationActivity {
     private TextView userName;
     User user;
     String[] parent = new String[]{"Year1", "Year2", "Year3","Year4"};
-    String[] q1 = new String[]{"Term1", "Term2"};
-    String[] q2 = new String[]{"Term1", "Term2"};
-    String[] q3 = new String[]{"Term1", "Term2"};
-    String[] q4 = new String[]{"Term1", "Term2"};
-    String[] des1 = new String[]{"wow","wow","wow","wow","wow","wow","wow","wow","wow","wow"};
-    String[] des2 = new String[]{"???"};
-    String[] des3 = new String[]{"wow"};
-    String[] des4 = new String[]{"???"};
-    String[] des5 = new String[]{"wow"};
-    String[] des6 = new String[]{"???"};
-    String[] des7 = new String[]{"wow"};
-    String[] des8 = new String[]{"???"};
+    String[] termlist = new String[]{"Term1", "Term2"};
+    Grade[] des1 = new Grade[]{new Grade(),new Grade("oop",'A'),new Grade()};
+    Grade[] des2 = new Grade[]{new Grade(),new Grade()};
+    Grade[] des3 = new Grade[]{new Grade(),new Grade()};
+    Grade[] des4 = new Grade[]{new Grade(),new Grade()};
+    Grade[] des5 = new Grade[]{new Grade(),new Grade()};
+    Grade[] des6 = new Grade[]{new Grade(),new Grade()};
+    Grade[] des7 = new Grade[]{new Grade(),new Grade()};
+    Grade[] des8 = new Grade[]{new Grade(),new Grade()};
 
     //private ExpandableListAdapter listAdapter;
    // private List<String> listdata;
     //private HashMap<String, List<String>> listHashMap;
 
 
-    LinkedHashMap<String, String[]> thirdLevelq1 = new LinkedHashMap<>();
-    LinkedHashMap<String, String[]> thirdLevelq2 = new LinkedHashMap<>();
-    LinkedHashMap<String, String[]> thirdLevelq3 = new LinkedHashMap<>();
-    LinkedHashMap<String, String[]> thirdLevelq4 = new LinkedHashMap<>();
+    LinkedHashMap<String, Grade[]> thirdLevelq1 = new LinkedHashMap<>();
+    LinkedHashMap<String, Grade[]> thirdLevelq2 = new LinkedHashMap<>();
+    LinkedHashMap<String, Grade[]> thirdLevelq3 = new LinkedHashMap<>();
+    LinkedHashMap<String, Grade[]> thirdLevelq4 = new LinkedHashMap<>();
     /**
      * Second level array list
      */
-    List<String[]> secondLevel = new ArrayList<>();
+    ArrayList<String[]>secondLevel = new ArrayList<>();
     /**
      * Inner level data
      */
-    List<LinkedHashMap<String, String[]>> data = new ArrayList<>();
+    public static List<LinkedHashMap<String, Grade[]>> data = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,30 +103,30 @@ public class Mainpage extends LocalizationActivity {
             }
         });
 
-        ////room
-        FloatingActionButton fab = findViewById(R.id.complete);
-        fab.setOnClickListener((view){
-                Snackbar.make( view, "Replace with your action", Snackbar.LENGTH_INDEFINITE.setAction("Action",null).show()
-        });
-        datainTable = ViewModelProviders.of(this).get(DatainTable.class);
+//        ////room
+//        FloatingActionButton fab = findViewById(R.id.complete);
+//        fab.setOnClickListener((view){
+//                Snackbar.make( view, "Replace with your action", Snackbar.LENGTH_INDEFINITE.setAction("Action",null).show()
+//        });
+//        datainTable = ViewModelProviders.of(this).get(DatainTable.class);
     }
 
 
 
     private void setUpAdapter() {
-        secondLevel.add(q1);
-        secondLevel.add(q2);
-        secondLevel.add(q3);
-        secondLevel.add(q4);
+        secondLevel.add(termlist);
+        secondLevel.add(termlist);
+        secondLevel.add(termlist);
+        secondLevel.add(termlist);
 
-        thirdLevelq1.put(q1[0], des1);
-        thirdLevelq1.put(q1[1], des2);
-        thirdLevelq2.put(q2[0], des3);
-        thirdLevelq2.put(q2[1], des4);
-        thirdLevelq3.put(q3[0], des5);
-        thirdLevelq3.put(q3[1], des6);
-        thirdLevelq4.put(q4[0], des7);
-        thirdLevelq4.put(q4[1], des8);
+        thirdLevelq1.put(termlist[0], des1);
+        thirdLevelq1.put(termlist[1], des2);
+        thirdLevelq2.put(termlist[0], des3);
+        thirdLevelq2.put(termlist[1], des4);
+        thirdLevelq3.put(termlist[0], des5);
+        thirdLevelq3.put(termlist[1], des6);
+        thirdLevelq4.put(termlist[0], des7);
+        thirdLevelq4.put(termlist[1], des8);
 
 
         data.add(thirdLevelq1);

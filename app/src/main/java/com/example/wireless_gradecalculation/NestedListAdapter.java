@@ -19,10 +19,10 @@ public class NestedListAdapter extends BaseExpandableListAdapter {
     String[] parentHeaders;
     List<String[]> secondLevel;
     private Context context;
-    List<LinkedHashMap<String, String[]>> data;
+    List<LinkedHashMap<String, Grade[]>> data;
+    public static int SelectedYear;
 
-
-    public NestedListAdapter(Context context, String[] parentHeader, List<String[]> secondLevel, List<LinkedHashMap<String, String[]>> data) {
+    public NestedListAdapter(Context context, String[] parentHeader, List<String[]> secondLevel, List<LinkedHashMap<String, Grade[]>> data) {
         this.context = context;
         this.parentHeaders = parentHeader;
         this.secondLevel = secondLevel;
@@ -78,12 +78,12 @@ public class NestedListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final SecondELV secondLevelELV = new SecondELV(context);
-
+        SelectedYear = groupPosition;
         String[] headers = secondLevel.get(groupPosition);
 
 
-        List<String[]> childData = new ArrayList<>();
-        HashMap<String, String[]> secondLevelData = data.get(groupPosition);
+        List<Grade[]> childData = new ArrayList<>();
+        HashMap<String, Grade[]> secondLevelData = data.get(groupPosition);
 
         for (String key : secondLevelData.keySet()) {
 
