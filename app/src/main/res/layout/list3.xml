@@ -18,7 +18,7 @@
 
         <TableRow
             android:layout_width="370dp"
-            android:layout_height="40dp">
+            android:layout_height="100dp">
 
             <TextView
                 android:id="@+id/textView"

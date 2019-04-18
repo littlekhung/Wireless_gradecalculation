@@ -47,7 +47,7 @@
                     android:id="@+id/firstNameWarning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark" />
+                    android:textColor="@color/gg" />
 
             </LinearLayout>
 
@@ -81,13 +81,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Lastname"
                     android:textColor="@color/border"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/lastNameWarning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark" />
+                    android:textColor="@color/gg" />
 
             </LinearLayout>
 
@@ -116,19 +116,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textColorHighlight="@color/fir"
                     android:id="@+id/textView19"
-                    android:layout_width="180dp"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
                     android:textColor="@color/border"
-                    android:textSize="20sp" />
+                    android:textColorHighlight="@color/fir"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/emailWarning"
-                    android:layout_width="match_parent"
+                    android:layout_width="262dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark" />
+                    android:textColor="@color/gg" />
 
             </LinearLayout>
 
@@ -159,17 +159,17 @@
 
                 <TextView
                     android:id="@+id/textView20"
-                    android:layout_width="132dp"
+                    android:layout_width="95dp"
                     android:layout_height="35dp"
                     android:text="@string/password"
                     android:textColor="@color/border"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/passwordWarning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark" />
+                    android:textColor="@color/gg" />
 
 
             </LinearLayout>
@@ -200,17 +200,17 @@
 
                 <TextView
                     android:id="@+id/textView26"
-                    android:layout_width="204dp"
+                    android:layout_width="170dp"
                     android:layout_height="35dp"
                     android:text="@string/Comfirmpassword"
                     android:textColor="@color/border"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/confirmPasswordWarning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark" />
+                    android:textColor="@color/gg" />
 
 
         </LinearLayout>
