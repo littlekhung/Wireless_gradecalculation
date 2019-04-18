@@ -154,8 +154,8 @@ public class Signup extends LocalizationActivity {
     }
     private boolean validatePassword(String password){
         // character or number
-        // length must be at least 6
-        return password.matches("[\\w\\d]{6}[\\w\\d]+");
+        // length must be at least 7
+        return password.matches("[\\w\\d]{7,}");
     }
     private boolean validateConfirmPassword(String password, String confirmpassword){
         return password.equals(confirmpassword);

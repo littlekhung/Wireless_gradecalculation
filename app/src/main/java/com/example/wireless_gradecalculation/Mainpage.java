@@ -66,13 +66,7 @@ public class Mainpage extends LocalizationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
         ////get DB HELPER///////
-        CourseDao course = AppDatabase
-                .getInstance(getApplicationContext())
-                .getCourseDao();
-        StudentGradeDao grade = AppDatabase
-                .getInstance(getApplicationContext())
-                .getStudentGradeDao();
-        roomDB = new DBHelper(course,grade);
+        roomDB = new DBHelper(this);
         ////////////////////////
         setTitle(getString(R.string.app_name));
         if (savedInstanceState == null) {
@@ -178,14 +172,14 @@ public class Mainpage extends LocalizationActivity {
         List<Course> Y4S1=null;
         List<Course> Y4S2=null;
         try{
-            Y1S1 = roomDB.loadNonEnrollCourse(user.getUID(),1,1,"Bachelor");
-            Y1S2 = roomDB.loadNonEnrollCourse(user.getUID(),1,2,"Bachelor");
-            Y2S1 = roomDB.loadNonEnrollCourse(user.getUID(),2,1,"Bachelor");
-            Y2S2 = roomDB.loadNonEnrollCourse(user.getUID(),2,2,"Bachelor");
-            Y3S1 = roomDB.loadNonEnrollCourse(user.getUID(),3,1,"Bachelor");
-            Y3S2 = roomDB.loadNonEnrollCourse(user.getUID(),3,2,"Bachelor");
-            Y4S1 = roomDB.loadNonEnrollCourse(user.getUID(),4,1,"Bachelor");
-            Y4S2 = roomDB.loadNonEnrollCourse(user.getUID(),4,2,"Bachelor");
+            Y1S1 = roomDB.loadEnrollCourse(user.getUID(),1,1,"Bachelor");
+            Y1S2 = roomDB.loadEnrollCourse(user.getUID(),1,2,"Bachelor");
+            Y2S1 = roomDB.loadEnrollCourse(user.getUID(),2,1,"Bachelor");
+            Y2S2 = roomDB.loadEnrollCourse(user.getUID(),2,2,"Bachelor");
+            Y3S1 = roomDB.loadEnrollCourse(user.getUID(),3,1,"Bachelor");
+            Y3S2 = roomDB.loadEnrollCourse(user.getUID(),3,2,"Bachelor");
+            Y4S1 = roomDB.loadEnrollCourse(user.getUID(),4,1,"Bachelor");
+            Y4S2 = roomDB.loadEnrollCourse(user.getUID(),4,2,"Bachelor");
         }catch (Exception e){
             e.printStackTrace();
         }

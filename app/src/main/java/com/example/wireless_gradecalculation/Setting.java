@@ -30,8 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
@@ -90,7 +94,7 @@ public class Setting extends LocalizationActivity {
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowPopup();
+                ShowPopupChangePass();
             }
         });
         logoutButton = (TextView) findViewById(R.id.logoutTextView);
@@ -151,13 +155,13 @@ public class Setting extends LocalizationActivity {
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                         user.setPicuri(localFile.toURI().toString());
                                         progressDialog.dismiss();
-                                        Toast.makeText(Setting.this,"Upload",Toast.LENGTH_SHORT );
+                                        Toast.makeText(Setting.this,"Upload",Toast.LENGTH_SHORT ).show();
                                         changeName();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(Setting.this, "LoadImageFail", Toast.LENGTH_LONG);
+                                        Toast.makeText(Setting.this, "LoadImageFail", Toast.LENGTH_LONG).show();
                                         progressDialog.dismiss();
                                         changeName();
                                     }
@@ -211,7 +215,7 @@ public class Setting extends LocalizationActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT);
+                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -231,7 +235,7 @@ public class Setting extends LocalizationActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT);
+                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -251,7 +255,7 @@ public class Setting extends LocalizationActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT);
+                            Toast.makeText(Setting.this,"Error occure while setting name",Toast.LENGTH_SHORT).show();
                         }
                     });
         }else{
@@ -269,10 +273,12 @@ public class Setting extends LocalizationActivity {
         finish();
     }
     /////////Change Password Popup///////
-    public void ShowPopup() {
+    public void ShowPopupChangePass() {
         TextView txtclose;
         Button complete;
-        myDialog.setContentView(R.layout.popup);
+        myDialog.setContentView(R.layout.popupchangepass);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
         txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
         complete = (Button) myDialog.findViewById(R.id.complete);
         txtclose.setOnClickListener(new View.OnClickListener() {
@@ -281,24 +287,74 @@ public class Setting extends LocalizationActivity {
                 myDialog.dismiss();
             }
         });
-        final String oldPass = ((TextView) myDialog.findViewById(R.id.oldPass)).getText().toString();
-        final String newPass = ((TextView) myDialog.findViewById(R.id.newPass)).getText().toString();
-        final String conNewPass = ((TextView) myDialog.findViewById(R.id.conNewPass)).getText().toString();
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(changePassword(oldPass,newPass,conNewPass))
-                    Toast.makeText(Setting.this,R.string.changePassSuccess,Toast.LENGTH_LONG);
-                else
-                    Toast.makeText(Setting.this,R.string.changePassFail,Toast.LENGTH_LONG);
+                String oldPass = ((TextView) myDialog.findViewById(R.id.oldPass)).getText().toString();
+                String newPass = ((TextView) myDialog.findViewById(R.id.newPass)).getText().toString();
+                String conNewPass = ((TextView) myDialog.findViewById(R.id.conNewPass)).getText().toString();
+                changePassword(oldPass,newPass,conNewPass);
+                myDialog.dismiss();
             }
         });
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+
     }
     //////Change password/////
-    public boolean changePassword(String oldPass,String newPass, String conNewPass){
-        return false;
+    public void changePassword(String oldPass, final String newPass, String conNewPass){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.show();
+        if(!newPass.equals(conNewPass)){
+            progressDialog.dismiss();
+            Toast.makeText(Setting.this,getString(R.string.confirmPasswordWarnS_notMatch),Toast.LENGTH_LONG).show();
+        }
+
+        if(newPass.length()<7){
+            progressDialog.dismiss();
+            Toast.makeText(Setting.this,getString(R.string.passwordWarnS_short),Toast.LENGTH_LONG).show();
+        }
+
+        if(!newPass.matches("[\\w\\d]{7,}")){
+            progressDialog.dismiss();
+            Toast.makeText(Setting.this,getString(R.string.passwordWarnS_invalid),Toast.LENGTH_LONG).show();
+        }
+
+        if(!oldPass.matches("[\\w\\d]{7,}")){
+            progressDialog.dismiss();
+            Toast.makeText(Setting.this,getString(R.string.oldPassWrong),Toast.LENGTH_LONG).show();
+        }
+
+        if(oldPass.equals(newPass)){
+            progressDialog.dismiss();
+            Toast.makeText(Setting.this,getString(R.string.newPassMatchOldPass),Toast.LENGTH_LONG).show();
+        }
+        //////re authenticate to check old password////////
+        //////from https://stackoverflow.com/questions/47910898/firebase-authentication-how-to-get-current-users-password
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(mAuth.getCurrentUser().getEmail(), oldPass);
+        mAuth.getCurrentUser().reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                            mAuth.getCurrentUser().updatePassword(newPass)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful())
+                                                Toast.makeText(Setting.this,getString(R.string.changePassSuccess),Toast.LENGTH_LONG).show();
+
+                                            else
+                                                Toast.makeText(Setting.this, R.string.oldPassWrong, Toast.LENGTH_LONG).show();
+                                            progressDialog.dismiss();
+
+                                        }
+                                    });
+                        else
+                            Toast.makeText(Setting.this, R.string.oldPassWrong, Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
+                    }
+                });
     }
     //////Camera//////
 
@@ -373,8 +429,6 @@ public class Setting extends LocalizationActivity {
     public void ShowPopupCamera() {
         myDialogCam.setContentView(R.layout.popupforcamera);
         ///Camera//
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View convertView = inflater.inflate(R.layout.popupforcamera, null);
         Camera =(LinearLayout) myDialogCam.findViewById(R.id.camera);
         //https://stackoverflow.com/questions/47027264/overcoming-photo-results-from-android-cameras-that-produce-low-resolution?rq=1
         Camera.setOnClickListener(new View.OnClickListener() {
@@ -465,7 +519,7 @@ public class Setting extends LocalizationActivity {
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(this,"Need Permission!!!",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"Need Permission!!!",Toast.LENGTH_SHORT).show();
                 }
                 return;
             }

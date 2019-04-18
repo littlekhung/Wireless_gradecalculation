@@ -65,7 +65,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 tools:text="@string/Oldpassword" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 tools:text="@string/Newpassword" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/shapeemial"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 tools:text="@string/Comfirmpassword" />
         </LinearLayout>
 

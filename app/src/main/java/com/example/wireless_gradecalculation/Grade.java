@@ -12,5 +12,6 @@ public class Grade {
     Grade(){
         courseName="";
         grade='N';
+        credit=-1;
     }
 }

@@ -39,6 +39,8 @@
     <string name="changePassFail">Change Password Fail</string>
     <string name="muict_grade_calculator">MUICT Grade Calculator</string>
     <string name="Remove">Remove</string>
+    <string name="oldPassWrong">Old Password is Incorrect</string>
+    <string name="newPassMatchOldPass">New password must be different!!!</string>
 
 
 </resources>

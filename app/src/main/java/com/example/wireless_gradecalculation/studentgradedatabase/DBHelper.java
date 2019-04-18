@@ -1,5 +1,7 @@
 package com.example.wireless_gradecalculation.studentgradedatabase;
 
+import android.content.Context;
+
 import com.example.wireless_gradecalculation.Grade;
 
 import java.util.List;
@@ -12,9 +14,13 @@ public class DBHelper {
     private CourseDao course;
     private StudentGradeDao grade;
 
-    public DBHelper(CourseDao course, StudentGradeDao grade) {
-        this.course = course;
-        this.grade = grade;
+    public DBHelper(Context context) {
+        this.course = AppDatabase
+                .getInstance(context.getApplicationContext())
+                .getCourseDao();
+        this.grade = AppDatabase
+                .getInstance(context.getApplicationContext())
+                .getStudentGradeDao();
     }
     public List<Course> loadNonEnrollCourse(final String uid,final int year,final int semester,final String degType) throws ExecutionException, InterruptedException {
 
@@ -22,6 +28,20 @@ public class DBHelper {
             @Override
             public List<Course> call() throws Exception {
                 return course.loadNonEnrollCourse(uid,year,semester,degType);
+            }
+        };
+
+        Future<List<Course>> future = Executors.newSingleThreadExecutor().submit(callable);
+
+        return future.get();
+    }
+
+    public List<Course> loadEnrollCourse(final String uid,final int year,final int semester,final String degType) throws ExecutionException, InterruptedException {
+
+        Callable<List<Course>> callable = new Callable<List<Course>>() {
+            @Override
+            public List<Course> call() throws Exception {
+        return course.loadEnrollCourse(uid,year,semester,degType);
             }
         };
 
@@ -42,5 +62,29 @@ public class DBHelper {
         Future<StudentGrade> future = Executors.newSingleThreadExecutor().submit(callable);
 
         return future.get();
+    }
+
+    public void insertCourse(final Course[] courses) throws Exception{
+        Callable<Void> callable = new Callable<Void>() {
+            @Override
+            public Void call(){
+                course.insertAll(courses);
+                return null;
+            }
+        };
+        Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
+        future.get();
+    }
+
+    public void insertGrade(final StudentGrade[] grades) throws Exception{
+        Callable<Void> callable = new Callable<Void>() {
+            @Override
+            public Void call(){
+                grade.insertAll(grades);
+                return null;
+            }
+        };
+        Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
+        future.get();
     }
 }

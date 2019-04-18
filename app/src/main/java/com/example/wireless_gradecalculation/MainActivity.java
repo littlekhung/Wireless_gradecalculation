@@ -67,13 +67,15 @@ public class MainActivity extends LocalizationActivity {
                 FBuser = firebaseAuth.getCurrentUser();
                 if (FBuser != null) {
                     // User is signed in
-                    Toast.makeText(MainActivity.this, "sign", Toast.LENGTH_SHORT).show();
-                    pd = new ProgressDialog(MainActivity.this);
-                    pd.setMessage(getString(R.string.loading));
-                    pd.show();
+//                    Toast.makeText(MainActivity.this, "sign", Toast.LENGTH_SHORT).show();
+                    if(pd == null || !pd.isShowing()){
+                        pd = new ProgressDialog(MainActivity.this);
+                        pd.setMessage(getString(R.string.loading));
+                        pd.show();
+                    }
                     loadUserAndGoToMainPage();
                 } else {
-                    Toast.makeText(MainActivity.this, "not sign", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "not sign", Toast.LENGTH_SHORT).show();
                 }
                 // ...
             }
@@ -122,7 +124,7 @@ public class MainActivity extends LocalizationActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(MainActivity.this, "LoadImageFail", Toast.LENGTH_LONG);
+                                    Toast.makeText(MainActivity.this, "LoadImageFail", Toast.LENGTH_LONG).show();
                                     Intent mainpage = new Intent(MainActivity.this,Mainpage.class);
                                     mainpage.putExtra("user",new Gson().toJson(user));
                                     startActivity(mainpage);
@@ -185,16 +187,18 @@ public class MainActivity extends LocalizationActivity {
             return;
         }
         email.setTextColor(Color.BLACK);
-        pd = new ProgressDialog(this);
-        pd.setMessage(getString(R.string.loading));
-        pd.show();
+        if(pd==null || !pd.isShowing()){
+            pd = new ProgressDialog(this);
+            pd.setMessage(getString(R.string.loading));
+            pd.show();
+        }
         mAuth.signInWithEmailAndPassword(emailin, passwordin)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete( Task<AuthResult> task) {
-                        pd.dismiss();
                         if (!task.isSuccessful()) {
                             Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
                         }else{
                             Toast.makeText(MainActivity.this, "Login success.", Toast.LENGTH_SHORT).show();
                         }
