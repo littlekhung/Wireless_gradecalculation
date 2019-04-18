@@ -46,6 +46,7 @@ public class Mainpage extends LocalizationActivity {
     private ImageView th;
     private ImageView setting;
     private TextView userName;
+    private TextView gradeView;
     DBHelper roomDB;
     User user;
 
@@ -101,6 +102,10 @@ public class Mainpage extends LocalizationActivity {
                 previousGroup = groupPosition;
             }
         });
+        //////////////////grade calculation//////////////////
+        gradeView = (TextView) findViewById(R.id.totalGrade);
+        gradeView.setText(calculateGrade());
+
         en = (ImageView)findViewById(R.id.en);
         th = (ImageView)findViewById(R.id.th);
         en.setOnClickListener(new View.OnClickListener() {
@@ -307,6 +312,49 @@ public class Mainpage extends LocalizationActivity {
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
+    }
+
+    private String calculateGrade(){
+        double grade=-1;
+        grade = calculateBachelorGrade();
+        return String.format("%.2f",grade);
+    }
+
+    private double calculateBachelorGrade(){
+        int totalCreditGain = 0;
+        int totalCredit = 0;
+        for(LinkedHashMap<String, Grade[]> y : data){
+            for(Grade[] gs : y.values()){
+                for(Grade g: gs){
+                    totalCredit+=g.credit;
+                    totalCreditGain+=g.credit*gradeStringtoInt(g.grade);
+                }
+            }
+        }
+        return totalCreditGain==0?0:((double)totalCreditGain)/totalCredit;
+    }
+
+    private double gradeStringtoInt(String grade){
+        switch (grade){
+            case "A":
+                return 4;
+            case "B+":
+                return 3.5;
+            case "B":
+                return 3;
+            case "C+":
+                return 2.5;
+            case "C":
+                return 2;
+            case "D+":
+                return 1.5;
+            case "D":
+                return 1;
+            case "F":
+                return 0;
+                default:
+                    return 999;
+        }
     }
 }
 
