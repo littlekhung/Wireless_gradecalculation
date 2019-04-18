@@ -20,7 +20,7 @@ public interface StudentGradeDao {
     @Delete
     void delete(StudentGrade studentGrade);
     @Query("DELETE FROM studentgrade WHERE CID = :cid AND UID = :uid")
-    void studentRemoveCourse(String cid,String uid);
+    void studentRemoveCourse(String uid,String cid);
     @Query("UPDATE studentgrade SET Grade = :grade WHERE CID = :cid AND UID = :uid")
     void updateGrade(String cid,String uid,char grade);
 }

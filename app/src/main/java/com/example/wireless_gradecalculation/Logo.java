@@ -1,11 +1,15 @@
 package com.example.wireless_gradecalculation;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
@@ -29,10 +33,10 @@ public class Logo extends LocalizationActivity {
                     new Course("ITCS003","Introduction to EIEI","Bachelor",1,2,100),
                     new Course("ITCS004","Introduction to Introduction","Bachelor",1,2,100)});
             room.insertGrade(new StudentGrade[]{
-                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS000",'A'),
-                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS001",'B'),
-                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS003",'C'),
-                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS004",'D')
+                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS000","A"),
+                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS001","B"),
+                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS003","C"),
+                    new StudentGrade("A0INeOrzqIRbSqCM8Ge3UghyNns1","ITCS004","D")
             });
         }catch (Exception e){
 

@@ -1,6 +1,7 @@
 package com.example.wireless_gradecalculation;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -55,11 +56,11 @@ public class Mainpage extends LocalizationActivity {
      * Second level array list
      */
     String[] parent;
-    ArrayList<String[]>secondLevel = new ArrayList<>();
+    ArrayList<String[]>secondLevel;
     /**
      * Inner level data
      */
-    public static List<LinkedHashMap<String, Grade[]>> data = new ArrayList<>();
+    public static List<LinkedHashMap<String, Grade[]>> data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,6 @@ public class Mainpage extends LocalizationActivity {
         }
 
         iniProf();
-
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         /////select bachelor or  maskter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Mainpage.this,
@@ -156,6 +156,8 @@ public class Mainpage extends LocalizationActivity {
 
     //load all course student register from database
     private void setUpAdapterBachelor() {
+        secondLevel = new ArrayList<>();
+        data = new ArrayList<>();
         parent = new String[]{"Year1", "Year2", "Year3","Year4"};
         String[] termlist = new String[]{"Term1", "Term2"};
         secondLevel.add(termlist);

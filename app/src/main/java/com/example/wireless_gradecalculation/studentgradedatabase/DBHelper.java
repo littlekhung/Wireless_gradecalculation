@@ -87,4 +87,16 @@ public class DBHelper {
         Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
         future.get();
     }
+
+    public void deleteGrade(final String UID, final String CID) throws Exception{
+        Callable<Void> callable = new Callable<Void>() {
+            @Override
+            public Void call(){
+                grade.studentRemoveCourse(UID,CID);
+                return null;
+            }
+        };
+        Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
+        future.get();
+    }
 }

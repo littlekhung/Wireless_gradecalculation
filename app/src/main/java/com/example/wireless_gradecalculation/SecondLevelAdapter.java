@@ -1,16 +1,33 @@
 package com.example.wireless_gradecalculation;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wireless_gradecalculation.studentgradedatabase.AppDatabase;
+import com.example.wireless_gradecalculation.studentgradedatabase.Course;
+import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
+import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SecondLevelAdapter extends BaseExpandableListAdapter {
@@ -92,31 +109,34 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("Tor","Year: "+(NestedListAdapter.SelectedYear+1)+" Term: "+(groupPosition+1));
-                    Mainpage.data.get(NestedListAdapter.SelectedYear).get("Term"+(groupPosition+1))[1].courseName="Fuck";
-//                  String[] a = {"dsad","dsad"};
+//                    Log.d("Tor","Year: "+(NestedListAdapter.SelectedYear+1)+" Term: "+(groupPosition+1));
+//                    Mainpage.data.get(NestedListAdapter.SelectedYear).get("Term"+(groupPosition+1))[1].courseName="Fuck";
+                    addCourse(NestedListAdapter.SelectedYear+1,groupPosition+1);
+                    //                  String[] a = {"dsad","dsad"};
 //                  ArrayList<String> test = new ArrayList<String>(Arrays.asList(a));
                     notifyDataSetChanged();
                 }
             });
         }else{
             convertView = inflater.inflate(R.layout.list3, null);
-            TextView courseName = (TextView) convertView.findViewById(R.id.courseName);
+            final TextView courseName = (TextView) convertView.findViewById(R.id.courseName);
+            ((TextView) convertView.findViewById(R.id.num)).setText(""+childPosition);
             TextView courseGrade = (TextView) convertView.findViewById(R.id.courseGrade);
             ImageView delete = (ImageView) convertView.findViewById(R.id.deleteCourse);
             delete.setFocusable(false);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Mainpage.data.get(NestedListAdapter.SelectedYear).get("Term"+(groupPosition+1))[1].grade=0;
+//                    Mainpage.data.get(NestedListAdapter.SelectedYear).get("Term"+(groupPosition+1))[1].grade=0;
+                    deleteCourse(courseName.getText().toString());
                     notifyDataSetChanged();
                 }
             });
             Grade[] childArray = data.get(groupPosition);
             String name = childArray[childPosition].courseName;
-            double grade = childArray[childPosition].grade;
+            String grade = childArray[childPosition].grade;
             courseName.setText(name);
-            courseGrade.setText(String.format("%.2f",grade));
+            courseGrade.setText(grade);
         }
         return convertView;
     }
@@ -125,7 +145,78 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+    private Dialog addCourseDialog;
+    private Spinner courseList;
+    private Spinner gradeList;
+    private ArrayList<String> courseID;
+    private void addCourse(final int year, final int semester){
+        addCourseDialog = new Dialog(context);
+        addCourseDialog.setContentView(R.layout.popupcourse);
+        addCourseDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        addCourseDialog.show();
+        ((TextView)addCourseDialog.findViewById(R.id.txtclose)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCourseDialog.dismiss();
+            }
+        });
+        courseList = (Spinner) addCourseDialog.findViewById(R.id.courseList);
+        gradeList = (Spinner) addCourseDialog.findViewById(R.id.gradeList);
+        Button addCourseButton = (Button) addCourseDialog.findViewById(R.id.addCourseButton);
 
+        String[] courses = getNonEnrollCourseList(year,semester);
 
+        ArrayAdapter<String> adapterCourseList = new ArrayAdapter<String>(context.getApplicationContext(),
+                android.R.layout.simple_spinner_item, courses);
+        adapterCourseList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseList.setAdapter(adapterCourseList);
 
+        String[] grades = new String[] {
+                "A", "B+", "B", "C+", "C", "D+", "D", "F"
+        };
+        ArrayAdapter<String> adapterGradeList = new ArrayAdapter<String>(context.getApplicationContext(),
+                android.R.layout.simple_spinner_item, grades);
+        adapterGradeList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gradeList.setAdapter(adapterGradeList);
+
+        addCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHelper room = new DBHelper(context);
+                try {
+                    if(!courseList.getSelectedItem().toString().isEmpty())
+                        room.insertGrade(new StudentGrade[]{new StudentGrade(FirebaseAuth.getInstance().getCurrentUser().getUid(),courseID.get(courseList.getSelectedItemPosition()),gradeList.getSelectedItem().toString())});
+                }catch (Exception e){
+
+                }
+                ((Activity) context).recreate();
+            }
+        });
+    }
+    private String[] getNonEnrollCourseList(int year,int semester){
+        DBHelper room = new DBHelper(context);
+        List<Course> courses=null;
+        try {
+            courses= room.loadNonEnrollCourse(FirebaseAuth.getInstance().getCurrentUser().getUid(),year,semester,"Bachelor");
+        }catch (Exception e){
+
+        }
+        courseID = new ArrayList<String>();
+        ArrayList<String> courselist = new ArrayList<String>();
+        for(Course c : courses){
+            courselist.add(c.CID+"_"+c.courseName);
+            courseID.add(c.CID);
+        }
+        return courselist.toArray(new String[courselist.size()]);
+    }
+
+    private void deleteCourse(String courseName){
+        DBHelper room = new DBHelper(context);
+        try {
+            room.deleteGrade(FirebaseAuth.getInstance().getCurrentUser().getUid(),courseName.split("_")[0]);
+        }catch (Exception e){
+
+        }
+        ((Activity) context).recreate();
+    }
 }

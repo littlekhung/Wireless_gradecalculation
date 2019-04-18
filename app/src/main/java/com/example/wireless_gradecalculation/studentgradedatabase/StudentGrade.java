@@ -19,9 +19,9 @@ public class StudentGrade {
     public String CID;
 
     @ColumnInfo(name = "Grade")
-    public char grade;
+    public String grade;
 
-    public StudentGrade(String UID, String CID, char grade) {
+    public StudentGrade(String UID, String CID, String grade) {
         this.UID = UID;
         this.CID = CID;
         this.grade = grade;

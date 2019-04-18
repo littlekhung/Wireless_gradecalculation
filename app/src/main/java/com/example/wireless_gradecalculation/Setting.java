@@ -351,7 +351,7 @@ public class Setting extends LocalizationActivity {
                                         }
                                     });
                         else
-                            Toast.makeText(Setting.this, R.string.oldPassWrong, Toast.LENGTH_LONG).show();
+                            Toast.makeText(Setting.this, getString(R.string.oldPassWrong), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }
                 });
