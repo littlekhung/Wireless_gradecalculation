@@ -7,11 +7,7 @@ import android.arch.persistence.room.Index;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "studentgrade",
-        primaryKeys = {"UID", "CID"},foreignKeys = {
-        @ForeignKey(entity = Course.class,
-                parentColumns = "CID",
-                childColumns = "CID")
-    },indices = {@Index("CID")})
+        primaryKeys = {"UID", "CID"})
 public class StudentGrade {
     @NonNull
     public String UID;

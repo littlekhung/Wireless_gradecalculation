@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -37,22 +38,25 @@ public class Mainpage extends LocalizationActivity {
     private ImageView setting;
     private TextView userName;
     private TextView gradeView;
-    private String degType;
-    DBHelper roomDB;
-    User user;
-
+    private DBHelper roomDB;
+    private User user;
+    public static String degType="Bachelor";
     //private ExpandableListAdapter listAdapter;
    // private List<String> listdata;
     //private HashMap<String, List<String>> listHashMap;
     /**
      * Second level array list
      */
-    String[] parent;
-    ArrayList<String[]>secondLevel;
+    String[] bachelorParents;
+    ArrayList<String[]> bachelorSecondLevel;
+    String[] masterParents;
+    ArrayList<String[]> masterSecondLevel;
     /**
      * Inner level data
      */
-    public static List<LinkedHashMap<String, Grade[]>> data;
+    public static List<LinkedHashMap<String, Grade[]>> bachelorData;
+    public static List<LinkedHashMap<String, Grade[]>> masterData;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +73,10 @@ public class Mainpage extends LocalizationActivity {
         }else{
             user = new Gson().fromJson(savedInstanceState.getString("user"),User.class);
         }
-
+        setUpAdapterBachelor();
+        setUpAdapterMaster();
         iniProf();
+        gradeView = (TextView) findViewById(R.id.totalGrade);
         Spinner mySpinner = (Spinner) findViewById(R.id.degreeType);
         /////select bachelor or  maskter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Mainpage.this,
@@ -79,10 +85,47 @@ public class Mainpage extends LocalizationActivity {
         mySpinner.setAdapter(myAdapter);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Spinner degSpinner = (Spinner) findViewById(R.id.degreeType);
+        listView = (ExpandableListView) findViewById(R.id.lv);
         degSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        degType="Bachelor";
+                        //passing three level of information to constructor
+                        NestedListAdapter nestedListAdapterAdapter = new NestedListAdapter(Mainpage.this, bachelorParents, bachelorSecondLevel, bachelorData);
+                        listView.setAdapter(nestedListAdapterAdapter);
+                        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                            int previousGroup = -1;
 
+                            @Override
+                            public void onGroupExpand(int groupPosition) {
+                                if (groupPosition != previousGroup)
+                                    listView.collapseGroup(previousGroup);
+                                previousGroup = groupPosition;
+                            }
+                        });
+                        //////////////////grade calculation//////////////////
+                        gradeView.setText(calculateGrade());
+                        break;
+                    case 1:
+                        degType="Master";
+                        NestedListAdapter nestedListAdapterAdapterMaster = new NestedListAdapter(Mainpage.this, masterParents, masterSecondLevel, masterData);
+                        listView.setAdapter(nestedListAdapterAdapterMaster);
+                        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                            int previousGroup = -1;
+
+                            @Override
+                            public void onGroupExpand(int groupPosition) {
+                                if (groupPosition != previousGroup)
+                                    listView.collapseGroup(previousGroup);
+                                previousGroup = groupPosition;
+                            }
+                        });
+                        //////////////////grade calculation//////////////////
+                        gradeView.setText(calculateGrade());
+                        break;
+                }
             }
 
             @Override
@@ -90,29 +133,11 @@ public class Mainpage extends LocalizationActivity {
 
             }
         });
-        setUpAdapterBachelor();
-        listView = (ExpandableListView) findViewById(R.id.lv);
-        //passing three level of information to constructor
-        NestedListAdapter nestedListAdapterAdapter = new NestedListAdapter(this, parent, secondLevel, data);
-        listView.setAdapter(nestedListAdapterAdapter);
-        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            int previousGroup = -1;
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (groupPosition != previousGroup)
-                    listView.collapseGroup(previousGroup);
-                previousGroup = groupPosition;
-            }
-        });
         ////////////////collapse all parent//////////////////
-        int count =  listView.getCount();
+        int count =  listView==null?0:listView.getCount();
         for (int i = 0; i <count ; i++)
             listView.collapseGroup(i);
-        //////////////////grade calculation//////////////////
-        gradeView = (TextView) findViewById(R.id.totalGrade);
-        gradeView.setText(calculateGrade());
-
+        //////////////////change language////////////////////
         en = (ImageView)findViewById(R.id.en);
         th = (ImageView)findViewById(R.id.th);
         en.setOnClickListener(new View.OnClickListener() {
@@ -168,14 +193,14 @@ public class Mainpage extends LocalizationActivity {
 
     //load all course student register from database
     private void setUpAdapterBachelor() {
-        secondLevel = new ArrayList<>();
-        data = new ArrayList<>();
-        parent = new String[]{"Year1", "Year2", "Year3","Year4"};
-        String[] termlist = new String[]{"Term1", "Term2"};
-        secondLevel.add(termlist);
-        secondLevel.add(termlist);
-        secondLevel.add(termlist);
-        secondLevel.add(termlist);
+        bachelorSecondLevel = new ArrayList<>();
+        bachelorData = new ArrayList<>();
+        bachelorParents = new String[]{getString(R.string.year1),getString(R.string.year2),getString(R.string.year3),getString(R.string.year4)};
+        String[] termlist = new String[]{getString(R.string.semester1),getString(R.string.semester2)};
+        bachelorSecondLevel.add(termlist);
+        bachelorSecondLevel.add(termlist);
+        bachelorSecondLevel.add(termlist);
+        bachelorSecondLevel.add(termlist);
 
         List<Course> Y1S1=null;
         List<Course> Y1S2=null;
@@ -229,13 +254,45 @@ public class Mainpage extends LocalizationActivity {
         Year4.put(termlist[0], grade7);
         Year4.put(termlist[1], grade8);
 
-        data.add(Year1);
-        data.add(Year2);
-        data.add(Year3);
-        data.add(Year4);
+        bachelorData.add(Year1);
+        bachelorData.add(Year2);
+        bachelorData.add(Year3);
+        bachelorData.add(Year4);
 
     }
+    //////////////same as above but it is master degree
+    private void setUpAdapterMaster(){
+        masterSecondLevel = new ArrayList<>();
+        masterData = new ArrayList<>();
+        masterParents = new String[]{getString(R.string.masterDegree)};
+        String[] termlist = new String[]{getString(R.string.semester1),getString(R.string.semester2),getString(R.string.semester3)};
+        masterSecondLevel.add(termlist);
+        List<Course> S1=null;
+        List<Course> S2=null;
+        List<Course> S3=null;
+        try{
+            S1 = roomDB.loadEnrollCourse(user.getUID(),1,1,"Master");
+            S2 = roomDB.loadEnrollCourse(user.getUID(),1,2,"Master");
+            S3 = roomDB.loadEnrollCourse(user.getUID(),1,3,"Master");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        List<Grade> gS1 = getGradesFromCourses(S1);
+        List<Grade> gS2 = getGradesFromCourses(S2);
+        List<Grade> gS3 = getGradesFromCourses(S3);
 
+        Grade[] grade1 = createGradeArray(gS1);
+        Grade[] grade2 = createGradeArray(gS2);
+        Grade[] grade3 = createGradeArray(gS3);
+
+        LinkedHashMap<String, Grade[]> master = new LinkedHashMap<>();
+
+        master.put(termlist[0], grade1);
+        master.put(termlist[1], grade2);
+        master.put(termlist[2], grade3);
+
+        masterData.add(master);
+    }
     ///////////transform CourseID to Grade////////////////////////////
     Grade getGradeFromCourse(Course c){
         StudentGrade gradeRetrieve=null;
@@ -323,11 +380,19 @@ public class Mainpage extends LocalizationActivity {
 
     private String calculateGrade(){
         double grade=-1;
-        grade = calculateBachelorGrade();
+        switch (degType){
+            case "Bachelor":
+                grade = calculateGradeOf(bachelorData);
+                break;
+            case "Master":
+                grade = calculateGradeOf(masterData);
+                break;
+        }
+
         return String.format("%.2f",grade);
     }
 
-    private double calculateBachelorGrade(){
+    private double calculateGradeOf(List<LinkedHashMap<String,Grade[]>> data){
         int totalCreditGain = 0;
         int totalCredit = 0;
         for(LinkedHashMap<String, Grade[]> y : data){

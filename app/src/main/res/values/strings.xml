@@ -11,10 +11,8 @@
     <string name="grade">Grade</string>
     <string name="logout">Logout</string>
     <string-array name="education_level">
-        <item></item>
         <item>Bachelor Degree</item>
-        <item>Master Degree Plan A</item>
-        <item>Master Degree Plan B</item>
+        <item>Master Degree</item>
     </string-array>
     <string name="firstNameWarnS">Please Input Firstname</string>
     <string name="lastNameWarnS">Please Input Lastname</string>
@@ -41,6 +39,14 @@
     <string name="Remove">Remove</string>
     <string name="oldPassWrong">Old Password is Incorrect</string>
     <string name="newPassMatchOldPass">New password must be different!!!</string>
+    <string name="year1">Year1</string>
+    <string name="year2">Year2</string>
+    <string name="year3">Year3</string>
+    <string name="year4">Year4</string>
+    <string name="semester1">Semester1</string>
+    <string name="semester2">Semester2</string>
+    <string name="semester3">Semester3</string>
+    <string name="masterDegree">Master Degree</string>
 
 
 </resources>

@@ -197,7 +197,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         DBHelper room = new DBHelper(context);
         List<Course> courses=null;
         try {
-            courses= room.loadNonEnrollCourse(FirebaseAuth.getInstance().getCurrentUser().getUid(),year,semester,"Bachelor");
+            courses= room.loadNonEnrollCourse(FirebaseAuth.getInstance().getCurrentUser().getUid(),year,semester,Mainpage.degType);
         }catch (Exception e){
 
         }

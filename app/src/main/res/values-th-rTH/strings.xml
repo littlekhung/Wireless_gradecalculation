@@ -12,10 +12,8 @@
     <string name="Comfirmpassword">ตรวจสอบรหัสผ่าน</string>
     <string name="grade">เกรด</string>
     <string-array name="education_level">
-        <item></item>
         <item>ระดับการศึกษาปริญญาตรี</item>
-        <item>ระดับการศึกษาปริญญาโทแผน A</item>
-        <item>ระดับการศึกษาปริญญาโทแผน B</item>
+        <item>ระดับการศึกษาปริญญาโท</item>
     </string-array>
     <string name="logout">ออกจากระบบ</string>
     <string name="firstNameWarnS">กรุณาใส่ชื่อของท่าน ก่อนเข้าสู้ระบบ</string>
@@ -42,6 +40,14 @@
     <string name="Remove">Remove</string>
     <string name="oldPassWrong">Old Password is Incorrect</string>
     <string name="newPassMatchOldPass">New password must be different!!!</string>
+    <string name="semester1">เทอม1</string>
+    <string name="semester2">เทอม2</string>
+    <string name="semester3">เทอม3</string>
+    <string name="year1">ปี1</string>
+    <string name="year2">ปี2</string>
+    <string name="year3">ปี3</string>
+    <string name="year4">ปี4</string>
+    <string name="masterDegree">ระดับการศึกษาปริญญาโท</string>
 
 
 </resources>
