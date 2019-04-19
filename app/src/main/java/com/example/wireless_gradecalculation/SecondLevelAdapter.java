@@ -1,12 +1,19 @@
 package com.example.wireless_gradecalculation;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,19 +30,30 @@ import com.example.wireless_gradecalculation.studentgradedatabase.AppDatabase;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
 import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
 import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import static com.example.wireless_gradecalculation.Setting.MY_PERMISSIONS_REQUEST_FOR_CAMERA;
+import static java.util.Arrays.asList;
 
 public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     List<Grade[]> data;
     String[] headers;
-
     public SecondLevelAdapter(Context context, String[] headers, List<Grade[]> childData) {
         this.context = context;
         this.data = childData;
@@ -102,6 +120,16 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(childPosition==0){
             convertView = inflater.inflate(R.layout.list3_first, null);
+            shareGrade(convertView);
+            TextView semGrade = (TextView) convertView.findViewById(R.id.semesterGrade);
+            int totalCreditGain = 0;
+            int totalCredit = 0;
+            for(int i =1;i<getChildrenCount(groupPosition)-1;i++){
+                Grade g = (Grade)getChild(groupPosition,i);
+                totalCredit+=g.credit;
+                totalCreditGain+=g.credit*Mainpage.gradeStringtoInt(g.grade);
+            }
+            semGrade.setText(String.format("%.2f",totalCreditGain==0?0:((double)totalCreditGain)/totalCredit));
         }else if(isLastChild){
             convertView = inflater.inflate(R.layout.list3_last, null);
             View button = convertView.findViewById(R.id.addCourseButton);
@@ -145,6 +173,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
     private Dialog addCourseDialog;
     private Spinner courseList;
     private Spinner gradeList;
@@ -184,8 +213,9 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 DBHelper room = new DBHelper(context);
                 try {
-                    if(!courseList.getSelectedItem().toString().isEmpty())
+                    if(!courseList.getSelectedItem().toString().isEmpty()) {
                         room.insertGrade(new StudentGrade[]{new StudentGrade(FirebaseAuth.getInstance().getCurrentUser().getUid(),courseID.get(courseList.getSelectedItemPosition()),gradeList.getSelectedItem().toString())});
+                    }
                 }catch (Exception e){
 
                 }
@@ -218,5 +248,76 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
         }
         ((Activity) context).recreate();
+    }
+
+    ////share facebook///
+    ////https://developers.facebook.com/docs/sharing/android
+    ////https://www.youtube.com/watch?v=2ZdzG_XObDM
+    ////https://stackoverflow.com/questions/30224390/how-post-to-wall-facebook-android-sdk4-0-0
+    private void shareGrade(View view){
+        ImageView fb = (ImageView) view.findViewById(R.id.fb);
+        fb.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap image = takeScreenshot();
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    ShareDialog shareDialog = new ShareDialog( (Activity)context );
+//                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
+//                            .setContentUrl(Uri.parse("http://facebook.com"))
+//                            .setQuote("เทสการแชร์")
+//                            .setShareHashtag(new ShareHashtag.Builder()
+//                                    .setHashtag("#Androidproject")
+//                                    .build())
+//                            .build();
+                    SharePhoto photo = new SharePhoto.Builder()
+                            .setBitmap(image)
+                            .build();
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo).setShareHashtag(new ShareHashtag.Builder()
+                                    .setHashtag("#คนจริงต้องขิงเกรด #Androidproject")
+                                    .build())
+                            .build();
+                    shareDialog.show(content);
+                }
+            }
+        } );
+    }
+    public static int PERMISSION_REQUEST_FOR_SCREENSHOT=1789;
+    ///////https://stackoverflow.com/questions/2661536/how-to-programmatically-take-a-screenshot//////
+    private Bitmap takeScreenshot() {
+        if(ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED){
+            // Permission has already been granted
+            ActivityCompat.requestPermissions((Activity)context,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSION_REQUEST_FOR_SCREENSHOT);
+            return null;
+        }
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+//            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            // create bitmap screen capture
+            View v1 = ((Activity)context).getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+            return bitmap;
+//            File imageFile = new File(mPath);
+
+//            FileOutputStream outputStream = new FileOutputStream(imageFile);
+//            int quality = 100;
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+//            outputStream.flush();
+//            outputStream.close();
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+        return null;
     }
 }

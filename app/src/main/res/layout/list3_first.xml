@@ -31,7 +31,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/semesterGrade"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:text="Grade"

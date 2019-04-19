@@ -47,8 +47,8 @@
     <string name="semester2">Semester2</string>
     <string name="semester3">Semester3</string>
     <string name="masterDegree">Master Degree</string>
-    <string name="facebook_app_id">317866295557485</string>
-    <string name="facebook_login_protocol_scheam">fb317866295557485</string>
+    <string name="facebook_app_id" translatable="false">317866295557485</string>
+    <string name="facebook_login_protocol_scheam" translatable="false">fb317866295557485</string>
 
 
 </resources>

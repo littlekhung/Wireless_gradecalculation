@@ -22,14 +22,19 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
 import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
 import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.share.Share;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Call;
@@ -53,9 +58,7 @@ public class Mainpage extends LocalizationActivity {
     private DBHelper roomDB;
     private User user;
     public static String degType="Bachelor";
-    private ImageView fb;
-    private CallbackManager callbackManager;
-    private ShareDialog shareDialog;
+
     //private ExpandableListAdapter listAdapter;
    // private List<String> listdata;
     //private HashMap<String, List<String>> listHashMap;
@@ -76,9 +79,9 @@ public class Mainpage extends LocalizationActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mainpage);
         ///facebook
         FacebookSdk.sdkInitialize( this.getApplicationContext() );
-        setContentView(R.layout.activity_mainpage);
         ////get DB HELPER///////
         roomDB = new DBHelper(this);
         ////////////////////////
@@ -179,20 +182,9 @@ public class Mainpage extends LocalizationActivity {
                 startActivityForResult(settingpage,SETTING);
             }
         });
-////share facebook try///
-        ////https://www.youtube.com/watch?v=2ZdzG_XObDM
-        printkey();
-        fb = (ImageView) findViewById(R.id.fb );
 
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog( this );
+//        printkey();
 
-        fb.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        } );
 
 
 
@@ -208,25 +200,27 @@ public class Mainpage extends LocalizationActivity {
 
 
     }
-    ////////////////////////////try to share on facebook///////////////////////////////
-    private void printkey() {
-        try{
-            PackageInfo info = getPackageManager().getPackageInfo( "com.example.wireless_gradecalculation",
-                    PackageManager.GET_SIGNATURES);
-            for(Signature signature : info.signatures)
-            {
-                MessageDigest md = MessageDigest.getInstance("SHA" );
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString( md.digest(),Base64.DEFAULT ) );
-            }
-        }catch(PackageManager.NameNotFoundException e)
-        {
-            e.printStackTrace();
-        }catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-    }
+    ////share facebook try//////////////////////////////
+    ////https://www.youtube.com/watch?v=2ZdzG_XObDM
+    ////https://stackoverflow.com/questions/30224390/how-post-to-wall-facebook-android-sdk4-0-0
+//    private void printkey() {
+//        try{
+//            PackageInfo info = getPackageManager().getPackageInfo( "com.example.wireless_gradecalculation",
+//                    PackageManager.GET_SIGNATURES);
+//            for(Signature signature : info.signatures)
+//            {
+//                MessageDigest md = MessageDigest.getInstance("SHA" );
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash", Base64.encodeToString( md.digest(),Base64.DEFAULT ) );
+//            }
+//        }catch(PackageManager.NameNotFoundException e)
+//        {
+//            e.printStackTrace();
+//        }catch (NoSuchAlgorithmException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
 
     //////// save state//////////
     @Override
@@ -464,7 +458,7 @@ public class Mainpage extends LocalizationActivity {
         return totalCreditGain==0?0:((double)totalCreditGain)/totalCredit;
     }
 
-    private double gradeStringtoInt(String grade){
+    public static double gradeStringtoInt(String grade){
         switch (grade){
             case "A":
                 return 4;

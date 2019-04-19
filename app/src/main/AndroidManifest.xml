@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.adk.ApplicationID"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            />
         <activity android:name=".Logo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,9 +36,8 @@
             android:resource="@array/preloaded_fonts" />
         
         <provider
-            android:authorities="com.facebook.app.FacebookContenPrivider317866295557485"
+            android:authorities="com.facebook.app.FacebookContentProvider317866295557485"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
     </application>
-
 </manifest>
