@@ -190,7 +190,7 @@ public class Mainpage extends LocalizationActivity {
         fb.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareC
+
             }
         } );
 

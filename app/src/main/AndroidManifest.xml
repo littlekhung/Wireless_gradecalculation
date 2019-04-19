@@ -34,7 +34,7 @@
             android:resource="@array/preloaded_fonts" />
         
         <provider
-            android:authorities="com.facebook.app.FacebookCenterPrivider317866295557485"
+            android:authorities="com.facebook.app.FacebookContenPrivider317866295557485"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
     </application>

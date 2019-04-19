@@ -49,6 +49,7 @@
     <string name="year4">ปี4</string>
     <string name="masterDegree">ระดับการศึกษาปริญญาโท</string>
     <string name="facebook_app_id">317866295557485</string>
+    <string name="facebook_login_protocol_scheam">fb317866295557485</string>
 
 
 </resources>
