@@ -1,7 +1,6 @@
 package com.example.wireless_gradecalculation;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -9,28 +8,19 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
-import com.example.wireless_gradecalculation.studentgradedatabase.AppDatabase;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
-import com.example.wireless_gradecalculation.studentgradedatabase.CourseDao;
 import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
 import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
-import com.example.wireless_gradecalculation.studentgradedatabase.StudentGradeDao;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -47,6 +37,7 @@ public class Mainpage extends LocalizationActivity {
     private ImageView setting;
     private TextView userName;
     private TextView gradeView;
+    private String degType;
     DBHelper roomDB;
     User user;
 
@@ -80,13 +71,25 @@ public class Mainpage extends LocalizationActivity {
         }
 
         iniProf();
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+        Spinner mySpinner = (Spinner) findViewById(R.id.degreeType);
         /////select bachelor or  maskter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Mainpage.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.education_level));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Spinner degSpinner = (Spinner) findViewById(R.id.degreeType);
+        degSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         setUpAdapterBachelor();
         listView = (ExpandableListView) findViewById(R.id.lv);
         //passing three level of information to constructor
@@ -102,6 +105,10 @@ public class Mainpage extends LocalizationActivity {
                 previousGroup = groupPosition;
             }
         });
+        ////////////////collapse all parent//////////////////
+        int count =  listView.getCount();
+        for (int i = 0; i <count ; i++)
+            listView.collapseGroup(i);
         //////////////////grade calculation//////////////////
         gradeView = (TextView) findViewById(R.id.totalGrade);
         gradeView.setText(calculateGrade());

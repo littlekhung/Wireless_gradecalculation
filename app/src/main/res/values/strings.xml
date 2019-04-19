@@ -13,7 +13,8 @@
     <string-array name="education_level">
         <item></item>
         <item>Bachelor Degree</item>
-        <item>Master Degree</item>
+        <item>Master Degree Plan A</item>
+        <item>Master Degree Plan B</item>
     </string-array>
     <string name="firstNameWarnS">Please Input Firstname</string>
     <string name="lastNameWarnS">Please Input Lastname</string>

@@ -14,7 +14,8 @@
     <string-array name="education_level">
         <item></item>
         <item>ระดับการศึกษาปริญญาตรี</item>
-        <item>ระดับการศึกษาปริญญาโท</item>
+        <item>ระดับการศึกษาปริญญาโทแผน A</item>
+        <item>ระดับการศึกษาปริญญาโทแผน B</item>
     </string-array>
     <string name="logout">ออกจากระบบ</string>
     <string name="firstNameWarnS">กรุณาใส่ชื่อของท่าน ก่อนเข้าสู้ระบบ</string>
