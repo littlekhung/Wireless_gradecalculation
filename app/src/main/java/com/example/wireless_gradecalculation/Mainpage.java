@@ -2,6 +2,9 @@ package com.example.wireless_gradecalculation;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
@@ -9,6 +12,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,8 +27,15 @@ import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
 import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
 import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Share;
+import com.facebook.share.widget.ShareDialog;
 import com.google.gson.Gson;
+import com.squareup.okhttp.Call;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,6 +53,9 @@ public class Mainpage extends LocalizationActivity {
     private DBHelper roomDB;
     private User user;
     public static String degType="Bachelor";
+    private ImageView fb;
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
     //private ExpandableListAdapter listAdapter;
    // private List<String> listdata;
     //private HashMap<String, List<String>> listHashMap;
@@ -61,6 +76,8 @@ public class Mainpage extends LocalizationActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ///facebook
+        FacebookSdk.sdkInitialize( this.getApplicationContext() );
         setContentView(R.layout.activity_mainpage);
         ////get DB HELPER///////
         roomDB = new DBHelper(this);
@@ -162,6 +179,22 @@ public class Mainpage extends LocalizationActivity {
                 startActivityForResult(settingpage,SETTING);
             }
         });
+////share facebook try///
+        ////https://www.youtube.com/watch?v=2ZdzG_XObDM
+        printkey();
+        fb = (ImageView) findViewById(R.id.fb );
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog( this );
+
+        fb.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareC
+            }
+        } );
+
+
 
 //        ////room
 //        FloatingActionButton fab = findViewById(R.id.complete);
@@ -169,7 +202,32 @@ public class Mainpage extends LocalizationActivity {
 //                Snackbar.make( view, "Replace with your action", Snackbar.LENGTH_INDEFINITE.setAction("Action",null).show()
 //        });
 //        datainTable = ViewModelProviders.of(this).get(DatainTable.class);
+
+
+
+
+
     }
+    ////////////////////////////try to share on facebook///////////////////////////////
+    private void printkey() {
+        try{
+            PackageInfo info = getPackageManager().getPackageInfo( "com.example.wireless_gradecalculation",
+                    PackageManager.GET_SIGNATURES);
+            for(Signature signature : info.signatures)
+            {
+                MessageDigest md = MessageDigest.getInstance("SHA" );
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString( md.digest(),Base64.DEFAULT ) );
+            }
+        }catch(PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     //////// save state//////////
     @Override
     protected void onSaveInstanceState(Bundle outState) {
