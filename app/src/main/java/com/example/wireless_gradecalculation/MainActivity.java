@@ -67,7 +67,7 @@ public class MainActivity extends LocalizationActivity {
                 FBuser = firebaseAuth.getCurrentUser();
                 if (FBuser != null) {
                     // User is signed in
-//                    Toast.makeText(MainActivity.this, "sign", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, FBuser.getUid()+"", Toast.LENGTH_SHORT).show();
                     if(pd == null || !pd.isShowing()){
                         pd = new ProgressDialog(MainActivity.this);
                         pd.setMessage(getString(R.string.loading));
