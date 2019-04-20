@@ -1,20 +1,38 @@
 package com.example.wireless_gradecalculation;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
 import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
 import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Logo extends LocalizationActivity {
     Course[] bachelor = new Course[]{
@@ -146,6 +164,11 @@ public class Logo extends LocalizationActivity {
             new Course("ITCY591","Special Topics in Cyber Security and Forensics","Master",1,3,3),
             new Course("ITCY698 ","Research Project","Master",1,3,6)
     };
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private FirebaseUser FBuser;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,14 +182,68 @@ public class Logo extends LocalizationActivity {
         }catch (Exception e){
 
         }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent main = new Intent(Logo.this,MainActivity.class);
-                startActivity(main);
-                finish();
-            }
-        }, 1000);
+        storage = FirebaseStorage.getInstance();
+        storageReference =  storage.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        if ((FBuser=mAuth.getCurrentUser()) != null) {
+            loadUserAndGoToMainPage();
+        }else{
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    Intent main = new Intent(Logo.this,MainActivity.class);
+                    startActivity(main);
+                    finish();
+                }
+            }, 500);
+        }
+    }
 
+    /////////////////copy from MainActivity///////////////////////
+    private void loadUserAndGoToMainPage(){
+        DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                final User user = new User(FBuser.getUid(),documentSnapshot.getString("firstname"),documentSnapshot.getString("lastname"));
+                storageReference.child("images/"+FBuser.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        try {
+                            final File localFile = File.createTempFile("Images", ".jpg");
+                            storageReference.child("images/"+FBuser.getUid()).getFile(localFile).addOnSuccessListener(new OnSuccessListener< FileDownloadTask.TaskSnapshot >() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    user.setPicuri(localFile.toURI().toString());
+                                    Intent mainpage = new Intent(Logo.this,Mainpage.class);
+                                    mainpage.putExtra("user",new Gson().toJson(user));
+                                    startActivity(mainpage);
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Intent mainpage = new Intent(Logo.this,Mainpage.class);
+                                    mainpage.putExtra("user",new Gson().toJson(user));
+                                    startActivity(mainpage);
+                                    finish();
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Intent mainpage = new Intent(Logo.this,Mainpage.class);
+                        mainpage.putExtra("user",new Gson().toJson(user));
+                        startActivity(mainpage);
+                        finish();
+                    }
+                });
+            }
+        });
     }
 }
