@@ -52,6 +52,7 @@
     <string name="Changeprofilephoto">Change profile photo</string>
     <string name="Choosecourse">Choose course</string>
     <string name="Selectoneoption">Select one option</string>
+    <string name="updateCourse">Update Grade</string>
 
 
 </resources>

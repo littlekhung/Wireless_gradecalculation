@@ -3,18 +3,15 @@ package com.example.wireless_gradecalculation;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +20,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.wireless_gradecalculation.studentgradedatabase.AppDatabase;
 import com.example.wireless_gradecalculation.studentgradedatabase.Course;
 import com.example.wireless_gradecalculation.studentgradedatabase.DBHelper;
 import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
@@ -36,19 +32,12 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import static com.example.wireless_gradecalculation.Setting.MY_PERMISSIONS_REQUEST_FOR_CAMERA;
-import static java.util.Arrays.asList;
 
 public class SecondLevelAdapter extends BaseExpandableListAdapter {
     static int semester = -1;
@@ -124,14 +113,14 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.list3_first, null);
             shareGrade(convertView);
             TextView semGrade = (TextView) convertView.findViewById(R.id.semesterGrade);
-            int totalCreditGain = 0;
-            int totalCredit = 0;
+            double totalCreditGain = 0;
+            double totalCredit = 0;
             for(int i =1;i<getChildrenCount(groupPosition)-1;i++){
                 Grade g = (Grade)getChild(groupPosition,i);
                 totalCredit+=g.credit;
                 totalCreditGain+=g.credit*Mainpage.gradeStringtoInt(g.grade);
             }
-            semGrade.setText(String.format("%.2f",totalCreditGain==0?0:((double)totalCreditGain)/totalCredit));
+            semGrade.setText(String.format("%.2f",totalCreditGain==0?0:(totalCreditGain/totalCredit)));
         }else if(isLastChild){
             convertView = inflater.inflate(R.layout.list3_last, null);
             View button = convertView.findViewById(R.id.addCourseButton);
@@ -162,10 +151,18 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
                 }
             });
             Grade[] childArray = data.get(groupPosition);
-            String name = childArray[childPosition].courseName;
+            final String name = childArray[childPosition].courseName;
             String grade = childArray[childPosition].grade;
             courseName.setText(name);
             courseGrade.setText(grade);
+            TableRow tb = (TableRow)convertView.findViewById(R.id.updateRow);
+            tb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateGrade(name);
+                    notifyDataSetChanged();
+                }
+            });
         }
         return convertView;
     }
@@ -402,5 +399,79 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             e.printStackTrace();
         }
         return null;
+    }
+    /////////////////////update grade/////////////////////////////
+    Dialog updateGradeDialog;
+    public void updateGrade(final String course){
+        updateGradeDialog = new Dialog(context);
+        updateGradeDialog.setContentView(R.layout.popupforupdategrade);
+        updateGradeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        updateGradeDialog.show();
+        ((TextView)updateGradeDialog.findViewById(R.id.txtclose)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateGradeDialog.dismiss();
+            }
+        });
+        TextView courseName = (TextView) updateGradeDialog.findViewById(R.id.updateCourse);
+        courseName.setText(course);
+        gradeList = (Spinner) updateGradeDialog.findViewById(R.id.gradeList);
+        String[] grades = new String[] {
+                "A", "B+", "B", "C+", "C", "D+", "D", "F"
+        };
+        ArrayAdapter<String> adapterGradeList = new ArrayAdapter<String>(context.getApplicationContext(),
+                android.R.layout.simple_spinner_item, grades);
+        adapterGradeList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gradeList.setAdapter(adapterGradeList);
+        Button updateCourseButton = (Button) updateGradeDialog.findViewById(R.id.updateCourseButton);
+        updateCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int year = NestedListAdapter.SelectedYear;
+                int s = semester;
+                DBHelper room = new DBHelper(context);
+                try {
+                    room.updateGrade(course.split("_")[0],FirebaseAuth.getInstance().getCurrentUser().getUid(),gradeList.getSelectedItem().toString(),year+1,s+1);
+                }catch (Exception e){
+
+                }
+                ////////////////////////below is for adding course and update ui without recreate////////////////
+                String sem ="";
+                switch (s+1){
+                    case 1:
+                        sem = context.getString(R.string.semester1);
+                        break;
+                    case 2:
+                        sem = context.getString(R.string.semester2);
+                        break;
+                    case 3:
+                        sem = context.getString(R.string.semester3);
+                        break;
+
+                }
+                ////// whether it is now bachelor menu or master menu
+                List<LinkedHashMap<String, Grade[]>> data = null;
+                switch (Mainpage.degType){
+                    case "Bachelor":
+                        data = Mainpage.bachelorData;
+                        break;
+                    case "Master":
+                        data = Mainpage.masterData;
+                        break;
+                }
+                Grade[] temp = data.get(year).get(sem);
+                int i;
+                for(i=0;i<temp.length&!temp[i].courseName.equals(course);i++){
+
+                }
+                data.get(year).get(sem)[i].grade=gradeList.getSelectedItem().toString();
+                ((TextView) ((Activity)context).findViewById(R.id.totalGrade)).setText(Mainpage.calculateGrade());
+                notifyDataSetChanged();
+                updateGradeDialog.dismiss();
+                ///////////////////////////////////////////////////////////////////////
+            }
+        });
+
+
     }
 }

@@ -113,5 +113,16 @@ public class DBHelper {
         Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
         future.get();
     }
+    public void updateGrade(final String cid, final String uid, final String gradeGain, final int year, final int semester) throws Exception{
+        Callable<Void> callable = new Callable<Void>() {
+            @Override
+            public Void call(){
+                grade.updateGrade(cid,uid,gradeGain,year,semester);
+                return null;
+            }
+        };
+        Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
+        future.get();
+    }
 
 }

@@ -445,8 +445,8 @@ public class Mainpage extends LocalizationActivity {
     }
 
     public static double calculateGradeOf(List<LinkedHashMap<String,Grade[]>> data){
-        int totalCreditGain = 0;
-        int totalCredit = 0;
+        double totalCreditGain = 0;
+        double totalCredit = 0;
         for(LinkedHashMap<String, Grade[]> y : data){
             for(Grade[] gs : y.values()){
                 for(Grade g: gs){
@@ -455,7 +455,7 @@ public class Mainpage extends LocalizationActivity {
                 }
             }
         }
-        return totalCreditGain==0?0:((double)totalCreditGain)/totalCredit;
+        return totalCreditGain==0?0:(totalCreditGain/totalCredit);
     }
 
     public static double gradeStringtoInt(String grade){
