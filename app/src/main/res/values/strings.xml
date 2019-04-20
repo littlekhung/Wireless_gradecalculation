@@ -49,6 +49,9 @@
     <string name="masterDegree">Master Degree</string>
     <string name="facebook_app_id" translatable="false">317866295557485</string>
     <string name="facebook_login_protocol_scheam" translatable="false">fb317866295557485</string>
+    <string name="Changeprofilephoto">Change profile photo</string>
+    <string name="Choosecourse">Choose course</string>
+    <string name="Selectoneoption">Select one option</string>
 
 
 </resources>

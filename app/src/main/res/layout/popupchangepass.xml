@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Changing Password"
+            android:text="@string/Changepassword"
             android:textColor="@color/fir"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Old password"
+                android:text="@string/Oldpassword"
                 android:textColor="@color/fir"
                 android:textSize="18sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="New password"
+                android:text="@string/Newpassword"
                 android:textColor="@color/fir"
                 android:textSize="18sp" />
 
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Confirm Password"
+                android:text="@string/Comfirmpassword"
                 android:textColor="@color/fir"
                 android:textSize="18sp" />
 

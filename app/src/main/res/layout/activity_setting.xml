@@ -127,9 +127,8 @@
                     android:background="@drawable/bgbutton"
                     android:padding="15dp"
                     android:shadowColor="@android:color/transparent"
-                    android:text="Save Me"
-                    android:textColor="@color/fir"
-                    tools:text="@string/SaveMe" />
+                    android:text="@string/SaveMe"
+                    android:textColor="@color/fir" />
 
 
             </LinearLayout>

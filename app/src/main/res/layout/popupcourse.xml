@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Choose course"
+            android:text="@string/Choosecourse"
             android:textColor="@color/fir"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Course"
+                android:text="@string/Course"
                 android:textColor="@color/fir"
                 android:textSize="18sp" />
 
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Grade"
+                android:text="@string/grade"
                 android:textColor="@color/fir"
                 android:textSize="18sp" />
 

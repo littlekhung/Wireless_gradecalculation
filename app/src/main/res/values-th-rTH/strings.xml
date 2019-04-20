@@ -28,18 +28,18 @@
     <string name="Complete">เสร็จสิ้น</string>
     <string name="Oldpassword">รหัสผ่านเก่า</string>
     <string name="Newpassword">รหัสผ่านใหม่</string>
-    <string name="SaveMe">บันทึก</string>
+    <string name="SaveMe">บันทึกฉัน</string>
     <string name="Camera">กล้อง</string>
     <string name="Select">เลือกรูปภาพจากเเกลอรี่</string>
     <string name="AddCourse">เพิ่มวิชา</string>
-    <string name="Course">Course</string>
+    <string name="Course">วิชา</string>
     <string name="Alphagrade">Alphagrade</string>
-    <string name="changePassSuccess">Change Password Success</string>
-    <string name="changePassFail">Change Password Fail</string>
+    <string name="changePassSuccess">เปลี่ยนรหัสเสร็จสิ้น</string>
+    <string name="changePassFail">เปลี่ยนรหัสผิดพลาด</string>
     <string name="muict_grade_calculator">MUICT Grade Calculator</string>
     <string name="Remove">Remove</string>
-    <string name="oldPassWrong">Old Password is Incorrect</string>
-    <string name="newPassMatchOldPass">New password must be different!!!</string>
+    <string name="oldPassWrong">รหัสเก่าถูกต้อง</string>
+    <string name="newPassMatchOldPass">รหัสใหม่ต้องแตกต่าง!!!</string>
     <string name="semester1">เทอม1</string>
     <string name="semester2">เทอม2</string>
     <string name="semester3">เทอม3</string>
@@ -48,6 +48,9 @@
     <string name="year3">ปี3</string>
     <string name="year4">ปี4</string>
     <string name="masterDegree">ระดับการศึกษาปริญญาโท</string>
+    <string name="Changeprofilephoto">เปลี่ยนภาพโปรไฟล์</string>
+    <string name="Choosecourse">เลือกวิชา</string>
+    <string name="Selectoneoption">เลือกหนึ่งตัวเลือก</string>
 
 
 </resources>
