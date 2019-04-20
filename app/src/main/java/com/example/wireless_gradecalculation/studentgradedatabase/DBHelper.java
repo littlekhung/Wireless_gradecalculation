@@ -36,6 +36,20 @@ public class DBHelper {
         return future.get();
     }
 
+    public Course getCourseByID(final String cid) throws ExecutionException, InterruptedException {
+
+        Callable<Course> callable = new Callable<Course>() {
+            @Override
+            public Course call() throws Exception {
+                return course.loadById(cid);
+            }
+        };
+
+        Future<Course> future = Executors.newSingleThreadExecutor().submit(callable);
+
+        return future.get();
+    }
+
     public List<Course> loadEnrollCourse(final String uid,final int year,final int semester,final String degType) throws ExecutionException, InterruptedException {
 
         Callable<List<Course>> callable = new Callable<List<Course>>() {
@@ -99,4 +113,5 @@ public class DBHelper {
         Future<Void> future = Executors.newSingleThreadExecutor().submit(callable);
         future.get();
     }
+
 }

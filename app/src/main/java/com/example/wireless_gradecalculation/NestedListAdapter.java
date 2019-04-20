@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class NestedListAdapter extends BaseExpandableListAdapter {
-
+    public static SecondELV currentAdapter;
     String[] parentHeaders;
     List<String[]> secondLevel;
     private Context context;
@@ -107,8 +107,7 @@ public class NestedListAdapter extends BaseExpandableListAdapter {
                 previousGroup = groupPosition;
             }
         });
-
-
+        currentAdapter = secondLevelELV;
         return secondLevelELV;
     }
 

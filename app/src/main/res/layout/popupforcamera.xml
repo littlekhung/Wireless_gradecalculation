@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Select one option"
+            android:text="@string/Selectoneoption"
             android:textColor="@color/fir"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -52,10 +52,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Camera"
+                android:text="@string/Camera"
                 android:textColor="@color/fir"
-                android:textSize="18sp"
-                tools:text="@string/Camera" />
+                android:textSize="18sp" />
 
         </LinearLayout>
         <LinearLayout
@@ -63,14 +62,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-             <TextView
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Select Photo in this device"
+                android:text="@string/Select"
                 android:textColor="@color/fir"
-                android:textSize="18sp"
-                tools:text="@string/Select" />
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 

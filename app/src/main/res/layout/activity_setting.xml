@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="Change profile photo"
+                android:text="@string/Changeprofilephoto"
                 android:textColor="#323a45"
                 android:textSize="21sp"
                 android:textStyle="bold" />

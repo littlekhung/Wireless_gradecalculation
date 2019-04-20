@@ -49,7 +49,7 @@ import java.util.List;
 
 public class Mainpage extends LocalizationActivity {
     public static final int SETTING = 333;
-    private ExpandableListView listView;
+    public static ExpandableListView listView;
     private ImageView en;
     private ImageView th;
     private ImageView setting;
@@ -430,7 +430,7 @@ public class Mainpage extends LocalizationActivity {
                 matrix, true);
     }
 
-    private String calculateGrade(){
+    public static String calculateGrade(){
         double grade=-1;
         switch (degType){
             case "Bachelor":
@@ -444,7 +444,7 @@ public class Mainpage extends LocalizationActivity {
         return String.format("%.2f",grade);
     }
 
-    private double calculateGradeOf(List<LinkedHashMap<String,Grade[]>> data){
+    public static double calculateGradeOf(List<LinkedHashMap<String,Grade[]>> data){
         int totalCreditGain = 0;
         int totalCredit = 0;
         for(LinkedHashMap<String, Grade[]> y : data){

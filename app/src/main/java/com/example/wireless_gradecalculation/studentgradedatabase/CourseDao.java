@@ -13,17 +13,17 @@ public interface CourseDao {
     List<Course> getAll();
     @Query("SELECT * FROM course WHERE CID IN (:courseIds)")
     List<Course> loadAllByIds(int[] courseIds);
-    @Query("SELECT * FROM course WHERE CID IN (:courseId)")
-    List<Course> loadById(String courseId);
+    @Query("SELECT * FROM course WHERE CID = :courseId LIMIT 1")
+    Course loadById(String courseId);
     @Query("SELECT * FROM course WHERE Year = :year AND Semester = :semester AND DType = :degType")
     List<Course> loadAllByTimeAndDegType(int year, int semester, String degType);
-    @Query("SELECT * FROM course WHERE CID NOT IN " +
-            "(SELECT course.CID FROM course INNER JOIN studentgrade ON course.CID = studentgrade.CID " +
+    @Query("SELECT * FROM course WHERE CName NOT IN " +
+            "(SELECT course.CName FROM course INNER JOIN studentgrade ON course.CID = studentgrade.CID " +
             "WHERE studentgrade.UID = :uid) AND Year = :year AND Semester = :semester AND DType = :degType")
     List<Course> loadNonEnrollCourse(String uid,int year,int semester,String degType);
-    @Query("SELECT * FROM course WHERE CID IN " +
-            "(SELECT course.CID FROM course INNER JOIN studentgrade ON course.CID = studentgrade.CID " +
-            "WHERE studentgrade.UID = :uid) AND Year = :year AND Semester = :semester AND DType = :degType")
+    @Query("SELECT * FROM course WHERE CName IN " +
+            "(SELECT course.CName FROM course INNER JOIN studentgrade ON course.CID = studentgrade.CID " +
+            "WHERE studentgrade.UID = :uid AND studentgrade.Year = :year AND studentgrade.Semester = :semester ) AND Year = :year AND Semester = :semester AND DType = :degType")
     List<Course> loadEnrollCourse(String uid,int year,int semester,String degType);
     @Insert
     void insertAll(Course... courses);

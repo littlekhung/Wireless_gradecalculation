@@ -105,6 +105,47 @@ public class Logo extends LocalizationActivity {
                 new Course("ITCS499","Senior Project","Bachelor",4,2,6),
                 new Course("ITLG282","Academic Writing","Bachelor",4,2,2)
     };
+    Course[] master = new Course[]{new Course("ITCY511","Computer and Network Security","Master",1,1,3),
+            new Course("ITCY541","Digital Forensics Technologies and Techniques","Master",1,1,3),
+            new Course("ITCY513","Cyber Ethics and Law","Master",1,1,2),
+            new Course("ITCY512","Information Security Management","Master",1,1,3),
+            new Course("ITCY515","Research Methodology and Seminar in Cybersecurity and Information Assurance","Master",1,1,1),
+            new Course("ITCY531","System Hardening and Penetration Testing","Master",1,2,3),
+            new Course("ITCY571","Information Assurance and Risk Analysis","Master",1,2,3),
+            new Course("ITCY698_","Thesis(3 Credit)","Master",1,2,3),
+            new Course("ITCY514","Fraud Analysis and Detection","Master",1,2,3),
+            new Course("ITCY551","Application of Cryptography","Master",1,2,3),
+            new Course("ITCY534","Reverse Engineering and Vulnerability Analysis","Master",1,2,3),
+            new Course("ITCY552","Authentication Technology Management","Master",1,2,3),
+            new Course("ITCY543","Network Forensics","Master",1,2,3),
+            new Course("ITCY553","Secure Software Design","Master",1,2,3),
+            new Course("ITCY544","Mobile Security","Master",1,2,3),
+            new Course("ITCY572","Information and Social Networks Security","Master",1,2,3),
+            new Course("ITCY545","Cloud Security","Master",1,2,3),
+            new Course("ITCY573","E-Services Security Management","Master",1,2,3),
+            new Course("ITCY561","Ethical Hacking","Master",1,2,3),
+            new Course("ITCY581","Incident Response Management","Master",1,2,3),
+            new Course("ITCY562","Intrusion Detection and Prevention","Master",1,2,3),
+            new Course("ITCY592","Special Topics in Information Assurance","Master",1,2,3),
+            new Course("ITCY591","Special Topics in Cyber Security and Forensics","Master",1,2,3),
+            new Course("ITCY698","Thesis(9 Credit)","Master",1,3,9),
+            new Course("ITCY514","Fraud Analysis and Detection","Master",1,3,3),
+            new Course("ITCY551","Application of Cryptography","Master",1,3,3),
+            new Course("ITCY534","Reverse Engineering and Vulnerability Analysis","Master",1,3,3),
+            new Course("ITCY552","Authentication Technology Management","Master",1,3,3),
+            new Course("ITCY543","Network Forensics","Master",1,3,3),
+            new Course("ITCY553","Secure Software Design","Master",1,3,3),
+            new Course("ITCY544","Mobile Security","Master",1,3,3),
+            new Course("ITCY572","Information and Social Networks Security","Master",1,3,3),
+            new Course("ITCY545","Cloud Security","Master",1,3,3),
+            new Course("ITCY573","E-Services Security Management","Master",1,3,3),
+            new Course("ITCY561","Ethical Hacking","Master",1,3,3),
+            new Course("ITCY581","Incident Response Management","Master",1,3,3),
+            new Course("ITCY562","Intrusion Detection and Prevention","Master",1,3,3),
+            new Course("ITCY592","Special Topics in Information Assurance","Master",1,3,3),
+            new Course("ITCY591","Special Topics in Cyber Security and Forensics","Master",1,3,3),
+            new Course("ITCY698 ","Research Project","Master",1,3,6)
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +155,7 @@ public class Logo extends LocalizationActivity {
         DBHelper room = new DBHelper(this);
         try {
                 room.insertCourse(bachelor);
+                room.insertCourse(master);
         }catch (Exception e){
 
         }

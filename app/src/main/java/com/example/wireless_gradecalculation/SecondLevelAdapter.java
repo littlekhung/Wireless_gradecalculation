@@ -44,13 +44,14 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static com.example.wireless_gradecalculation.Setting.MY_PERMISSIONS_REQUEST_FOR_CAMERA;
 import static java.util.Arrays.asList;
 
 public class SecondLevelAdapter extends BaseExpandableListAdapter {
-
+    static int semester = -1;
     private Context context;
     List<Grade[]> data;
     String[] headers;
@@ -117,6 +118,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        semester = groupPosition;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(childPosition==0){
             convertView = inflater.inflate(R.layout.list3_first, null);
@@ -192,7 +194,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         gradeList = (Spinner) addCourseDialog.findViewById(R.id.gradeList);
         Button addCourseButton = (Button) addCourseDialog.findViewById(R.id.addCourseButton);
 
-        String[] courses = getNonEnrollCourseList(year,semester);
+        final String[] courses = getNonEnrollCourseList(year,semester);
 
         ArrayAdapter<String> adapterCourseList = new ArrayAdapter<String>(context.getApplicationContext(),
                 android.R.layout.simple_spinner_item, courses);
@@ -211,14 +213,56 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 DBHelper room = new DBHelper(context);
+                String courseAdded;
                 try {
-                    if(!courseList.getSelectedItem().toString().isEmpty()) {
-                        room.insertGrade(new StudentGrade[]{new StudentGrade(FirebaseAuth.getInstance().getCurrentUser().getUid(),courseID.get(courseList.getSelectedItemPosition()),gradeList.getSelectedItem().toString())});
+                    if(!(courseAdded = courseList.getSelectedItem().toString()).isEmpty()) {
+                        String cid,grade;
+                        int credit = room.getCourseByID((cid=courseID.get(courseList.getSelectedItemPosition()))).credit;
+                        room.insertGrade(new StudentGrade[]{new StudentGrade(FirebaseAuth.getInstance().getCurrentUser().getUid(),cid,(grade=gradeList.getSelectedItem().toString()),year,semester)});
+                        ////////////////////////below is for adding course and update ui without recreate////////////////
+                        String sem ="";
+                        switch (semester){
+                            case 1:
+                                sem = context.getString(R.string.semester1);
+                                break;
+                            case 2:
+                                sem = context.getString(R.string.semester2);
+                                break;
+                            case 3:
+                                sem = context.getString(R.string.semester3);
+                                break;
+
+                        }
+                        ////// whether it is now bachelor menu or master menu
+                        List<LinkedHashMap<String, Grade[]>> data = null;
+                        switch (Mainpage.degType){
+                            case "Bachelor":
+                                data = Mainpage.bachelorData;
+                                break;
+                            case "Master":
+                                data = Mainpage.masterData;
+                                break;
+                        }
+                        Grade[] temp = data.get(year-1).get(sem);
+                        ArrayList<Grade> t = new ArrayList<>(Arrays.asList(temp));
+                        t.add(t.size()-1,new Grade(courseList.getSelectedItem().toString(),credit,grade));
+                        data.get(year-1).replace(sem,t.toArray(new Grade[t.size()]));
+                        ((NestedListAdapter)Mainpage.listView.getExpandableListAdapter()).notifyDataSetChanged();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                NestedListAdapter.currentAdapter.expandGroup(semester-1);
+                            }
+                        }, 1);
+                        ((TextView) ((Activity)context).findViewById(R.id.totalGrade)).setText(Mainpage.calculateGrade());
+                        ///////////////////////////////////////////////////////////////////////
+
                     }
                 }catch (Exception e){
 
                 }
-                ((Activity) context).recreate();
+                addCourseDialog.dismiss();
+//                ((Activity) context).recreate();
             }
         });
     }
@@ -243,10 +287,50 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         DBHelper room = new DBHelper(context);
         try {
             room.deleteGrade(FirebaseAuth.getInstance().getCurrentUser().getUid(),courseName.split("_")[0]);
+            ////// whether it is now bachelor menu or master menu
+            List<LinkedHashMap<String, Grade[]>> data = null;
+            String sem ="";
+            switch (semester+1){
+                case 1:
+                    sem = context.getString(R.string.semester1);
+                    break;
+                case 2:
+                    sem = context.getString(R.string.semester2);
+                    break;
+                case 3:
+                    sem = context.getString(R.string.semester3);
+                    break;
+
+            }
+            switch (Mainpage.degType){
+                case "Bachelor":
+                    data = Mainpage.bachelorData;
+                    break;
+                case "Master":
+                    data = Mainpage.masterData;
+                    break;
+            }
+            Grade[] temp = data.get(NestedListAdapter.SelectedYear).get(sem);
+            ArrayList<Grade> t = new ArrayList<>(Arrays.asList(temp));
+            for(int i =0;i<t.size();i++)
+                if(t.get(i).courseName.equals(courseName)){
+                    t.remove(i);
+                    break;
+                }
+            data.get(NestedListAdapter.SelectedYear).replace(sem,t.toArray(new Grade[t.size()]));
+            ((NestedListAdapter)Mainpage.listView.getExpandableListAdapter()).notifyDataSetChanged();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    NestedListAdapter.currentAdapter.expandGroup(semester);
+                }
+            }, 1);
+            ((TextView) ((Activity)context).findViewById(R.id.totalGrade)).setText(Mainpage.calculateGrade());
+            ///////////////////////////////////////////////////////////////////////
         }catch (Exception e){
 
         }
-        ((Activity) context).recreate();
+//        ((Activity) context).recreate();
     }
 
     ////share facebook///

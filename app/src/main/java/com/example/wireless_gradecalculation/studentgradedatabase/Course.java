@@ -5,10 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "course",primaryKeys = {"CID","Year","Semester"})
+@Entity(tableName = "course",primaryKeys = {"CID","CName","Year","Semester"})
 public class Course {
     @NonNull
     public String CID;
+    @NonNull
     @ColumnInfo(name = "CName")
     public String courseName;
     @ColumnInfo(name = "DType")
