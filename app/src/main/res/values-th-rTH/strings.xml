@@ -37,7 +37,7 @@
     <string name="changePassSuccess">เปลี่ยนรหัสเสร็จสิ้น</string>
     <string name="changePassFail">เปลี่ยนรหัสผิดพลาด</string>
     <string name="muict_grade_calculator">MUICT Grade Calculator</string>
-    <string name="Remove">Remove</string>
+    <string name="Remove">นำออก</string>
     <string name="oldPassWrong">รหัสเก่าถูกต้อง</string>
     <string name="newPassMatchOldPass">รหัสใหม่ต้องแตกต่าง!!!</string>
     <string name="semester1">เทอม1</string>
@@ -51,7 +51,7 @@
     <string name="Changeprofilephoto">เปลี่ยนภาพโปรไฟล์</string>
     <string name="Choosecourse">เลือกวิชา</string>
     <string name="Selectoneoption">เลือกหนึ่งตัวเลือก</string>
-    <string name="updateCourse">Update Grade</string>
+    <string name="updateCourse">อัพเดทเกรด</string>
 
 
 </resources>
