@@ -42,7 +42,7 @@
 
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="112dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="68dp">
 
@@ -50,8 +50,8 @@
                     android:id="@+id/semesterGrade"
                     android:layout_width="53dp"
                     android:layout_height="28dp"
-                    android:textColor="@color/fir"
                     android:text="Grade"
+                    android:textColor="@color/fir"
                     android:textSize="18sp"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="0dp" />
