@@ -148,7 +148,6 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         }else{
             convertView = inflater.inflate(R.layout.list3, null);
             final TextView courseName = (TextView) convertView.findViewById(R.id.courseName);
-            ((TextView) convertView.findViewById(R.id.num)).setText(""+childPosition);
             TextView courseGrade = (TextView) convertView.findViewById(R.id.courseGrade);
             ImageView delete = (ImageView) convertView.findViewById(R.id.deleteCourse);
             delete.setFocusable(false);
