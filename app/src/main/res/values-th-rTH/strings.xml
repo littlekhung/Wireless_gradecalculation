@@ -51,7 +51,7 @@
     <string name="Changeprofilephoto">เปลี่ยนภาพโปรไฟล์</string>
     <string name="Choosecourse">เลือกวิชา</string>
     <string name="Selectoneoption">เลือกหนึ่งตัวเลือก</string>
-    <string name="updateCourse">อัพเดทเกรด</string>
+    <string name="updateCourse">เปลี่ยนแปลงเกรด</string>
 
 
 </resources>
