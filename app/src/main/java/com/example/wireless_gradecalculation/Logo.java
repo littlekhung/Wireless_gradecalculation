@@ -1,3 +1,7 @@
+// this is the first activity the app start
+// it will initiate database with the available course
+// if there is user logged in it will load user and go to mainpage directly
+// otherwise it will go to login page
 package com.example.wireless_gradecalculation;
 
 import android.Manifest;

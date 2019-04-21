@@ -1,9 +1,12 @@
+// querry may be useful for our applciation
 package com.example.wireless_gradecalculation.studentgradedatabase;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+
+import com.example.wireless_gradecalculation.studentgradedatabase.StudentGrade;
 
 import java.util.List;
 

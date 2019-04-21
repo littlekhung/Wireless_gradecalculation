@@ -1,3 +1,4 @@
+// This will keep student grade
 package com.example.wireless_gradecalculation.studentgradedatabase;
 
 import android.arch.persistence.room.ColumnInfo;

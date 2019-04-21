@@ -1,3 +1,7 @@
+/**
+ * adapter for nested expanable listview
+ * modify from https://www.youtube.com/watch?v=jZxZIFnJ9jE&feature=youtu.be
+ */
 package com.example.wireless_gradecalculation;
 
 import android.Manifest;
@@ -176,6 +180,14 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     private Spinner courseList;
     private Spinner gradeList;
     private ArrayList<String> courseID;
+
+    /**
+     * show add course dialog
+     * add the current selected course and grade from dialog to room database
+     * no recreated need
+     * @param year year selected
+     * @param semester semester selected
+     */
     private void addCourse(final int year, final int semester){
         addCourseDialog = new Dialog(context);
         addCourseDialog.setContentView(R.layout.popupcourse);
@@ -263,6 +275,13 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             }
         });
     }
+
+    /**
+     * get all non enrolled course to user to add grade in
+     * @param year
+     * @param semester
+     * @return string of non enrolled course name
+     */
     private String[] getNonEnrollCourseList(int year,int semester){
         DBHelper room = new DBHelper(context);
         List<Course> courses=null;
@@ -280,6 +299,11 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         return courselist.toArray(new String[courselist.size()]);
     }
 
+    /**
+     * delete course from database and also refresh display
+     * no recreate need
+     * @param courseName course name to be deleted
+     */
     private void deleteCourse(String courseName){
         DBHelper room = new DBHelper(context);
         try {
@@ -330,10 +354,14 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
 //        ((Activity) context).recreate();
     }
 
-    ////share facebook///
-    ////https://developers.facebook.com/docs/sharing/android
-    ////https://www.youtube.com/watch?v=2ZdzG_XObDM
-    ////https://stackoverflow.com/questions/30224390/how-post-to-wall-facebook-android-sdk4-0-0
+    /**
+     * function to share grade to face book
+     * this will capture screen image add hashtag and show facebook share dialog
+     *     ////https://developers.facebook.com/docs/sharing/android
+     *     ////https://www.youtube.com/watch?v=2ZdzG_XObDM
+     *     ////https://stackoverflow.com/questions/30224390/how-post-to-wall-facebook-android-sdk4-0-0
+     * @param view view to display dialog
+     */
     private void shareGrade(View view){
         ImageView fb = (ImageView) view.findViewById(R.id.fb);
         fb.setOnClickListener( new View.OnClickListener() {
@@ -364,6 +392,12 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     }
     public static int PERMISSION_REQUEST_FOR_SCREENSHOT=1789;
     ///////https://stackoverflow.com/questions/2661536/how-to-programmatically-take-a-screenshot//////
+
+    /**
+     * function to take screenshot and request permission to write external image
+     * if not granted
+     * @return bitmap image of screenshot
+     */
     private Bitmap takeScreenshot() {
         if(ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -402,6 +436,12 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
     }
     /////////////////////update grade/////////////////////////////
     Dialog updateGradeDialog;
+
+    /**
+     * show dialog
+     * update grade of course the grade to be update is the grade selected in dialog
+     * @param course course to be update
+     */
     public void updateGrade(final String course){
         updateGradeDialog = new Dialog(context);
         updateGradeDialog.setContentView(R.layout.popupforupdategrade);

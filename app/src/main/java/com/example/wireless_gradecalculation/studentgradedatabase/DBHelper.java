@@ -1,3 +1,4 @@
+/////// This is class which provide easier way to use room database (call each function in another thread)
 package com.example.wireless_gradecalculation.studentgradedatabase;
 
 import android.content.Context;

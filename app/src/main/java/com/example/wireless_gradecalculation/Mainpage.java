@@ -1,3 +1,5 @@
+// mainpage for our applciation
+// it provide function to calculate grade and change language
 package com.example.wireless_gradecalculation;
 
 import android.app.Activity;
@@ -200,7 +202,7 @@ public class Mainpage extends LocalizationActivity {
 
 
     }
-    ////share facebook try//////////////////////////////
+    ////share facebook get hash key for facebook api//////////////////////////////
     ////https://www.youtube.com/watch?v=2ZdzG_XObDM
     ////https://stackoverflow.com/questions/30224390/how-post-to-wall-facebook-android-sdk4-0-0
 //    private void printkey() {
@@ -228,7 +230,10 @@ public class Mainpage extends LocalizationActivity {
         outState.putString("user", new Gson().toJson(user));
         super.onSaveInstanceState(outState);
     }
-    //////// initiate profile////////////
+
+    /**
+     * //////// initiate user object////////////
+     */
     public void iniProf(){
         userName = (TextView) findViewById(R.id.mainpageUserName);
         userName.setText(user.getFirstname()+" "+user.getLastname());
@@ -244,6 +249,13 @@ public class Mainpage extends LocalizationActivity {
     }
 
     //load all course student register from database
+
+
+    /**
+     * set up data for bachelor degree
+     * load all graded course from database and initiate data to generate
+     * expandable listview for grade calculation
+     */
     private void setUpAdapterBachelor() {
         bachelorSecondLevel = new ArrayList<>();
         bachelorData = new ArrayList<>();
@@ -312,7 +324,10 @@ public class Mainpage extends LocalizationActivity {
         bachelorData.add(Year4);
 
     }
-    //////////////same as above but it is master degree
+
+    /**
+     *     same as above but it is master degree
+     */
     private void setUpAdapterMaster(){
         masterSecondLevel = new ArrayList<>();
         masterData = new ArrayList<>();
@@ -345,7 +360,12 @@ public class Mainpage extends LocalizationActivity {
 
         masterData.add(master);
     }
-    ///////////transform CourseID to Grade////////////////////////////
+
+
+    /**
+     * @param c course
+     * @return grade from c (course)
+     */
     Grade getGradeFromCourse(Course c){
         StudentGrade gradeRetrieve=null;
         try {
@@ -356,6 +376,11 @@ public class Mainpage extends LocalizationActivity {
         return gradeRetrieve==null?null:new Grade(c.CID+"_"+c.courseName,c.credit,gradeRetrieve.grade);
     }
 
+    /**
+     *
+     * @param cs list of course
+     * @return list of grade from cs
+     */
     List<Grade> getGradesFromCourses(List<Course> cs){
         ArrayList<Grade> ret = new ArrayList<>();
         for(Course c : cs){
@@ -363,13 +388,23 @@ public class Mainpage extends LocalizationActivity {
         }
         return ret;
     }
-    ////////// make grade array/////////////////////////
+
+    /**
+     * make grade array from list of grade
+     * we will add empty grade to first and last for expandable listview ui
+     * @param gs list of grade
+     * @return array of grade ready to use
+     */
     public static Grade[] createGradeArray(List<Grade> gs){
         gs.add(0,new Grade());
         gs.add(new Grade());
         return gs.toArray(new Grade[gs.size()]);
     }
-    //////////// get image if it is changed //////////////
+
+
+    /**
+     *     get image if it is changed //////////////
+      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -392,7 +427,15 @@ public class Mainpage extends LocalizationActivity {
                 break;
         }
     }
-    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+
+    /**
+     *   rotate image to proper image
+     *   from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+     * @param pic bitmap of image
+     * @param imUri uri of image
+     * @return rotated image
+     */
     public Bitmap rotateIfNeed(Bitmap pic, Uri imUri){
         Bitmap rotate = null;
         try{
@@ -422,7 +465,15 @@ public class Mainpage extends LocalizationActivity {
         }
         return rotate;
     }
-    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+
+    /**
+     * used by rotatedimageifneed method
+     * from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+     * @param source bitmap image
+     * @param angle rotation angle
+     * @return rotated image
+     */
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
@@ -430,6 +481,10 @@ public class Mainpage extends LocalizationActivity {
                 matrix, true);
     }
 
+    /**
+     *  calculate grade from the data we have
+     * @return grade in string format X.XX
+     */
     public static String calculateGrade(){
         double grade=-1;
         switch (degType){
@@ -444,6 +499,11 @@ public class Mainpage extends LocalizationActivity {
         return String.format("%.2f",grade);
     }
 
+    /**
+     * calculate grade of the data
+     * @param data the data from expanable listview contain all grade
+     * @return grade in double
+     */
     public static double calculateGradeOf(List<LinkedHashMap<String,Grade[]>> data){
         double totalCreditGain = 0;
         double totalCredit = 0;
@@ -458,6 +518,11 @@ public class Mainpage extends LocalizationActivity {
         return totalCreditGain==0?0:(totalCreditGain/totalCredit);
     }
 
+    /**
+     * transform string to grade
+     * @param grade grade (A,B+,B,...)
+     * @return numerical grade
+     */
     public static double gradeStringtoInt(String grade){
         switch (grade){
             case "A":

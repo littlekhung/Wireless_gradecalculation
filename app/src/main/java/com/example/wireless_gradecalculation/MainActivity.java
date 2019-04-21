@@ -1,3 +1,6 @@
+// this is the login activity (sorry for the class name)
+// it will provide user login function and if they login they will go to mainpage
+// also user can signup with signup button
 package com.example.wireless_gradecalculation;
 
 import android.app.ProgressDialog;
@@ -98,6 +101,11 @@ public class MainActivity extends LocalizationActivity {
         });
     }
     User user;
+
+    /**
+    * this function will load user information (name and picture) and send it will embedded user in the indent and
+    * move to the mainpage so the mainpage will be ready to use.
+    * */
     private void loadUserAndGoToMainPage(){
         DocumentReference docRef = db.collection("user").document(mAuth.getCurrentUser().getUid());
 //        Log.e("user",mAuth.getCurrentUser().getUid());
@@ -162,12 +170,16 @@ public class MainActivity extends LocalizationActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
+    // go to signup activity
     private void toSignUpAct(){
         Intent sign = new Intent(this, Signup.class);
         startActivity(sign);
     }
-
+    /**
+    * this will login to the application
+    * first it will verify the input so the input must be in proper format before
+    * we send it to firebase
+    * */
     private void loginToApp(String emailin,String passwordin){
         if(emailin.length()==0){
             Toast.makeText(MainActivity.this, "Please Input Email", Toast.LENGTH_SHORT).show();
@@ -205,11 +217,16 @@ public class MainActivity extends LocalizationActivity {
                     }
                 });
     }
-
+    /**
+    * function to validate email format
+    * */
     private boolean validateEmail(String email){
         // Email Regex from Andy Smith ref: http://regexlib.com/UserPatterns.aspx?authorId=15777db1-4c90-48f2-b323-905b509f16e8
         return email.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
     }
+    /**
+    * function to validate password format
+    * */
     private boolean validatePassword(String password){
         // character or number
         // length must be at least 6

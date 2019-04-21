@@ -1,3 +1,7 @@
+/**
+ * this class will keep user information used inorder to show the current user in each activity
+ * also contain image uri in string format
+ */
 package com.example.wireless_gradecalculation;
 
 

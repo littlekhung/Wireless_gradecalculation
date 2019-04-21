@@ -1,3 +1,7 @@
+/**
+ * nested view
+ *  * modify from https://www.youtube.com/watch?v=jZxZIFnJ9jE&feature=youtu.be
+ */
 package com.example.wireless_gradecalculation;
 
 import android.content.Context;

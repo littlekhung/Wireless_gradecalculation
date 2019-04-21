@@ -1,3 +1,7 @@
+/**
+ * class for nested expanable listview
+ *  * modify from https://www.youtube.com/watch?v=jZxZIFnJ9jE&feature=youtu.be
+ */
 package com.example.wireless_gradecalculation;
 
 import android.content.Context;
@@ -8,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import com.example.wireless_gradecalculation.Grade;
+import com.example.wireless_gradecalculation.SecondELV;
 
 import java.util.ArrayList;
 import java.util.HashMap;

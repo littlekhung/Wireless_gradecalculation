@@ -1,3 +1,6 @@
+/**
+ * sign up page for user to sign up
+ */
 package com.example.wireless_gradecalculation;
 
 import android.app.ProgressDialog;
@@ -65,6 +68,15 @@ public class Signup extends LocalizationActivity {
         });
     }
 
+    /**
+     * sign up function
+     * contain input verification
+     * @param emailin user email
+     * @param passwordin user password
+     * @param firstNamein user firstname
+     * @param lastNamein user lastname
+     * @param password2in user confirmation password
+     */
     private void signUp(String emailin, String passwordin, final String firstNamein, final String lastNamein, String password2in){
         if(firstNamein.length()==0){
             Toast.makeText(Signup.this, "Please Input Firstname", Toast.LENGTH_SHORT).show();
@@ -129,6 +141,11 @@ public class Signup extends LocalizationActivity {
                 });
     }
 
+    /**
+     * store user name and last name in cloud firestore
+     * @param fn user firstname
+     * @param ln user lastname
+     */
     private void createUserInFB(String fn,String ln){
         Map<String, Object> data = new HashMap<>();
         data.put("firstname", fn);
@@ -148,15 +165,33 @@ public class Signup extends LocalizationActivity {
                 });
     }
 
+    /**
+     *  validate email
+     * @param email user email
+     * @return whether it is in email format or not
+     */
     private boolean validateEmail(String email){
         // Email Regex from Andy Smith ref: http://regexlib.com/UserPatterns.aspx?authorId=15777db1-4c90-48f2-b323-905b509f16e8
         return email.matches("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
     }
+
+    /**
+     * validate user password
+     * @param password password
+     * @return whether it is longer than 7 character (character or number only)
+     */
     private boolean validatePassword(String password){
         // character or number
         // length must be at least 7
         return password.matches("[\\w\\d]{7,}");
     }
+
+    /**
+     * validate password and confirmation password
+     * @param password
+     * @param confirmpassword
+     * @return whether they are match or not
+     */
     private boolean validateConfirmPassword(String password, String confirmpassword){
         return password.equals(confirmpassword);
     }

@@ -1,3 +1,6 @@
+/**
+ * setting page provide user change photo, name and lastname, and password function
+ */
 package com.example.wireless_gradecalculation;
 
 import android.Manifest;
@@ -121,7 +124,10 @@ public class Setting extends LocalizationActivity {
         });
 
     }
-    //////// initiate profile////////////
+
+    /**
+     * //////// initiate profile////////////
+     */
     public void iniProf(){
         userName = (TextView) findViewById(R.id.settingUserName);
         userName.setText(user.getFirstname()+" "+user.getLastname());
@@ -135,7 +141,11 @@ public class Setting extends LocalizationActivity {
             }
         }
     }
-    ////////from  https://youtu.be/h62bcMwahTU //////
+
+    /**
+     *     function to upload image to firebase
+     *     ////////from  https://youtu.be/h62bcMwahTU //////
+     */
     private void uploadImage()
     {
         if(imageUri!= null)
@@ -189,6 +199,10 @@ public class Setting extends LocalizationActivity {
             changeName();
         }
     }
+
+    /**
+     * function to change name of user (show dialog)
+     */
     public void changeName(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading)+" 100%");
@@ -264,7 +278,10 @@ public class Setting extends LocalizationActivity {
         }
 
     }
-    ////////// Go to Mainpage /////////////////////
+
+    /**
+     *     ////////// Go to Mainpage /////////////////////
+     */
     private void goToMain(){
         Gson gson = new Gson();
         Intent returnIntent = new Intent();
@@ -272,7 +289,10 @@ public class Setting extends LocalizationActivity {
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
-    /////////Change Password Popup///////
+
+    /**
+     * show change password popup
+     */
     public void ShowPopupChangePass() {
         TextView txtclose;
         Button complete;
@@ -299,7 +319,14 @@ public class Setting extends LocalizationActivity {
         });
 
     }
-    //////Change password/////
+
+    /**
+     * function to change password in firebase
+     * contain password format verification
+     * @param oldPass old user password
+     * @param newPass new password
+     * @param conNewPass confirmation of new password
+     */
     public void changePassword(String oldPass, final String newPass, String conNewPass){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
@@ -356,8 +383,13 @@ public class Setting extends LocalizationActivity {
                     }
                 });
     }
-    //////Camera//////
 
+    /**
+     * used to collect image from camera or selection from gallery
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -395,7 +427,14 @@ public class Setting extends LocalizationActivity {
 //        ByteArrayOutputStream bytes = new ByteArrayOutputStream();.s);
 
     }
-    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+    /**
+     * rotated image to proper format
+     *     //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+     * @param pic
+     * @param imUri
+     * @return
+     */
     public Bitmap rotateIfNeed(Bitmap pic, Uri imUri){
         Bitmap rotate = null;
         try{
@@ -425,7 +464,10 @@ public class Setting extends LocalizationActivity {
         }
         return rotate;
     }
-    ////popforcamera
+
+    /**
+     * show popup for taking photo
+     */
     public void ShowPopupCamera() {
         myDialogCam.setContentView(R.layout.popupforcamera);
         ///Camera//
@@ -474,15 +516,26 @@ public class Setting extends LocalizationActivity {
         startActivityForResult(intent,TAKEPICTURE);
         myDialogCam.dismiss();
     }
-    //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+
+    /**
+     * rotate image
+     * //from https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+     * @param source
+     * @param angle
+     * @return
+     */
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
-    ///////////////////
-    ////// from https://developer.android.com/training/permissions/requesting.html#java
+
+    /**
+     * get camera and write to external storage permission
+     *     ////// from https://developer.android.com/training/permissions/requesting.html#java
+     */
     private void takePicturePermission(){
         // Here, thisActivity is the current activity
         if(ContextCompat.checkSelfPermission(this,
@@ -504,6 +557,13 @@ public class Setting extends LocalizationActivity {
 //
 //        }
     }
+
+    /**
+     * after permission grant take picture
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {

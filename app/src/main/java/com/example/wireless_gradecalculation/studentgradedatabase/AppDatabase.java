@@ -1,10 +1,11 @@
+//// ROOM database (We copy it from the lab assignment)
+
 package com.example.wireless_gradecalculation.studentgradedatabase;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-
 @Database(entities = {Course.class,StudentGrade.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;

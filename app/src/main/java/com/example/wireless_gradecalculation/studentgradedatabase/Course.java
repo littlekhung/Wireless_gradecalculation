@@ -1,3 +1,4 @@
+///// table to store course
 package com.example.wireless_gradecalculation.studentgradedatabase;
 
 import android.arch.persistence.room.ColumnInfo;
